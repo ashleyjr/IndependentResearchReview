@@ -1,0 +1,56 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[margin=35mm]{geometry}
+\setlength{\parskip}{6mm }
+\usepackage{titling}
+\setlength{\droptitle}{-31mm}
+\setlength\parindent{0pt}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage[UKenglish]{datetime}
+\usepackage[hidelinks]{hyperref}
+\singlespace
+
+\begin{document}
+\pagenumbering{gobble}%Only one page so no need for numbers 
+
+%Title and our names
+\title{\textbf{COMP6033: Independent Research Review\\Project Brief\\}}
+
+\author{\textbf{Student}\\
+	Ashley J. Robinson\\
+	\href{mailto:ajr2g10@ecs.soton.ac.uk}{ajr2g10@ecs.soton.ac.uk}\\
+\and
+	\textbf{Supervisor}\\
+	Professor Mark S. Nixon\\
+	\href{mailto:msn@ecs.soton.ac.uk}{msn@ecs.soton.ac.uk}\\
+}
+\newdateformat{UKvardate}{%
+\THEDAY\ \monthname[\THEMONTH], \THEYEAR}
+\UKvardate
+
+
+\date{10$^{th}$ February 2014\\[0cm]}
+\maketitle
+
+%Title
+\begin{center}
+{\large \textbf{Effective Tumor Classification\\ Exploiting Volumetric Image Analysis}}\\[6mm]
+\end{center}
+
+Classification of tumors into benign, potentially malignant and malignant classes is crucial for effective diagnosis and subsequent treatment. 
+Many tumors can be further classified; for example lung cancer can be classified into two major classes known as Small Cell Lung Cancer (SCLC) and Non-Small Cell Lung Cancer (NSCLC).
+These classes contain further subclasses and also a continuous measure of severity can be recorded. 
+This results in a hierarchical classification problem where earlier stages prove difficult to diagnose.
+Attempting to fully map this tumor space in humans will allow the application of image processing and machine learning techniques to achieve classification.  
+  
+To start with the review will sample popular volumetric image processing techniques with an emphasis on those with medical applications. 
+Examining methods of non-intrusive 3D image capture in medicine and the possible features of tumors that could be extracted from those images will provide a basis for recommending classification methods.
+The classifier architecture should be designed as such to prioritise the dual classification problem of a cancerous/non-cancerous diagnosis followed by subclasses.   
+
+Drawing to a conclusion the work will be quantified and a detailed specification created, including a strong recommendation, for system implementation.
+The implementation will follow the entire process from the provided image to tumor classification. 
+Such a system would be aimed at medical practitioners as a tool which they can use to assist them in the review of captured images thereby increasing accuracy and efficiency.
+
+%Brief
+
+\end{document}
