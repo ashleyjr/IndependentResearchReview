@@ -1,8 +1,8 @@
 pdflatex AshleyRobinson.tex
-bibtex references
+bibtex AshleyRobinson
 pdflatex AshleyRobinson.tex 
 pdflatex AshleyRobinson.tex 
-texcount -v -html -inc Subroutines.tex > count.html
+texcount -v -html -inc AshleyRobinson.tex > count.html
 del .pdf
 del *.aux
 del *.bbl
