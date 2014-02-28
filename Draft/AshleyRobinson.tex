@@ -64,11 +64,28 @@ A confidence sub-block enables the domain expert to view the performance of the 
 
 \section{Image Acquisition}
 \label{sec:ImageAcquisition}
-There are many pieces of medical equipment capable of extracting volumetric images of the human body using non-invasive techniques.
-Most use CT technology to build an image from 2D slices.
-These use X-ray, MRI and ultrasound technology to obtain the images, all of which have different trade offs between quality, health impact and efficiency~\cite{robb1999biomedical}.
-Less well known techniques will also be investigated here such mechanical palpation~\cite{wellman1997modeling}. 
+%There are many pieces of medical equipment capable of extracting volumetric images of the human body using non-invasive techniques.
+%Most use CT technology to build an image from 2D slices.
+%These use X-ray, MRI and ultrasound technology to obtain the images, all of which have different trade offs between quality, health impact and efficiency~\cite{robb1999biomedical}.
+%Less well known techniques will also be investigated here such mechanical palpation~\cite{wellman1997modeling}. 
 
+A standard X-ray will produce a shadow cast by the absence of light due to bone or other material in the human body.
+This uses a single source and substrate to capture the image.
+Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
+Figure~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
+A ring allows images to be capture from 360$^{\circ}$ in a single plane then by moving in the orthogonal plane, in Figure~\ref{fig:ct} through the paper, a full volumetric image of the patient can be made. 
+
+\begin{figure}[!htb]
+   \centering
+   \includegraphics[width = 0.15\textwidth]{Figures/CT.pdf}
+   \label{fig:ct}
+   \caption{Acquiring data from Computed Tomography. Adapted from~\cite{kayvan2006biomedical}.}
+\end{figure}
+
+Any method of non-invasive image capturing in 2D can therefore by expanded to work in 3D by using the CT principle.
+Different method have trade offs such as radiation dosages and resolution,
+Ultrasound is a method of image acquisition with the advantage of small processing overhead allowing an internal organs to be view in real-time. 
+It can be used for CT but higher resolution methods are favoured such as X-ray and Magnetic Resonance Imaging.
 
 
 

@@ -79,13 +79,168 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 
 
 <div class='filegroup'>
+<h2>File: AshleyRobinson.tex</h2>
+<div class='parse'><p>
+<span class='document'>\documentclass</span><span class='option'>[journal]</span><span class='ignore'>{IEEEtran}</span><br>
+<span class='document'>\usepackage</span><span class='document'>{cite}</span><br>
 <br>
-<span class='error'>!!!&nbsp; File not found or not readable: Subroutines.tex&nbsp; !!!</span><br>
+<br>
+<br>
+<br>
+ <span class='document'>\usepackage</span><span class='option'>[pdftex]</span><span class='document'>{graphicx}</span><br>
+<br>
+<br>
+<br>
+<span class='grouping'>\begin</span><span class='grouping'>{document}</span><br>
+<span class='command'>\title</span><span class='ignore'>{</span><span class='word2'>Effective</span> <span class='word2'>Tumor</span> <span class='word2'>Classification</span> <span class='word2'>Exploiting</span> <span class='word2'>Volumetric</span> <span class='word2'>Image</span> <span class='word2'>Analysis</span><span class='ignore'>}</span><br>
+<span class='command'>\author</span><span class='ignore'>{</span><span class='word1'>Ashley</span> <span class='word1'>J</span><span class='ignore'>.</span> <span class='word1'>Robinson</span><span class='ignore'>}</span><br>
+<br>
+<span class='comment'>% The paper headers</span><br>
+<span class='command'>\markboth</span><span class='ignore'>{</span><span class='ignore'>Southampton</span> <span class='ignore'>University</span><span class='ignore'>,</span> <span class='ignore'>Department</span> <span class='ignore'>of</span> <span class='ignore'>Electronics</span> <span class='ignore'>and</span> <span class='ignore'>Computer</span> <span class='ignore'>Science</span><span class='ignore'>,</span> <span class='ignore'>Independent</span> <span class='ignore'>Research</span> <span class='ignore'>Review</span><span class='ignore'>.</span><span class='ignore'>}</span><span class='comment'>%</span><br>
+<span class='ignore'>{</span><span class='word1'>Robinson</span><span class='ignore'>:</span> <span class='word1'>Effective</span> <span class='word1'>Tumor</span> <span class='word1'>Classification</span> <span class='word1'>Exploiting</span> <span class='word1'>Volumetric</span> <span class='word1'>Image</span> <span class='word1'>Analysis</span><span class='ignore'>}</span><br>
+<br>
+<span class='command'>\maketitle</span><br>
+<br>
+<br>
+<span class='grouping'>\begin</span><span class='grouping'>{abstract}</span><br>
+<br>
+<span class='word1'>This</span> <span class='word1'>is</span> <span class='word1'>what</span> <span class='word1'>I</span> <span class='word1'>gone</span> <span class='word1'>done</span><span class='command'>\dots</span><br>
+<br>
+<span class='grouping'>\end</span><span class='grouping'>{abstract}</span><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<span class='grouping'>\begin</span><span class='grouping'>{IEEEkeywords}</span><br>
+<span class='word1'>Tumor</span><span class='ignore'>,</span> <span class='word1'>Classification</span><br>
+<span class='grouping'>\end</span><span class='grouping'>{IEEEkeywords}</span><br>
+<br>
+<br>
+<br>
+<span class='command'>\IEEEpeerreviewmaketitle</span><br>
+<br>
+<br>
+<br>
+<span class='command'>\section</span><span class='word2'>{Introduction}</span><br>
+<span class='command'>\IEEEPARstart</span><span class='word1'>{T}{his}</span> <span class='word1'>research</span> <span class='word1'>review</span> <span class='word1'>covers</span> <span class='word1'>the</span> <span class='word1'>use</span> <span class='word1'>of</span> <span class='word1'>volumetric</span> <span class='word1'>image</span> <span class='word1'>analysis</span> <span class='word1'>in</span> <span class='word1'>medicine</span> <span class='word1'>to</span> <span class='word1'>accurately</span> <span class='word1'>classify</span> <span class='word1'>tumors</span><span class='ignore'>.</span> <br>
+<span class='word1'>The</span> <span class='word1'>problem</span> <span class='word1'>is</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>approached</span> <span class='word1'>by</span> <span class='word1'>considering</span> <span class='word1'>only</span> <span class='word1'>the</span> <span class='word1'>general</span> <span class='word1'>case</span> <span class='word1'>where</span> <span class='word1'>no</span> <span class='word1'>specific</span> <span class='word1'>area</span> <span class='word1'>of</span> <span class='word1'>the</span> <span class='word1'>human</span> <span class='word1'>body</span> <span class='word1'>is</span> <span class='word1'>considered</span><span class='ignore'>.</span><br>
+<span class='word1'>Rather</span> <span class='word1'>than</span> <span class='word1'>trying</span> <span class='word1'>to</span> <span class='word1'>classify</span> <span class='word1'>lung</span> <span class='word1'>or</span> <span class='word1'>brain</span> <span class='word1'>tumors</span> <span class='word1'>individually</span> <span class='word1'>the</span> <span class='word1'>goal</span> <span class='word1'>is</span> <span class='word1'>to</span> <span class='word1'>consider</span> <span class='word1'>what</span> <span class='word1'>tumors</span> <span class='word1'>have</span> <span class='word1'>in</span> <span class='word1'>common</span> <span class='word1'>and</span> <span class='word1'>given</span> <span class='word1'>an</span> <span class='word1'>entire</span> <span class='word1'>image</span> <span class='word1'>of</span> <span class='word1'>a</span> <span class='word1'>human</span> <span class='word1'>body</span> <span class='word1'>is</span> <span class='word1'>it</span> <span class='word1'>possible</span> <span class='word1'>to</span> <span class='word1'>classify</span> <span class='word1'>tumors</span> <span class='word1'>in</span> <span class='word1'>any</span> <span class='word1'>given</span> <span class='word1'>section</span><span class='ignore'>?</span><br>
+<span class='word1'>The</span> <span class='word1'>motivation</span> <span class='word1'>behind</span> <span class='word1'>this</span> <span class='word1'>is</span> <span class='word1'>to</span> <span class='word1'>make</span> <span class='word1'>the</span> <span class='word1'>most</span> <span class='word1'>of</span> <span class='word1'>medical</span> <span class='word1'>scanning</span><span class='ignore'>.</span><br>
+<span class='word1'>Dosages</span> <span class='word1'>of</span> <span class='word1'>radiation</span><span class='ignore'>,</span> <span class='word1'>cost</span> <span class='word1'>and</span> <span class='word1'>simply</span> <span class='word1'>the</span> <span class='word1'>time</span> <span class='word1'>required</span> <span class='word1'>are</span> <span class='word1'>all</span> <span class='word1'>reasons</span> <span class='word1'>to</span> <span class='word1'>reduce</span> <span class='word1'>the</span> <span class='word1'>number</span> <span class='word1'>of</span> <span class='word1'>scans</span> <span class='word1'>needed</span><span class='ignore'>,</span> <span class='word1'>making</span> <span class='word1'>the</span> <span class='word1'>most</span> <span class='word1'>of</span> <span class='word1'>any</span> <span class='word1'>data</span> <span class='word1'>gathered</span> <span class='word1'>is</span> <span class='word1'>a</span> <span class='word1'>constructive</span> <span class='word1'>method</span> <span class='word1'>of</span> <span class='word1'>scan</span> <span class='word1'>frequency</span> <span class='word1'>reduction</span><span class='ignore'>.</span><br>
+<span class='word1'>The</span> <span class='word1'>objective</span> <span class='word1'>is</span> <span class='word1'>to</span> <span class='word1'>provide</span> <span class='word1'>a</span> <span class='word1'>recommendation</span> <span class='word1'>for</span> <span class='word1'>a</span> <span class='word1'>system</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>implemented</span> <span class='word1'>such</span> <span class='word1'>that</span> <span class='word1'>a</span> <span class='word1'>medical</span> <span class='word1'>practitioner</span> <span class='word1'>could</span> <span class='word1'>use</span> <span class='word1'>it</span> <span class='word1'>as</span> <span class='word1'>a</span> <span class='word1'>tool</span> <span class='word1'>for</span> <span class='word1'>diagnosis</span><span class='ignore'>.</span>&nbsp; <br>
+<br>
+<span class='word1'>The</span> <span class='word1'>architecture</span> <span class='word1'>in</span> <span class='word1'>Figure</span><span class='ignore'>~</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>Proposed</span><span class='ignore'>}</span> <span class='word1'>is</span> <span class='word1'>a</span> <span class='word1'>simplistic</span> <span class='word1'>view</span> <span class='word1'>of</span> <span class='word1'>the</span> <span class='word1'>system</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>recommended</span><span class='ignore'>;</span> <span class='word1'>inspired</span> <span class='word1'>by</span> <span class='word1'>those</span> <span class='word1'>discussed</span> <span class='word1'>in</span> <span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{</span><span class='ignore'>ahmed2011efficacy</span><span class='ignore'>,</span><span class='ignore'>kumar2011classification</span><span class='ignore'>,</span><span class='ignore'>sachdeva2011multiclass</span><span class='ignore'>}</span><span class='ignore'>.</span><br>
+<span class='word1'>A</span> <span class='word1'>chain</span> <span class='word1'>of</span> <span class='word1'>stages</span> <span class='word1'>leads</span> <span class='word1'>from</span> <span class='word1'>raw</span> <span class='word1'>data</span> <span class='word1'>gathered</span> <span class='word1'>from</span> <span class='word1'>the</span> <span class='word1'>patient</span> <span class='word1'>to</span> <span class='word1'>a</span> <span class='word1'>diagnosis</span> <span class='word1'>from</span> <span class='word1'>a</span> <span class='word1'>classification</span> <span class='word1'>algorithm</span><span class='ignore'>.</span><br>
+<span class='word1'>A</span> <span class='word1'>confidence</span> <span class='word1'>sub-block</span> <span class='word1'>enables</span> <span class='word1'>the</span> <span class='word1'>domain</span> <span class='word1'>expert</span> <span class='word1'>to</span> <span class='word1'>view</span> <span class='word1'>the</span> <span class='word1'>performance</span> <span class='word1'>of</span> <span class='word1'>the</span> <span class='word1'>entire</span> <span class='word1'>system</span> <span class='word1'>without</span> <span class='word1'>knowing</span> <span class='word1'>the</span> <span class='word1'>intricacies</span> <span class='word1'>of</span> <span class='word1'>operation</span><span class='ignore'>;</span> <span class='word1'>this</span> <span class='word1'>requires</span> <span class='word1'>processing</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>explained</span> <span class='word1'>with</span> <span class='word1'>respect</span> <span class='word1'>to</span> <span class='word1'>their</span> <span class='word1'>domain</span><span class='ignore'>.</span><br>
+<br>
+<span class='grouping'>\begin</span><span class='grouping'>{figure}</span><span class='ignore'>[</span><span class='ignore'>!</span><span class='ignore'>htb</span><span class='ignore'>]</span><br>
+&nbsp;  <span class='exclcommand'>\centering</span><br>
+&nbsp; <span class='exclcommand'>\includegraphics</span><span class='ignore'>[</span><span class='ignore'>width</span> <span class='ignore'>=</span> <span class='ignore'>0.4</span><span class='exclcommand'>\textwidth</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='ignore'>Figures</span><span class='ignore'>/</span><span class='ignore'>Proposed.pdf</span><span class='ignore'>}</span><br>
+&nbsp;  <span class='exclcommand'>\label</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>Proposed</span><span class='ignore'>}</span><br>
+&nbsp;  <span class='command'>\caption</span><span class='ignore'>{</span><span class='word3'>Proposed</span> <span class='word3'>system</span> <span class='word3'>architecture</span><span class='ignore'>.</span><span class='ignore'>}</span><br>
+<span class='grouping'>\end</span><span class='grouping'>{figure}</span><br>
+<br>
+<br>
+<br>
+<span class='command'>\section</span><span class='ignore'>{</span><span class='word2'>Image</span> <span class='word2'>Acquisition</span><span class='ignore'>}</span><br>
+<span class='command'>\label</span><span class='ignore'>{</span><span class='ignore'>sec</span><span class='ignore'>:</span><span class='ignore'>ImageAcquisition</span><span class='ignore'>}</span><br>
+<span class='comment'>%There are many pieces of medical equipment capable of extracting volumetric images of the human body using non-invasive techniques.</span><br>
+<span class='comment'>%Most use CT technology to build an image from 2D slices.</span><br>
+<span class='comment'>%These use X-ray, MRI and ultrasound technology to obtain the images, all of which have different trade offs between quality, health impact and efficiency~\cite{robb1999biomedical}.</span><br>
+<span class='comment'>%Less well known techniques will also be investigated here such mechanical palpation~\cite{wellman1997modeling}. </span><br>
+<br>
+<span class='word1'>A</span> <span class='word1'>standard</span> <span class='word1'>X-ray</span> <span class='word1'>will</span> <span class='word1'>produce</span> <span class='word1'>a</span> <span class='word1'>shadow</span> <span class='word1'>cast</span> <span class='word1'>by</span> <span class='word1'>the</span> <span class='word1'>absence</span> <span class='word1'>of</span> <span class='word1'>light</span> <span class='word1'>due</span> <span class='word1'>to</span> <span class='word1'>bone</span> <span class='word1'>or</span> <span class='word1'>other</span> <span class='word1'>material</span> <span class='word1'>in</span> <span class='word1'>the</span> <span class='word1'>human</span> <span class='word1'>body</span><span class='ignore'>.</span><br>
+<span class='word1'>This</span> <span class='word1'>uses</span> <span class='word1'>a</span> <span class='word1'>single</span> <span class='word1'>source</span> <span class='word1'>and</span> <span class='word1'>substrate</span> <span class='word1'>to</span> <span class='word1'>capture</span> <span class='word1'>the</span> <span class='word1'>image</span><span class='ignore'>.</span><br>
+<span class='word1'>Taking</span> <span class='word1'>multiple</span> <span class='word1'>images</span> <span class='word1'>from</span> <span class='word1'>many</span> <span class='word1'>different</span> <span class='word1'>angles</span> <span class='word1'>gathers</span> <span class='word1'>more</span> <span class='word1'>information</span> <span class='word1'>and</span> <span class='word1'>a</span> <span class='word1'>3D</span> <span class='word1'>image</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>made</span> <span class='word1'>by</span> <span class='word1'>stitching</span> <span class='word1'>these</span> <span class='word1'>together</span><span class='ignore'>.</span><br>
+<span class='word1'>Figure</span><span class='ignore'>~</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>ct</span><span class='ignore'>}</span> <span class='word1'>describes</span> <span class='word1'>the</span> <span class='word1'>physical</span> <span class='word1'>process</span> <span class='word1'>of</span> <span class='word1'>gathering</span> <span class='word1'>data</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>used</span> <span class='word1'>in</span> <span class='word1'>Computed</span> <span class='word1'>Tomography</span> <span class='ignore'>(</span><span class='word1'>CT</span><span class='ignore'>)</span><span class='ignore'>.</span><br>
+<span class='word1'>A</span> <span class='word1'>ring</span> <span class='word1'>allows</span> <span class='word1'>images</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>capture</span> <span class='word1'>from</span> <span class='word1'>360</span><span class='mathgroup'>$</span><span class='ignore'>^</span><span class='ignore'>{</span><span class='exclcommand'>\circ</span><span class='ignore'>}</span><span class='mathgroup'>$</span> <span class='word1'>in</span> <span class='word1'>a</span> <span class='word1'>single</span> <span class='word1'>plane</span> <span class='word1'>then</span> <span class='word1'>by</span> <span class='word1'>moving</span> <span class='word1'>in</span> <span class='word1'>the</span> <span class='word1'>orthogonal</span> <span class='word1'>plane</span><span class='ignore'>,</span> <span class='word1'>in</span> <span class='word1'>Figure</span><span class='ignore'>~</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>ct</span><span class='ignore'>}</span> <span class='word1'>through</span> <span class='word1'>the</span> <span class='word1'>paper</span><span class='ignore'>,</span> <span class='word1'>a</span> <span class='word1'>full</span> <span class='word1'>volumetric</span> <span class='word1'>image</span> <span class='word1'>of</span> <span class='word1'>the</span> <span class='word1'>patient</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>made</span><span class='ignore'>.</span> <br>
+<br>
+<span class='grouping'>\begin</span><span class='grouping'>{figure}</span><span class='ignore'>[</span><span class='ignore'>!</span><span class='ignore'>htb</span><span class='ignore'>]</span><br>
+&nbsp;  <span class='exclcommand'>\centering</span><br>
+&nbsp; <span class='exclcommand'>\includegraphics</span><span class='ignore'>[</span><span class='ignore'>width</span> <span class='ignore'>=</span> <span class='ignore'>0.15</span><span class='exclcommand'>\textwidth</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='ignore'>Figures</span><span class='ignore'>/</span><span class='ignore'>CT.pdf</span><span class='ignore'>}</span><br>
+&nbsp;  <span class='exclcommand'>\label</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>ct</span><span class='ignore'>}</span><br>
+&nbsp;  <span class='command'>\caption</span><span class='ignore'>{</span><span class='word3'>Acquiring</span> <span class='word3'>data</span> <span class='word3'>from</span> <span class='word3'>Computed</span> <span class='word3'>Tomography</span><span class='ignore'>.</span> <span class='word3'>Adapted</span> <span class='word3'>from</span><span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{kayvan2006biomedical}</span><span class='ignore'>}</span><br>
+<span class='grouping'>\end</span><span class='grouping'>{figure}</span><br>
+<br>
+<span class='word1'>Any</span> <span class='word1'>method</span> <span class='word1'>of</span> <span class='word1'>non-invasive</span> <span class='word1'>image</span> <span class='word1'>capturing</span> <span class='word1'>in</span> <span class='word1'>2D</span> <span class='word1'>can</span> <span class='word1'>therefore</span> <span class='word1'>by</span> <span class='word1'>expanded</span> <span class='word1'>to</span> <span class='word1'>work</span> <span class='word1'>in</span> <span class='word1'>3D</span> <span class='word1'>by</span> <span class='word1'>using</span> <span class='word1'>the</span> <span class='word1'>CT</span> <span class='word1'>principle</span><span class='ignore'>.</span><br>
+<span class='word1'>Different</span> <span class='word1'>method</span> <span class='word1'>have</span> <span class='word1'>trade</span> <span class='word1'>offs</span> <span class='word1'>such</span> <span class='word1'>as</span> <span class='word1'>radiation</span> <span class='word1'>dosages</span> <span class='word1'>and</span> <span class='word1'>resolution</span><span class='ignore'>,</span><br>
+<span class='word1'>Ultrasound</span> <span class='word1'>is</span> <span class='word1'>a</span> <span class='word1'>method</span> <span class='word1'>of</span> <span class='word1'>image</span> <span class='word1'>acquisition</span> <span class='word1'>with</span> <span class='word1'>the</span> <span class='word1'>advantage</span> <span class='word1'>of</span> <span class='word1'>small</span> <span class='word1'>processing</span> <span class='word1'>overhead</span> <span class='word1'>allowing</span> <span class='word1'>an</span> <span class='word1'>internal</span> <span class='word1'>organs</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>view</span> <span class='word1'>in</span> <span class='word1'>real-time</span><span class='ignore'>.</span> <br>
+<span class='word1'>It</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>used</span> <span class='word1'>for</span> <span class='word1'>CT</span> <span class='word1'>but</span> <span class='word1'>higher</span> <span class='word1'>resolution</span> <span class='word1'>methods</span> <span class='word1'>are</span> <span class='word1'>favoured</span> <span class='word1'>such</span> <span class='word1'>as</span> <span class='word1'>X-ray</span> <span class='word1'>and</span> <span class='word1'>Magnetic</span> <span class='word1'>Resonance</span> <span class='word1'>Imaging</span><span class='ignore'>.</span><br>
+<br>
+<br>
+<br>
+<span class='command'>\section</span><span class='ignore'>{</span><span class='word2'>Pre-processing</span><span class='ignore'>}</span><br>
+<span class='command'>\label</span><span class='ignore'>{</span><span class='ignore'>sec</span><span class='ignore'>:</span><span class='ignore'>PreProcessing</span><span class='ignore'>}</span><br>
+<span class='word1'>How</span> <span class='word1'>should</span> <span class='word1'>the</span> <span class='word1'>raw</span> <span class='word1'>data</span> <span class='word1'>outputted</span> <span class='word1'>from</span> <span class='word1'>the</span> <span class='word1'>considered</span> <span class='word1'>acquisition</span> <span class='word1'>techniques</span> <span class='word1'>be</span> <span class='word1'>presented</span> <span class='word1'>for</span> <span class='word1'>further</span> <span class='word1'>processing</span><span class='ignore'>?</span><br>
+<span class='word1'>Depending</span> <span class='word1'>on</span> <span class='word1'>the</span> <span class='word1'>equipment</span> <span class='word1'>there</span> <span class='word1'>may</span> <span class='word1'>be</span> <span class='word1'>a</span> <span class='word1'>need</span> <span class='word1'>to</span> <span class='word1'>remove</span> <span class='word1'>artifacts</span> <span class='word1'>that</span> <span class='word1'>were</span> <span class='word1'>intended</span> <span class='word1'>to</span> <span class='word1'>assist</span> <span class='word1'>visual</span> <span class='word1'>inspection</span><span class='ignore'>.</span> <br>
+<span class='word1'>Different</span> <span class='word1'>types</span> <span class='word1'>of</span> <span class='word1'>3D</span> <span class='word1'>filters</span> <span class='word1'>and</span> <span class='word1'>the</span> <span class='word1'>benefits</span> <span class='word1'>they</span> <span class='word1'>would</span> <span class='word1'>bring</span> <span class='word1'>will</span> <span class='word1'>also</span> <span class='word1'>be</span> <span class='word1'>discussed</span><span class='ignore'>.</span><br>
+<br>
+<span class='command'>\section</span><span class='ignore'>{</span><span class='word2'>Feature</span> <span class='word2'>Selection</span><span class='ignore'>}</span><br>
+<span class='word1'>Here</span> <span class='word1'>will</span> <span class='word1'>be</span> <span class='word1'>a</span> <span class='word1'>sample</span> <span class='word1'>of</span> <span class='word1'>what</span> <span class='word1'>type</span> <span class='word1'>of</span> <span class='word1'>features</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>expected</span> <span class='word1'>from</span> <span class='word1'>the</span> <span class='word1'>tumors</span><span class='ignore'>.</span><br>
+<span class='word1'>Which</span> <span class='word1'>are</span> <span class='word1'>considered</span> <span class='word1'>most</span> <span class='word1'>important</span> <span class='word1'>and</span> <span class='word1'>which</span> <span class='word1'>are</span> <span class='word1'>known</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>misleading</span><span class='ignore'>.</span><br>
+<span class='word1'>A</span> <span class='word1'>decision</span> <span class='word1'>as</span> <span class='word1'>to</span> <span class='word1'>whether</span> <span class='word1'>these</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>rejected</span> <span class='word1'>entirely</span> <span class='word1'>from</span> <span class='word1'>further</span> <span class='word1'>processing</span> <span class='word1'>can</span> <span class='word1'>also</span> <span class='word1'>be</span> <span class='word1'>made</span><span class='ignore'>.</span> <br>
+<br>
+<span class='command'>\section</span><span class='ignore'>{</span><span class='word2'>Feature</span> <span class='word2'>Extraction</span><span class='ignore'>}</span><br>
+<span class='command'>\label</span><span class='ignore'>{FeatureExtraction}</span><br>
+<br>
+<span class='word1'>The</span> <span class='word1'>techniques</span> <span class='word1'>used</span> <span class='word1'>to</span> <span class='word1'>extract</span> <span class='word1'>the</span> <span class='word1'>features</span><span class='ignore'>.</span><br>
+<span class='word1'>This</span> <span class='word1'>will</span> <span class='word1'>make</span> <span class='word1'>up</span> <span class='word1'>a</span> <span class='word1'>large</span> <span class='word1'>amount</span> <span class='word1'>of</span> <span class='word1'>the</span> <span class='word1'>report</span> <span class='word1'>and</span> <span class='word1'>will</span> <span class='word1'>sample</span> <span class='word1'>many</span> <span class='word1'>different</span> <span class='word1'>techniques</span> <span class='word1'>and</span> <span class='word1'>their</span> <span class='word1'>objective</span> <span class='word1'>performance</span><span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{lohmann1998volumetric}</span><span class='ignore'>.</span><br>
+<span class='word1'>The</span> <span class='word1'>use</span> <span class='word1'>of</span> <span class='word1'>further</span> <span class='word1'>dimensionality</span> <span class='word1'>reduction</span> <span class='word1'>will</span> <span class='word1'>also</span> <span class='word1'>be</span> <span class='word1'>consider</span><span class='ignore'>.</span><br>
+<br>
+<br>
+<span class='command'>\section</span><span class='word2'>{Classification}</span><br>
+<span class='command'>\label</span><span class='ignore'>{Classification}</span><br>
+<br>
+<span class='word1'>There</span> <span class='word1'>are</span> <span class='word1'>a</span> <span class='word1'>many</span> <span class='word1'>different</span> <span class='word1'>classification</span> <span class='word1'>algorithms</span> <span class='word1'>available</span><span class='ignore'>.</span><br>
+<span class='word1'>This</span> <span class='word1'>section</span> <span class='word1'>will</span> <span class='word1'>consider</span> <span class='word1'>expected</span> <span class='word1'>data</span> <span class='word1'>properties</span> <span class='word1'>such</span> <span class='word1'>as</span> <span class='word1'>dimensionality</span> <span class='word1'>and</span> <span class='word1'>sparsity</span><span class='ignore'>.</span><br>
+<span class='word1'>Availability</span> <span class='word1'>of</span> <span class='word1'>existing</span> <span class='word1'>training</span> <span class='word1'>data</span> <span class='word1'>will</span> <span class='word1'>constrain</span> <span class='word1'>the</span> <span class='word1'>application</span> <span class='word1'>of</span> <span class='word1'>supervised</span> <span class='word1'>algorithms</span><span class='ignore'>.</span> <br>
+<span class='word1'>The</span> <span class='word1'>right</span> <span class='word1'>classification</span> <span class='word1'>algorithm</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>recommended</span> <span class='word1'>based</span> <span class='word1'>on</span> <span class='word1'>these</span> <span class='word1'>findings</span><span class='ignore'>.</span><br>
+<span class='word1'>Additional</span> <span class='word1'>techniques</span><span class='ignore'>,</span> <span class='word1'>such</span> <span class='word1'>as</span> <span class='word1'>boosting</span><span class='ignore'>,</span> <span class='word1'>can</span> <span class='word1'>also</span> <span class='word1'>be</span> <span class='word1'>considered</span><span class='ignore'>.</span><br>
+<br>
+<span class='command'>\section</span><span class='word2'>{Conclusion}</span><br>
+<span class='command'>\label</span><span class='ignore'>{Conclusion}</span><br>
+<br>
+<span class='word1'>This</span> <span class='word1'>section</span> <span class='word1'>will</span> <span class='word1'>comment</span> <span class='word1'>on</span> <span class='word1'>how</span> <span class='word1'>well</span> <span class='word1'>the</span> <span class='word1'>system</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>pieced</span> <span class='word1'>together</span><span class='ignore'>.</span><br>
+<span class='word1'>A</span> <span class='word1'>critical</span> <span class='word1'>evaluation</span> <span class='word1'>and</span> <span class='word1'>discussion</span> <span class='word1'>of</span> <span class='word1'>all</span> <span class='word1'>work</span> <span class='word1'>done</span><span class='ignore'>.</span><br>
+<br>
+<br>
+<span class='command'>\bibliographystyle</span><span class='ignore'>{ieeetran}</span><br>
+<span class='command'>\bibliography</span><span class='ignore'>{references}</span><br>
+<br>
+<span class='grouping'>\end</span><span class='grouping'>{document}</span><br>
+<br>
+<br>
+</p></div>
+<div class='count'>
+<ul class='count'>
+<li class='header'>File: AshleyRobinson.tex</li>
+<li>Encoding: ascii</li>
+<li>Words in text: 623</li>
+<li>Words in headers: 17</li>
+<li>Words in float captions: 10</li>
+<li>Number of headers: 8</li>
+<li>Number of floats: 2</li>
+<li>Number of math inlines: 1</li>
+<li>Number of math displayed: 0</li>
+<li>Subcounts:</li>
+<span class='subcount'>
+<li class='fielddesc'>&nbsp; text+headers+captions (#headers/#floats/#inlines/#displayed)</li>
+  <li>19+7+0 (1/0/0/0) _top_</li>
+  <li>219+1+3 (1/1/0/0) Section: Introduction</li>
+  <li>179+2+7 (1/1/1/0) Section: Image Acquisition</li>
+  <li>50+1+0 (1/0/0/0) Section: Pre-processing</li>
+  <li>45+2+0 (1/0/0/0) Section: Feature Selection</li>
+  <li>37+2+0 (1/0/0/0) Section: Feature Extraction</li>
+  <li>52+1+0 (1/0/0/0) Section: Classification</li>
+  <li>22+1+0 (1/0/0/0) Section: Conclusion</li>
+</span>
+</ul>
+</div>
 </div>
 
-<div class='error'><p>
-There were 1 error(s) reported!
-</p></div>
 </body>
 
 </html>
