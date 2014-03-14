@@ -53,7 +53,7 @@ The motivation behind this is to make the most of medical scanning.
 Dosages of radiation, cost and simply the time required are all reasons to reduce the number of scans needed, making the most of any data gathered is a constructive method of scan frequency reduction.
 The objective is to provide a recommendation for a system to be implemented such that a medical practitioner could use it as a tool for diagnosis.  
 
-The architecture in Figure~\ref{fig:Proposed} is a simplistic view of the system to be recommended; inspired by those discussed in ~\cite{ahmed2011efficacy,kumar2011classification,sachdeva2011multiclass}.
+The architecture in Fig.~\ref{fig:Proposed} is a simplistic view of the system to be recommended; inspired by those discussed in ~\cite{ahmed2011efficacy,kumar2011classification,sachdeva2011multiclass}.
 A chain of stages leads from raw data gathered from the patient to a diagnosis from a classification algorithm.
 A confidence sub-block enables the domain expert to view the performance of the entire system without knowing the intricacies of operation; this requires processing to be explained with respect to their domain.
 Raw data is captured from the patient and passed to system for pre-processing then feature extraction.
@@ -83,8 +83,8 @@ Feature reduction and normalisation is then used frame the data as such to make 
 A standard X-ray will produce a shadow cast by the absence of light due to bone or other material in the human body.
 This uses a single source and substrate to capture the image.
 Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
-Figure~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
-A ring allows images to be capture from 360$^{\circ}$ in a single plane then by moving in the orthogonal plane, in Figure~\ref{fig:ct} through the paper, a full volumetric image of the patient can be made. 
+Fig.~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
+A ring allows images to be capture from 360$^{\circ}$ in a single plane then by moving in the orthogonal plane, in Fig.~\ref{fig:ct} through the paper, a full volumetric image of the patient can be made. 
 
 \begin{figure}[!htb]
    \centering
@@ -106,8 +106,8 @@ This offers far less data for analysis.
 Data is typically stored as a series of grayscale 2D images which are slices of the scan.
 The image viewer will build 3D images as and when required using these slices.
 The common medical standard for these images is DICOM which holds the relationships between slices and also patient information~\cite{dicom11nema}.
-Viewing the data naturally proves problematic because it's 3D data shown in an isometric fashion on a 2D screen.
-Viewing software provides interactive images as shown in Figure \ref{fig:3d} which allows the user to move three slices to concentrate on corner on specific points.
+Viewing the data naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
+Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three slices to concentrate on corner on specific points.
 
 \begin{figure}[!htb]
    \centering
@@ -115,6 +115,10 @@ Viewing software provides interactive images as shown in Figure \ref{fig:3d} whi
    \label{fig:3d}
    \caption{An MRI scan of a healthy brain taken from~\cite{cia} and rendered by~\cite{slicer}.}
 \end{figure}
+
+The analogue of a pixel (picture element) in 2D image is called a voxel (volumetric element) in a 3D image.
+This is exactly ther same idea but with a extra dimension to form a cube~\cite{lohmann1998volumetric}.
+They can be considered cubes but also points which may make visualisation and processing easier to understand.
 
 
 
@@ -129,7 +133,32 @@ The provided raw data needs to be converted from the format delivered by the acq
 Removal of watermarking, which may have been inserted for human review, should also be removed at this stage. 
 This is trivial in theory but requires a database of artifacts or manual review to accomplish.
 
+Filters can be used to enhance the quility of images.
+These are split two catagroies, linear and non-linear~\cite{lohmann1998volumetric}.
+Linear filtering is achieved by using a mask to weight each voxel the surrounding voxels.
+This is done with a weighted mask which is applied to image in path which covers all regions.
 
+
+\subsection{Histogram Operations}
+
+An image histogram is a simple yet powerful tool which is a mapping from the image to 2D plot of the frequency of each voxel.
+This contains information on the type of material seen in the image and how much of that material us used to form the entire image.
+Operations can also be performed on the image using this information to improve the contrast.
+
+\begin{figure}[!htb]
+   \centering
+   \includegraphics[width = 0.4\textwidth]{Figures/Histogram.png}
+   \label{fig:histogram}
+   \caption{The histogram of the image shown in Fig.~\ref{fig:3d}}
+\end{figure}
+
+
+
+
+\subsection{Spatial Filtering}
+
+\subsection{Frequency Filtering}
+%Real-time methods of speckle reduction are used to improve the quilitiy of unltrasound images~\cite{mustafa95speckle}.
 
 
 
@@ -142,8 +171,6 @@ Before features can be extracted from a image it must be clear what features wil
 Reducing dimensionality through feature reduction can often prove more effective then lower dimensional projection methods; discussed in Section~\ref{sec:reduce}.
 The recommendation of feature selection can come from domain knowledge or convergence on a subset that will provided a sufficiently low training error using an iterative tuning algorithm~\cite{bu07feature,li10tumor}.
 A combination of both suits this purpose where domain knowledge may over recommend features and a machine learning approach can prune as required for the subset.  
-
-Tumors are areas of cancerous cells which multiply at accelerate 
 
 
 
