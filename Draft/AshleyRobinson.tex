@@ -80,7 +80,8 @@ Feature reduction and normalisation is then used frame the data as such to make 
 \section{Image Acquisition}
 \label{sec:image}
 
-A standard X-ray will produce a shadow cast by the absence of light due to bone or other material in the human body.
+A standard X-ray medical scan is tuned to produce and image of human bone.
+The rays are attenuated by different materials in the body, more so by dense regions of bone, and the image is gained from this attenuation effect.  
 This uses a single source and substrate to capture the image.
 Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
 Fig.~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
@@ -98,7 +99,7 @@ Different methods have trade offs such as radiation dosages and resolution.
 Ultrasound is a method of image acquisition with the advantage of small processing overhead allowing an internal organs to be view in real-time. 
 It can be used for CT but higher resolution methods are favoured such as X-ray and Magnetic Resonance Imaging.
 
-There are also other non-intrusive methods that don't use electromagnetic or ultrasonic waves.
+There are also other non-intrusive methods that do not use electromagnetic or ultrasonic waves.
 Hand palpitation is a common technique used by medical practitioners to gain an impression of abnormalities near the surface of the human body. 
 Electromechanical apparatus employing the same technique can be used transfer the dimension of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
 This offers far less data for analysis.
@@ -117,8 +118,11 @@ Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which
 \end{figure}
 
 The analogue of a pixel (picture element) in 2D image is called a voxel (volumetric element) in a 3D image.
-This is exactly ther same idea but with a extra dimension to form a cube~\cite{lohmann1998volumetric}.
+This is exactly the same idea but with a extra dimension to form a cube~\cite{lohmann1998volumetric}.
 They can be considered cubes but also points which may make visualisation and processing easier to understand.
+
+
+
 
 
 
@@ -156,10 +160,18 @@ Operations can also be performed on the image using this information to improve 
 
 
 \subsection{Spatial Filtering}
+Spatial filters use the neighbourhood of voxels to create a new value for each voxel in an image. 
+An original image $I(u,v,w)$ is mapped to a new image through a filter kernel; Eq.~\ref{eqn:kernel}.
+The filter kernel is fixed dimensions with weighting on each pixel.
+
+\begin{equation}
+	I'(u,v,w) = \sum\limits_{(i,j,k) \in R_H} I(u + i,v + j, w + k)H(i,j,k)
+	\label{eqn:kernel} 
+\end{equation}
+
+
 
 \subsection{Frequency Filtering}
-%Real-time methods of speckle reduction are used to improve the quilitiy of unltrasound images~\cite{mustafa95speckle}.
-
 
 
 
@@ -174,8 +186,21 @@ A combination of both suits this purpose where domain knowledge may over recomme
 
 
 
+
+
+
+
+
+
+
 \section{Feature Extraction}
 \label{sec:extraction}
+
+
+
+
+
+
 
 
 
@@ -187,19 +212,39 @@ A combination of both suits this purpose where domain knowledge may over recomme
 
 
 
+
+
+
+
+
+
+
 \section{Classification}
 \label{sec:class}
 
 
 
 
-\section{Conclusion}
-\label{sec:conclusion}
+
+
+
+
+
+\section{Conclusions}
+\label{sec:conclusions}
 
 It is clear that this tool can't be used as a hard and fast method of tumor diagnosis but instead as a valuable tool for image reviewers.
 Software packages designed for medical image review, such as~\cite{slicer}, have bidirectional interfaces to custom extensions.
 Implementing this system as an extension would remove many overheads required in data handling but reduce the scope for optimisation.
 The feedback from the entire process would be a checklist which the user must manually review and waive if incorrectly identified. 
+
+
+
+
+
+
+
+
 
 
 \bibliographystyle{ieeetran}
