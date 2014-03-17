@@ -137,32 +137,28 @@ The provided raw data needs to be converted from the format delivered by the acq
 Removal of watermarking, which may have been inserted for human review, should also be removed at this stage. 
 This is trivial in theory but requires a database of artifacts or manual review to accomplish.
 
-Filters can be used to enhance the quility of images.
-These are split two catagroies, linear and non-linear~\cite{lohmann1998volumetric}.
+Filters can be used to enhance the quality of images.
+These are split two categories, linear and non-linear~\cite{lohmann1998volumetric}.
 Linear filtering is achieved by using a mask to weight each voxel the surrounding voxels.
 This is done with a weighted mask which is applied to image in path which covers all regions.
 
 
 \subsection{Histogram Operations}
 
-An image histogram is a simple yet powerful tool which is a mapping from the image to 2D plot of the frequency of each voxel.
-This contains information on the type of material seen in the image and how much of that material us used to form the entire image.
-Operations can also be performed on the image using this information to improve the contrast.
-
-\begin{figure}[!htb]
-   \centering
-   \includegraphics[width = 0.4\textwidth]{Figures/Histogram.png}
-   \label{fig:histogram}
-   \caption{The histogram of the image shown in Fig.~\ref{fig:3d}}
-\end{figure}
-
-
+An image histogram is a simple yet powerful tool which is a mapping from the image to a 2D plot of the frequency of intensity.
+This contains information on the type of material seen in the image, if it can be determined from intensity, and how much of that material is used to form the entire image.
+Image enhancement can be performed using point operations with information from the histogram.
+Normalisation stretches the histogram to cover all available values of intensity therefore improving contrast.
+Equalisation attempts to flatten the histogram by distributing intensity~\cite{nixon02feature}.
 
 
 \subsection{Spatial Filtering}
 Spatial filters use the neighbourhood of voxels to create a new value for each voxel in an image. 
-An original image $I(u,v,w)$ is mapped to a new image through a filter kernel; Eq.~\ref{eqn:kernel}.
-The filter kernel is fixed dimensions with weighting on each pixel.
+An original image $I(u,v,w)$ is mapped to a new image through a filter kernel, as described in Eq.~\ref{eqn:kernel}.
+The filter kernel is a fixed dimensions sub-image with a weighting on each pixel that is applied to each voxel in the image which is convolution.
+If filter kernel contains all ones is known as \emph{box filter} and performs smoothing on the image to remove noise.
+A Gaussian filter performs better by placing a higher weighting on the central voxel and less on the extreme voxels~\cite{lohmann1998volumetric}.
+
 
 \begin{equation}
 	I'(u,v,w) = \sum\limits_{(i,j,k) \in R_H} I(u + i,v + j, w + k)H(i,j,k)
@@ -172,6 +168,21 @@ The filter kernel is fixed dimensions with weighting on each pixel.
 
 
 \subsection{Frequency Filtering}
+The Fourier transform can be extended to 3D images.
+A Discrete Fourier Transform (DFT) for a $N$$\times$$N$$\times$$N$ voxel image is held in Eq.~\ref{eqn:dft}.
+A spatial filtering performs convolution then once in the frequency domain the same effects can be achieved using multiplication.
+It may prove more efficient to filter an image in frequency rather than space if the required filter kernel is large.
+Band-pass filter operations can also be perform in the frequency domain.
+
+\begin{equation}
+	\textbf{FP}_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=0}^{N-1}\sum\limits_{y=0}^{N-1}\sum\limits_{z=0}^{N-1}\textbf{P}_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
+	\label{eqn:dft} 
+\end{equation}
+
+
+
+
+
 
 
 
