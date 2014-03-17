@@ -62,7 +62,7 @@ Feature reduction and normalisation is then used frame the data as such to make 
 
 \begin{figure}[!htb]
    \centering
-   \includegraphics[width = 0.35\textwidth]{Figures/Proposed.pdf}
+   \includegraphics[width = 0.4\textwidth]{Figures/Proposed.pdf}
    \label{fig:Proposed}
    \caption{Proposed system architecture.}
 \end{figure}
@@ -136,6 +136,7 @@ They can be considered cubes but also points which may make visualisation and pr
 The provided raw data needs to be converted from the format delivered by the acquisition technology to a three dimensional matrix ready for generic processing.
 Removal of watermarking, which may have been inserted for human review, should also be removed at this stage. 
 This is trivial in theory but requires a database of artifacts or manual review to accomplish.
+There are also techniques, not considered in this paper, which can be applied just to the slices of a volumetric image which may be used to reduce processing overheads~\cite{harauz86exact}.
 
 Filters can be used to enhance the quality of images.
 These are split two categories, linear and non-linear~\cite{lohmann1998volumetric}.
@@ -168,14 +169,14 @@ A Gaussian filter performs better by placing a higher weighting on the central v
 
 
 \subsection{Frequency Filtering}
-The Fourier transform can be extended to 3D images.
+The Fourier transform, as used spatially on 2D images, can be extended to 3D images.
 A Discrete Fourier Transform (DFT) for a $N$$\times$$N$$\times$$N$ voxel image is held in Eq.~\ref{eqn:dft}.
-A spatial filtering performs convolution then once in the frequency domain the same effects can be achieved using multiplication.
+The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
 It may prove more efficient to filter an image in frequency rather than space if the required filter kernel is large.
 Band-pass filter operations can also be perform in the frequency domain.
 
 \begin{equation}
-	\textbf{FP}_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=0}^{N-1}\sum\limits_{y=0}^{N-1}\sum\limits_{z=0}^{N-1}\textbf{P}_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
+	\textbf{FP}_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}\textbf{P}_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
 	\label{eqn:dft} 
 \end{equation}
 
