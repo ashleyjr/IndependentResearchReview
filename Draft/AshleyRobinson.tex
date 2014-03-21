@@ -2,19 +2,17 @@
 \usepackage{cite}
 
 
-
-
  \usepackage[pdftex]{graphicx}
 
 
 
 \begin{document}
-\title{Effective Tumor Classification Exploiting Volumetric Image Analysis}
+\title{Effective Tumour Classification Exploiting Volumetric Image Analysis}
 \author{Ashley J. Robinson}
 
 % The paper headers
 \markboth{Southampton University, Department of Electronics and Computer Science, Independent Research Review.}%
-{Robinson: Effective Tumor Classification Exploiting Volumetric Image Analysis}
+{Robinson: Effective Tumour Classification Exploiting Volumetric Image Analysis}
 
 \maketitle
 
@@ -32,7 +30,7 @@
 
 
 \begin{IEEEkeywords}
-Tumor, Classification
+Tumour, Classification
 \end{IEEEkeywords}
 
 
@@ -46,11 +44,11 @@ Tumor, Classification
 
 
 \section{Introduction}
-\IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately classify tumors. 
+\IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately classify tumours. 
 The problem is to be approached by considering only the general case where no specific area of the human body is considered.
-Rather than trying to classify lung or brain tumors individually the goal is to consider what tumors have in common and given an entire image of a human body is it possible to classify tumors in any given section?
+Rather than trying to classify lung or brain tumours individually the goal is to consider what tumours have in common and given an entire image of a human body is it possible to classify tumours in any given section?
 The motivation behind this is to make the most of medical scanning.
-Dosages of radiation, cost and simply the time required are all reasons to reduce the number of scans needed, making the most of any data gathered is a constructive method of scan frequency reduction.
+Dosages of radiation, cost and simply the time required are all reasons to reduce the number of scans needed; making the most of any data gathered is a constructive method of scan frequency reduction.
 The objective is to provide a recommendation for a system to be implemented such that a medical practitioner could use it as a tool for diagnosis.  
 
 The architecture in Fig.~\ref{fig:Proposed} is a simplistic view of the system to be recommended; inspired by those discussed in ~\cite{ahmed2011efficacy,kumar2011classification,sachdeva2011multiclass}.
@@ -94,9 +92,9 @@ A ring allows images to be capture from 360$^{\circ}$ in a single plane then by 
    \caption{Acquiring data from Computed Tomography. Adapted from~\cite{kayvan2006biomedical}.}
 \end{figure}
 
-Any method of non-invasive image capturing in 2D can therefore by expanded to work in 3D by using the CT principle.
-Different methods have trade offs such as radiation dosages and resolution.
-Ultrasound is a method of image acquisition with the advantage of small processing overhead allowing an internal organs to be view in real-time. 
+Any method of non-invasive image capturing in 2D can therefore be expanded to work in 3D by using the CT principle.
+Different methods have tradeoffs such as radiation dosages and resolution.
+Ultrasound is a method of image acquisition with the advantage of a small processing overhead allowing internal organs to be viewed in real-time which is beneficial because it allows practitioners to view internal physical movement. 
 It can be used for CT but higher resolution methods are favoured such as X-ray and Magnetic Resonance Imaging.
 
 There are also other non-intrusive methods that do not use electromagnetic or ultrasonic waves.
@@ -104,7 +102,7 @@ Hand palpitation is a common technique used by medical practitioners to gain an 
 Electromechanical apparatus employing the same technique can be used transfer the dimension of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
 This offers far less data for analysis.
 
-Data is typically stored as a series of grayscale 2D images which are slices of the scan.
+Data is typically stored as a series of greyscale 2D images which are slices of the scan.
 The image viewer will build 3D images as and when required using these slices.
 The common medical standard for these images is DICOM which holds the relationships between slices and also patient information~\cite{dicom11nema}.
 Viewing the data naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
@@ -135,7 +133,7 @@ They can be considered cubes but also points which may make visualisation and pr
 
 The provided raw data needs to be converted from the format delivered by the acquisition technology to a three dimensional matrix ready for generic processing.
 Removal of watermarking, which may have been inserted for human review, should also be removed at this stage. 
-This is trivial in theory but requires a database of artifacts or manual review to accomplish.
+This is trivial in theory but requires a database of artefacts or manual review to accomplish.
 There are also techniques, not considered in this paper, which can be applied just to the slices of a volumetric image which may be used to reduce processing overheads~\cite{harauz86exact}.
 
 Filters can be used to enhance the quality of images.
@@ -157,7 +155,7 @@ Equalisation attempts to flatten the histogram by distributing intensity~\cite{n
 Spatial filters use the neighbourhood of voxels to create a new value for each voxel in an image. 
 An original image $I(u,v,w)$ is mapped to a new image through a filter kernel, as described in Eq.~\ref{eqn:kernel}.
 The filter kernel is a fixed dimensions sub-image with a weighting on each pixel that is applied to each voxel in the image which is convolution.
-If filter kernel contains all ones is known as \emph{box filter} and performs smoothing on the image to remove noise.
+If the filter kernel contains all ones it is known as a \emph{box filter} and performs smoothing on the image to remove noise.
 A Gaussian filter performs better by placing a higher weighting on the central voxel and less on the extreme voxels~\cite{lohmann1998volumetric}.
 
 
@@ -173,7 +171,7 @@ The Fourier transform, as used spatially on 2D images, can be extended to 3D ima
 A Discrete Fourier Transform (DFT) for a $N$$\times$$N$$\times$$N$ voxel image is held in Eq.~\ref{eqn:dft}.
 The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
 It may prove more efficient to filter an image in frequency rather than space if the required filter kernel is large.
-Band-pass filter operations can also be perform in the frequency domain.
+Band-pass and notch filter operations can also be perform in the frequency domain.
 
 \begin{equation}
 	\textbf{FP}_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}\textbf{P}_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
@@ -182,7 +180,7 @@ Band-pass filter operations can also be perform in the frequency domain.
 
 
 
-
+\subsection{Additional Processes}
 
 
 
@@ -209,19 +207,35 @@ A combination of both suits this purpose where domain knowledge may over recomme
 \label{sec:extraction}
 
 
+TODO:
+
+
+\begin{itemize}
+  \item The first item
+  \item The second item
+  \item The third etc \ldots
+\end{itemize}
 
 
 
 
 
 
-
-
-
-\section{Dimensionaility Reduction}
+\section{Dimensionality Reduction}
 \label{sec:reduce}
 
 
+
+
+
+TODO:
+
+
+\begin{itemize}
+  \item The first item
+  \item The second item
+  \item The third etc \ldots
+\end{itemize}
 
 
 
@@ -236,6 +250,18 @@ A combination of both suits this purpose where domain knowledge may over recomme
 
 
 
+TODO:
+
+
+\begin{itemize}
+  \item The first item
+  \item The second item
+  \item The third etc \ldots
+\end{itemize}
+
+
+
+
 
 
 
@@ -245,7 +271,7 @@ A combination of both suits this purpose where domain knowledge may over recomme
 \section{Conclusions}
 \label{sec:conclusions}
 
-It is clear that this tool can't be used as a hard and fast method of tumor diagnosis but instead as a valuable tool for image reviewers.
+It is clear that this tool can't be used as a hard and fast method of tumour diagnosis but instead as a valuable tool for image reviewers.
 Software packages designed for medical image review, such as~\cite{slicer}, have bidirectional interfaces to custom extensions.
 Implementing this system as an extension would remove many overheads required in data handling but reduce the scope for optimisation.
 The feedback from the entire process would be a checklist which the user must manually review and waive if incorrectly identified. 
