@@ -1,17 +1,26 @@
 \documentclass[journal]{IEEEtran}
 \usepackage{cite}
 
+\usepackage{hyperref}
+\usepackage[pdftex]{graphicx}
 
- \usepackage[pdftex]{graphicx}
-
-
+\hypersetup{
+	colorlinks=false,
+	pdfborder={0 0 0},
+}
 
 \begin{document}
 \title{Effective Tumour Classification Exploiting Volumetric Image Analysis}
-\author{Ashley J. Robinson}
+\author{
+	\IEEEauthorblockN{Ashley J. Robinson\\}
+	\IEEEauthorblockA{	University of Southampton\\
+	\href{mailto:ajr2g10@ecs.soton.ac.uk}{ajr2g10@ecs.soton.ac.uk}
+	}	
+}
+
 
 % The paper headers
-\markboth{Southampton University, Department of Electronics and Computer Science, Independent Research Review.}%
+\markboth{COMP6033: Individual Research Review. 2014.}%
 {Robinson: Effective Tumour Classification Exploiting Volumetric Image Analysis}
 
 \maketitle
@@ -19,7 +28,9 @@
 
 \begin{abstract}
 
-\dots
+An architecture for a tumour classification system is proposed that follows basic image processing conventions but with an additional sub-module that provides non-technical confidence informations for a domain expert.  
+The purpose of which is to classify, if possible, tumours contained in medical images.
+The process exists only in terms of volumetric images which scales processing overheads but 
 
 \end{abstract}
 
