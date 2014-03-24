@@ -158,8 +158,15 @@ This is done with a weighted mask which is applied to image in path which covers
 An image histogram is a simple yet powerful tool which is a mapping from the image to a 2D plot of the frequency of intensity.
 This contains information on the type of material seen in the image, if it can be determined from intensity, and how much of that material is used to form the entire image.
 Image enhancement can be performed using point operations with information from the histogram.
+This is a very fast methods of image enhancement as it is direct voxel-to-voxel mapping; see Equation~\ref{eqn:point}. 
 Normalisation stretches the histogram to cover all available values of intensity therefore improving contrast.
 Equalisation attempts to flatten the histogram by distributing intensity~\cite{nixon02feature}.
+
+\begin{equation}
+	I'(u,v,w) = \alpha(u,v,w)I(u,v,w)
+	\label{eqn:point} 
+\end{equation}
+
 
 
 \subsection{Spatial Filtering}
@@ -181,7 +188,7 @@ A Gaussian filter performs better by placing a higher weighting on the central v
 The Fourier transform, as used spatially on 2D images, can be extended to 3D images.
 A Discrete Fourier Transform (DFT) for a $N$$\times$$N$$\times$$N$ voxel image is held in Eq.~\ref{eqn:dft}.
 The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
-It may prove more efficient to filter an image in frequency rather than space if the required filter kernel is large.
+It may prove more efficient to filter an image in the frequency domain rather than space if the required filter kernel is large.
 Band-pass and notch filter operations can also be perform in the frequency domain.
 
 \begin{equation}
@@ -192,7 +199,8 @@ Band-pass and notch filter operations can also be perform in the frequency domai
 
 
 \subsection{Additional Processes}
-
+Anisotropic diffusion is a power full technique used to enhance images.
+The technique has been expanded from common 1D and 2D applications to 3D medical usage on MRI data~\cite{grieg92nonlinear}.
 
 
 
