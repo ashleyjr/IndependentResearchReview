@@ -20,7 +20,7 @@
 
 
 % The paper headers
-\markboth{COMP6033: Individual Research Review. 2014.}%
+\markboth{COMP6033: Independent Research Review. }	%	$27$/$03$/$14$.	DRAFT REPORT.}%
 {Robinson: Effective Tumour Classification Exploiting Volumetric Image Analysis}
 
 \maketitle
@@ -29,8 +29,11 @@
 \begin{abstract}
 
 An architecture for a tumour classification system is proposed that follows basic image processing conventions but with an additional sub-module that provides non-technical confidence informations for a domain expert.  
-The purpose of which is to classify, if possible, tumours contained in medical images.
-The process exists only in terms of volumetric images which scales processing overheads but 
+The purpose of which is to classify tumours contained in medical images.
+All image processing stages are considered only for the case of volumetric images.
+Using a third dimension scales up complexity because of the amount of data available but has the potential to yield better results than a 2D approach.
+Common techniques are reviewed and a selection is made on how to populate the architecture.
+Human supervised deployment is considered whether stand-alone or as an extension to existing medical review software.
 
 \end{abstract}
 
@@ -40,9 +43,9 @@ The process exists only in terms of volumetric images which scales processing ov
 
 
 
-\begin{IEEEkeywords}
-Tumour, Classification
-\end{IEEEkeywords}
+%\begin{IEEEkeywords}
+%Tumour, Classification
+%\end{IEEEkeywords}
 
 
 
@@ -59,21 +62,24 @@ Tumour, Classification
 The problem is to be approached by considering only the general case where no specific area of the human body is considered.
 Rather than trying to classify lung or brain tumours individually the goal is to consider what tumours have in common and given an entire image of a human body is it possible to classify tumours in any given section?
 The motivation behind this is to make the most of medical scanning.
-Dosages of radiation, cost and simply the time required are all reasons to reduce the number of scans needed; making the most of any data gathered is a constructive method of scan frequency reduction.
+Dosages of radiation, cost and simply the time required are all reasons to reduce the number of scans needed.
+Making the most of any data gathered is a constructive method of scan frequency reduction.
 The objective is to provide a recommendation for a system to be implemented such that a medical practitioner could use it as a tool for diagnosis.  
 
-The architecture in Fig.~\ref{fig:Proposed} is a simplistic view of the system to be recommended; inspired by those discussed in ~\cite{ahmed2011efficacy,kumar2011classification,sachdeva2011multiclass}.
+The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended; inspired by those discussed in~\cite{ahmed2011efficacy,kumar2011classification,sachdeva2011multiclass,kostis03three}.
 A chain of stages leads from raw data gathered from the patient to a diagnosis from a classification algorithm.
 A confidence sub-block enables the domain expert to view the performance of the entire system without knowing the intricacies of operation; this requires processing to be explained with respect to their domain.
+In medicine a threshold has to be selected carefully as false negatives in diagnosis are unjustifiable.
+
 Raw data is captured from the patient and passed to system for pre-processing then feature extraction.
-Input patterns are produced from volumetric feature extraction dependent on a pre-determined list of known useful features. 
-Feature reduction and normalisation is then used frame the data as such to make the most of the classification algorithm used to provide support for diagnosis.
+Input patterns are produced dependent on a pre-determined list of known useful features. 
+Feature reduction and normalisation is then used to frame the data as such to make the most of the classification algorithm.
 
 \begin{figure}[!htb]
    \centering
    \includegraphics[width = 0.4\textwidth]{Figures/Proposed.pdf}
-   \label{fig:Proposed}
    \caption{Proposed system architecture.}
+   \label{fig:Proposed}
 \end{figure}
 
 
@@ -98,9 +104,9 @@ A ring allows images to be capture from 360$^{\circ}$ in a single plane then by 
 
 \begin{figure}[!htb]
    \centering
-   \includegraphics[width = 0.15\textwidth]{Figures/CT.pdf}
-   \label{fig:ct}
+   \includegraphics[width = 0.3\textwidth]{Figures/CT.pdf}
    \caption{Acquiring data from Computed Tomography. Adapted from~\cite{kayvan2006biomedical}.}
+   \label{fig:ct}
 \end{figure}
 
 Any method of non-invasive image capturing in 2D can therefore be expanded to work in 3D by using the CT principle.
@@ -122,13 +128,15 @@ Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which
 \begin{figure}[!htb]
    \centering
    \includegraphics[width = 0.4\textwidth]{Figures/3Dview.png}
-   \label{fig:3d}
    \caption{An MRI scan of a healthy brain taken from~\cite{cia} and rendered by~\cite{slicer}.}
+   \label{fig:3d}
 \end{figure}
 
 The analogue of a pixel (picture element) in 2D image is called a voxel (volumetric element) in a 3D image.
 This is exactly the same idea but with a extra dimension to form a cube~\cite{lohmann1998volumetric}.
 They can be considered cubes but also points which may make visualisation and processing easier to understand.
+
+
 
 
 
@@ -200,7 +208,7 @@ Band-pass and notch filter operations can also be perform in the frequency domai
 
 \subsection{Additional Processes}
 Anisotropic diffusion is a power full technique used to enhance images.
-The technique has been expanded from common 1D and 2D applications to 3D medical usage on MRI data~\cite{grieg92nonlinear}.
+The technique has been expanded from common 1D and 2D applications to 3D medical usage on MRI data~\cite{greig92nonlinear}.
 
 
 
@@ -212,6 +220,8 @@ Before features can be extracted from a image it must be clear what features wil
 Reducing dimensionality through feature reduction can often prove more effective then lower dimensional projection methods; discussed in Section~\ref{sec:reduce}.
 The recommendation of feature selection can come from domain knowledge or convergence on a subset that will provided a sufficiently low training error using an iterative tuning algorithm~\cite{bu07feature,li10tumor}.
 A combination of both suits this purpose where domain knowledge may over recommend features and a machine learning approach can prune as required for the subset.  
+
+
 
 
 
