@@ -12,7 +12,7 @@
 }
 
 \begin{document}
-\title{Effective Tumour Classification Exploiting Volumetric Image Analysis}
+\title{Tumour Classification By Volumetric Image Analysis}
 \author{
 	\IEEEauthorblockN{Ashley J. Robinson\\}
 	\IEEEauthorblockA{	University of Southampton\\
@@ -30,7 +30,8 @@
 
 \begin{abstract}
 
-An architecture for a tumour classification system is proposed that follows basic image processing conventions but with an additional sub-module that provides non-technical confidence informations for a domain expert.  
+This research review covers techniques available for the classification of tumours in the human body considering practical implications and stage interfacing.   
+An architecture is proposed that follows basic image processing conventions but with an additional sub-module that provides non-technical confidence informations for a domain expert.  
 The purpose of which is to classify tumours contained in medical images.
 All image processing stages are considered only for the case of volumetric images.
 Using a third dimension scales up complexity because of the amount of data available but has the potential to yield better results than a 2D approach.
@@ -149,7 +150,7 @@ Considering voxels to have larger neighbourhoods can increase the time complexit
 	\label{fig:neighbourhood18}}
 	\subfigure[26]{\includegraphics[width = 0.12\textwidth]{Figures/26N.pdf}
 	\label{fig:neighbourhood26}}
-\caption{Voxel Neighbourhoods. Taken from~\cite{lohmann1998volumetric}.}
+\caption{Voxel Neighbourhoods~\cite{lohmann1998volumetric}.}
 \label{fig:neighbourhood}
 \end{figure}
 
@@ -211,20 +212,20 @@ A Discrete Fourier Transform (DFT) for a $N$$\times$$N$$\times$$N$ voxel image i
 The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
 It may prove more efficient to filter an image in the frequency domain rather than space if the required filter kernel is large.
 Band-pass and notch filter operations can also be perform in the frequency domain.
-Eq.~\eqref{eqn:ft} describes a Fourier pair, forward and inverse respectively, and Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel}. 
+Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} using the increase transform implied from Eq.~\eqref{eqn:dft}. 
 
 \begin{equation}
-	F_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}P_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
+	F_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}I_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
 	\label{eqn:dft} 
 \end{equation}
 
-\begin{equation}
-	\textbf{F} = \mathcal{F}(\textbf{P}),\:\:\textbf{P} = \mathcal{F}^{-1}(\textbf{F}) 
-	\label{eqn:ft} 
-\end{equation}
+%\begin{equation}
+%	\textbf{F} = \mathcal{F}(\textbf{P}),\:\:\textbf{P} = \mathcal{F}^{-1}(\textbf{F}) 
+%	\label{eqn:ft} 
+%\end{equation}
 
 \begin{equation}
-	\textbf{I}' = \mathcal{F}^{-1}(\mathcal{F}(\textbf{I})\mathcal{F}(\textbf{H}))
+	\textbf{I}' = \mathcal{F}^{-1}(\mathcal{F}(\textbf{I})*\mathcal{F}(\textbf{H}))	% Arrow doesn't work, implied matrices?
 	\label{eqn:same} 
 \end{equation}
 
