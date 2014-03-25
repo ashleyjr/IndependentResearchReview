@@ -3,6 +3,8 @@
 
 \usepackage{hyperref}
 \usepackage[pdftex]{graphicx}
+\usepackage{subfigure}
+\usepackage{mathrsfs,amsmath}   %The amsmath package is included for \xrightarrow
 
 \hypersetup{
 	colorlinks=false,
@@ -112,18 +114,18 @@ A ring allows images to be capture from 360$^{\circ}$ in a single plane then by 
 Any method of non-invasive image capturing in 2D can therefore be expanded to work in 3D by using the CT principle.
 Different methods have tradeoffs such as radiation dosages and resolution.
 Ultrasound is a method of image acquisition with the advantage of a small processing overhead allowing internal organs to be viewed in real-time which is beneficial because it allows practitioners to view internal physical movement. 
-It can be used for CT but higher resolution methods are favoured such as X-ray and Magnetic Resonance Imaging.
+It can be used for CT but higher resolution methods are usually favoured such as X-ray and Magnetic Resonance Imaging (MRI).
 
 There are also other non-intrusive methods that do not use electromagnetic or ultrasonic waves.
 Hand palpitation is a common technique used by medical practitioners to gain an impression of abnormalities near the surface of the human body. 
-Electromechanical apparatus employing the same technique can be used transfer the dimension of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
-This offers far less data for analysis.
+Electromechanical apparatus employing the same technique can be used transfer the geometry of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
+Only part of the area under inspection is visible so the technique has obvious drawbacks.
 
 Data is typically stored as a series of greyscale 2D images which are slices of the scan.
 The image viewer will build 3D images as and when required using these slices.
-The common medical standard for these images is DICOM which holds the relationships between slices and also patient information~\cite{dicom11nema}.
+The common medical standard for these images is DICOM which holds the slices, relative position and also patient information~\cite{dicom11nema}.
 Viewing the data naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
-Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three slices to concentrate on corner on specific points.
+Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three slices to gain an impression of the region.
 
 \begin{figure}[!htb]
    \centering
@@ -135,8 +137,21 @@ Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which
 The analogue of a pixel (picture element) in 2D image is called a voxel (volumetric element) in a 3D image.
 This is exactly the same idea but with a extra dimension to form a cube~\cite{lohmann1998volumetric}.
 They can be considered cubes but also points which may make visualisation and processing easier to understand.
+Fig.~\ref{fig:neighbourhood} describes how voxels are packed and three different neighbourhoods the can be considered when inspecting one voxel. 
+Considering voxels to have larger neighbourhoods can increase the time complexity of some algorithms.
 
 
+\begin{figure}
+	\centering
+	\subfigure[6]{\includegraphics[width = 0.12\textwidth]{Figures/6N.pdf}
+	\label{fig:neighbourhood6}}
+	\subfigure[18]{\includegraphics[width = 0.12\textwidth]{Figures/18N.pdf}
+	\label{fig:neighbourhood18}}
+	\subfigure[26]{\includegraphics[width = 0.12\textwidth]{Figures/26N.pdf}
+	\label{fig:neighbourhood26}}
+\caption{Voxel Neighbourhoods. Taken from~\cite{lohmann1998volumetric}.}
+\label{fig:neighbourhood}
+\end{figure}
 
 
 
@@ -150,23 +165,20 @@ They can be considered cubes but also points which may make visualisation and pr
 \section{Pre-processing}
 \label{sec:pre}
 
-The provided raw data needs to be converted from the format delivered by the acquisition technology to a three dimensional matrix ready for generic processing.
-Removal of watermarking, which may have been inserted for human review, should also be removed at this stage. 
+The provided raw data needs to be converted from the delivery format from the acquisition technology to a 3D matrix ready for generic processing.
+Watermarking, which may have been inserted for human review, should also be removed at this stage. 
 This is trivial in theory but requires a database of artefacts or manual review to accomplish.
 There are also techniques, not considered in this paper, which can be applied just to the slices of a volumetric image which may be used to reduce processing overheads~\cite{harauz86exact}.
 
-Filters can be used to enhance the quality of images.
-These are split two categories, linear and non-linear~\cite{lohmann1998volumetric}.
-Linear filtering is achieved by using a mask to weight each voxel the surrounding voxels.
-This is done with a weighted mask which is applied to image in path which covers all regions.
-
+There are different techniques available to enhance the image captured or ensure it is correctly formatted for further processing.
+This is considered as a mapping from an original image to a new image, $\textbf{I} \mapsto \textbf{I}'$, using only information from the original image.
 
 \subsection{Histogram Operations}
 
-An image histogram is a simple yet powerful tool which is a mapping from the image to a 2D plot of the frequency of intensity.
+An image histogram is a mapping from an image to a 2D plot of the frequency of voxel intensity; possible since voxels can have a discrete value of intensity within a fixed range.
 This contains information on the type of material seen in the image, if it can be determined from intensity, and how much of that material is used to form the entire image.
 Image enhancement can be performed using point operations with information from the histogram.
-This is a very fast methods of image enhancement as it is direct voxel-to-voxel mapping; see Equation~\ref{eqn:point}. 
+This is a very fast methods of image enhancement as it is direct voxel-to-voxel mapping; see Eq.~\ref{eqn:point}. 
 Normalisation stretches the histogram to cover all available values of intensity therefore improving contrast.
 Equalisation attempts to flatten the histogram by distributing intensity~\cite{nixon02feature}.
 
@@ -179,8 +191,9 @@ Equalisation attempts to flatten the histogram by distributing intensity~\cite{n
 
 \subsection{Spatial Filtering}
 Spatial filters use the neighbourhood of voxels to create a new value for each voxel in an image. 
-An original image $I(u,v,w)$ is mapped to a new image through a filter kernel, as described in Eq.~\ref{eqn:kernel}.
-The filter kernel is a fixed dimensions sub-image with a weighting on each pixel that is applied to each voxel in the image which is convolution.
+The original image is mapped to a new image through a filter kernel, as described in Eq.~\ref{eqn:kernel}.
+The filter kernel is a fixed dimension sub-image with a weighting on each voxel that is applied to every voxel in the original image.
+This is spatial convolution.
 If the filter kernel contains all ones it is known as a \emph{box filter} and performs smoothing on the image to remove noise.
 A Gaussian filter performs better by placing a higher weighting on the central voxel and less on the extreme voxels~\cite{lohmann1998volumetric}.
 
@@ -198,16 +211,26 @@ A Discrete Fourier Transform (DFT) for a $N$$\times$$N$$\times$$N$ voxel image i
 The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
 It may prove more efficient to filter an image in the frequency domain rather than space if the required filter kernel is large.
 Band-pass and notch filter operations can also be perform in the frequency domain.
+Eq.~\eqref{eqn:ft} describes a Fourier pair, forward and inverse respectively, and Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel}. 
 
 \begin{equation}
-	\textbf{FP}_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}\textbf{P}_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
+	F_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}P_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
 	\label{eqn:dft} 
 \end{equation}
 
+\begin{equation}
+	\textbf{F} = \mathcal{F}(\textbf{P}),\:\:\textbf{P} = \mathcal{F}^{-1}(\textbf{F}) 
+	\label{eqn:ft} 
+\end{equation}
+
+\begin{equation}
+	\textbf{I}' = \mathcal{F}^{-1}(\mathcal{F}(\textbf{I})\mathcal{F}(\textbf{H}))
+	\label{eqn:same} 
+\end{equation}
 
 
 \subsection{Additional Processes}
-Anisotropic diffusion is a power full technique used to enhance images.
+Anisotropic diffusion is a powerful technique used to enhance images.
 The technique has been expanded from common 1D and 2D applications to 3D medical usage on MRI data~\cite{greig92nonlinear}.
 
 
@@ -226,6 +249,13 @@ A combination of both suits this purpose where domain knowledge may over recomme
 
 
 
+TODO:
+
+
+\begin{itemize}
+  \item Review tumour features
+  \item Attempt to generalise these features
+\end{itemize}
 
 
 
@@ -240,9 +270,8 @@ TODO:
 
 
 \begin{itemize}
-  \item The first item
-  \item The second item
-  \item The third etc \ldots
+  \item Review different methods
+  \item Recommend for this case
 \end{itemize}
 
 
@@ -261,9 +290,9 @@ TODO:
 
 
 \begin{itemize}
-  \item The first item
-  \item The second item
-  \item The third etc \ldots
+  \item Is this needed?
+  \item Common techniques
+  \item What fits with expected data
 \end{itemize}
 
 
@@ -283,9 +312,9 @@ TODO:
 
 
 \begin{itemize}
-  \item The first item
-  \item The second item
-  \item The third etc \ldots
+  \item How the data will look
+  \item Computational overheads
+  \item Confidence output
 \end{itemize}
 
 
