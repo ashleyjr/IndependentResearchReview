@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Image Acquisition}{}% 2
+\BOOKMARK [1][-]{section.3}{Pre-processing}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Histogram Operations}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Spatial Filtering}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Frequency Filtering}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{Additional Processes}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Feature Selection}{}% 8
+\BOOKMARK [1][-]{section.5}{Feature Extraction}{}% 9
+\BOOKMARK [1][-]{section.6}{Dimensionality Reduction}{}% 10
+\BOOKMARK [1][-]{section.7}{Classification}{}% 11
+\BOOKMARK [1][-]{section.8}{Conclusions}{}% 12
+\BOOKMARK [1][-]{section*.1}{References}{}% 13
