@@ -87,7 +87,7 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <span class='document'>\usepackage</span><span class='document'>{hyperref}</span><br>
 <span class='document'>\usepackage</span><span class='option'>[pdftex]</span><span class='document'>{graphicx}</span><br>
 <span class='document'>\usepackage</span><span class='document'>{subfigure}</span><br>
-<span class='document'>\usepackage</span><span class='document'>{mathrsfs,amsmath}</span>   <span class='comment'>%The amsmath package is included for \xrightarrow</span><br>
+<span class='document'>\usepackage</span><span class='document'>{mathrsfs,amsmath,amsfonts}</span>   <span class='comment'>%The amsmath package is included for \xrightarrow</span><br>
 <br>
 <span class='exclcommand'>\hypersetup</span><span class='ignore'>{</span><br>
 	<span class='ignore'>colorlinks</span><span class='ignore'>=</span><span class='ignore'>false</span><span class='ignore'>,</span><br>
@@ -329,17 +329,32 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <span class='word1'>A</span> <span class='word1'>combination</span> <span class='word1'>of</span> <span class='word1'>both</span> <span class='word1'>suits</span> <span class='word1'>this</span> <span class='word1'>purpose</span> <span class='word1'>where</span> <span class='word1'>domain</span> <span class='word1'>knowledge</span> <span class='word1'>may</span> <span class='word1'>over</span> <span class='word1'>recommend</span> <span class='word1'>features</span> <span class='word1'>and</span> <span class='word1'>a</span> <span class='word1'>machine</span> <span class='word1'>learning</span> <span class='word1'>approach</span> <span class='word1'>can</span> <span class='word1'>prune</span> <span class='word1'>as</span> <span class='word1'>required</span> <span class='word1'>for</span> <span class='word1'>the</span> <span class='word1'>subset</span><span class='ignore'>.</span>&nbsp; <br>
 <br>
 <br>
-<span class='word1'>There</span> <span class='word1'>are</span> <span class='word1'>hundreds</span> <span class='word1'>of</span> <span class='word1'>types</span> <span class='word1'>of</span> <span class='word1'>tumours</span> <span class='word1'>that</span> <span class='word1'>can</span> <span class='word1'>occur</span> <span class='word1'>in</span> <span class='word1'>the</span> <span class='word1'>human</span> <span class='word1'>body</span> <span class='word1'>but</span> <span class='word1'>they</span> <span class='word1'>are</span> <span class='word1'>all</span> <span class='word1'>caused</span> <span class='word1'>by</span> <span class='word1'>abnormalities</span> <span class='word1'>in</span> <span class='word1'>cell</span> <span class='word1'>growth</span><span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{cooper1992cancer}</span> <br>
+<span class='word1'>There</span> <span class='word1'>are</span> <span class='word1'>hundreds</span> <span class='word1'>of</span> <span class='word1'>types</span> <span class='word1'>of</span> <span class='word1'>tumours</span> <span class='word1'>that</span> <span class='word1'>can</span> <span class='word1'>occur</span> <span class='word1'>in</span> <span class='word1'>the</span> <span class='word1'>human</span> <span class='word1'>body</span> <span class='word1'>but</span> <span class='word1'>they</span> <span class='word1'>are</span> <span class='word1'>all</span> <span class='word1'>caused</span> <span class='word1'>by</span> <span class='word1'>abnormalities</span> <span class='word1'>in</span> <span class='word1'>cell</span> <span class='word1'>growth</span><span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{cooper1992cancer}</span><span class='ignore'>.</span><br>
+<span class='word1'>Tumours</span> <span class='word1'>are</span> <span class='word1'>dense</span> <span class='word1'>areas</span> <span class='word1'>of</span> <span class='word1'>cells</span> <span class='word1'>in</span> <span class='word1'>the</span> <span class='word1'>human</span> <span class='word1'>body</span> <span class='word1'>and</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>either</span> <span class='word1'>benign</span> <span class='word1'>or</span> <span class='word1'>malignant</span><span class='ignore'>.</span><br>
+<span class='word1'>Malignant</span> <span class='word1'>tumours</span> <span class='word1'>are</span> <span class='word1'>considered</span> <span class='word1'>cancers</span> <span class='word1'>because</span> <span class='word1'>they</span> <span class='word1'>invade</span> <span class='word1'>nearby</span> <span class='word1'>normal</span> <span class='word1'>tissue</span> <span class='word1'>and</span> <span class='word1'>spread</span> <span class='word1'>therefore</span> <span class='word1'>making</span> <span class='word1'>them</span> <span class='word1'>an</span> <span class='word1'>area</span> <span class='word1'>of</span> <span class='word1'>concern</span><span class='ignore'>;</span> <span class='word1'>these</span> <span class='word1'>are</span> <span class='word1'>broken</span> <span class='word1'>down</span> <span class='word1'>in</span> <span class='word1'>to</span> <span class='word1'>three</span> <span class='word1'>categories</span><span class='ignore'>.</span><br>
+<span class='command'>\emph</span><span class='word1'>{Carcinomas}</span> <span class='word1'>where</span> <span class='word1'>cells</span> <span class='word1'>line</span> <span class='word1'>the</span> <span class='word1'>body</span> <span class='word1'>and</span> <span class='word1'>internal</span> <span class='word1'>organs</span> <span class='word1'>account</span> <span class='word1'>for</span> <span class='mathgroup'>$</span><span class='ignore'>90</span><span class='mathgroup'>$</span><span class='ignore'>\%</span> <span class='word1'>of</span> <span class='word1'>human</span> <span class='word1'>caners</span><span class='ignore'>.</span><br>
+<span class='command'>\emph</span><span class='word1'>{Leukemias}</span> <span class='word1'>and</span> <span class='command'>\emph</span><span class='word1'>{Lymphomas}</span> <span class='word1'>which</span> <span class='word1'>occur</span> <span class='word1'>in</span> <span class='word1'>the</span> <span class='word1'>blood</span> <span class='word1'>and</span> <span class='word1'>lymph</span> <span class='word1'>systems</span> <span class='word1'>account</span> <span class='word1'>for</span> <span class='mathgroup'>$</span><span class='ignore'>8</span><span class='mathgroup'>$</span><span class='ignore'>\%</span><span class='ignore'>.</span><br>
+<span class='command'>\emph</span><span class='word1'>{Sarcomas}</span> <span class='word1'>are</span> <span class='word1'>solid</span> <span class='word1'>regions</span> <span class='word1'>of</span> <span class='word1'>connective</span> <span class='word1'>tissue</span> <span class='word1'>which</span> <span class='word1'>are</span> <span class='word1'>rare</span><span class='ignore'>.</span><br>
 <br>
 <br>
+<span class='word1'>Whether</span> <span class='word1'>the</span> <span class='word1'>tumor</span> <span class='word1'>lines</span> <span class='word1'>the</span> <span class='word1'>host</span> <span class='word1'>or</span> <span class='word1'>grows</span> <span class='word1'>independently</span> <span class='word1'>the</span> <span class='word1'>key</span> <span class='word1'>to</span> <span class='word1'>feature</span> <span class='word1'>extraction</span> <span class='word1'>is</span> <span class='word1'>to</span> <span class='word1'>differentiate</span> <span class='word1'>normal</span> <span class='word1'>and</span> <span class='word1'>abnormal</span> <span class='word1'>cell</span> <span class='word1'>density</span><span class='ignore'>.</span> <br>
+<span class='word1'>Figure</span><span class='ignore'>~</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>ex</span><span class='ignore'>}</span> <span class='word1'>contains</span> <span class='word1'>examples</span> <span class='word1'>of</span> <span class='word1'>identified</span> <span class='word1'>tumors</span> <span class='word1'>in</span> <span class='word1'>different</span> <span class='word1'>organs</span><span class='ignore'>.</span><br>
+<span class='word1'>The</span> <span class='word1'>brain</span> <span class='ignore'>(</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>exBrain</span><span class='ignore'>}</span><span class='ignore'>)</span> <span class='word1'>and</span> <span class='word1'>lung</span> <span class='ignore'>(</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>exLiver</span><span class='ignore'>}</span><span class='ignore'>)</span> <span class='word1'>images</span> <span class='word1'>are</span> <span class='word1'>far</span> <span class='word1'>simpler</span> <span class='word1'>than</span> <span class='word1'>the</span> <span class='word1'>liver</span> <span class='word1'>image</span> <span class='ignore'>(</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>exLiver</span><span class='ignore'>}</span><span class='ignore'>)</span><span class='ignore'>.</span><br>
+<span class='word1'>An</span> <span class='word1'>image</span> <span class='word1'>of</span> <span class='word1'>a</span> <span class='word1'>liver</span> <span class='word1'>will</span> <span class='word1'>contain</span> <span class='word1'>other</span> <span class='word1'>organs</span> <span class='word1'>so</span> <span class='word1'>these</span> <span class='word1'>must</span> <span class='word1'>be</span> <span class='word1'>considered</span> <span class='word1'>when</span> <span class='word1'>trying</span> <span class='word1'>to</span> <span class='word1'>extract</span> <span class='word1'>features</span><span class='ignore'>.</span><br>
 <br>
-<span class='word1'>TODO</span><span class='ignore'>:</span><br>
+<span class='grouping'>\begin</span><span class='grouping'>{figure}</span><br>
+	<span class='exclcommand'>\centering</span><br>
+	<span class='exclcommand'>\subfigure</span><span class='ignore'>[</span><span class='ignore'>Brain</span><span class='ignore'>~</span><span class='exclcommand'>\cite</span><span class='ignore'>{islam12seg}</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='exclcommand'>\includegraphics</span><span class='ignore'>[</span><span class='ignore'>width</span><span class='ignore'>=</span><span class='ignore'>0.12</span><span class='exclcommand'>\textwidth</span><span class='ignore'>,</span><span class='ignore'>height</span><span class='ignore'>=</span><span class='ignore'>0.12</span><span class='exclcommand'>\textwidth</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='ignore'>Figures</span><span class='ignore'>/</span><span class='ignore'>Brain.pdf</span><span class='ignore'>}</span><br>
+	<span class='exclcommand'>\label</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>exBrain</span><span class='ignore'>}</span><span class='ignore'>}</span><br>
+	<span class='exclcommand'>\subfigure</span><span class='ignore'>[</span><span class='ignore'>Lung</span><span class='ignore'>~</span><span class='exclcommand'>\cite</span><span class='ignore'>{amutha13lung}</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='exclcommand'>\includegraphics</span><span class='ignore'>[</span><span class='ignore'>width</span><span class='ignore'>=</span><span class='ignore'>0.12</span><span class='exclcommand'>\textwidth</span><span class='ignore'>,</span><span class='ignore'>height</span><span class='ignore'>=</span><span class='ignore'>0.12</span><span class='exclcommand'>\textwidth</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='ignore'>Figures</span><span class='ignore'>/</span><span class='ignore'>Lungs.pdf</span><span class='ignore'>}</span><br>
+	<span class='exclcommand'>\label</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>exLung</span><span class='ignore'>}</span><span class='ignore'>}</span><br>
+	<span class='exclcommand'>\subfigure</span><span class='ignore'>[</span><span class='ignore'>Liver</span><span class='ignore'>~</span><span class='exclcommand'>\cite</span><span class='ignore'>{chen07mr}</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='exclcommand'>\includegraphics</span><span class='ignore'>[</span><span class='ignore'>width</span><span class='ignore'>=</span><span class='ignore'>0.12</span><span class='exclcommand'>\textwidth</span><span class='ignore'>,</span><span class='ignore'>height</span><span class='ignore'>=</span><span class='ignore'>0.12</span><span class='exclcommand'>\textwidth</span><span class='ignore'>]</span><span class='ignore'>{</span><span class='ignore'>Figures</span><span class='ignore'>/</span><span class='ignore'>Liver.pdf</span><span class='ignore'>}</span><br>
+	<span class='exclcommand'>\label</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>exLiver</span><span class='ignore'>}</span><span class='ignore'>}</span><span class='ignore'>i</span><br>
+<span class='command'>\caption</span><span class='ignore'>{</span><span class='word3'>Example</span> <span class='word3'>MRI</span> <span class='word3'>images</span> <span class='word3'>containing</span> <span class='word3'>tumors</span><span class='ignore'>.</span><span class='ignore'>}</span><br>
+<span class='exclcommand'>\label</span><span class='ignore'>{</span><span class='ignore'>fig</span><span class='ignore'>:</span><span class='ignore'>ex</span><span class='ignore'>}</span><br>
+<span class='grouping'>\end</span><span class='grouping'>{figure}</span><br>
 <br>
 <br>
-<span class='grouping'>\begin</span><span class='grouping'>{itemize}</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Review</span> <span class='word1'>tumour</span> <span class='word1'>features</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Attempt</span> <span class='word1'>to</span> <span class='word1'>generalise</span> <span class='word1'>these</span> <span class='word1'>features</span><br>
-<span class='grouping'>\end</span><span class='grouping'>{itemize}</span><br>
 <br>
 <br>
 <br>
@@ -349,35 +364,23 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <span class='command'>\section</span><span class='ignore'>{</span><span class='word2'>Feature</span> <span class='word2'>Extraction</span><span class='ignore'>}</span><br>
 <span class='command'>\label</span><span class='ignore'>{</span><span class='ignore'>sec</span><span class='ignore'>:</span><span class='ignore'>extraction</span><span class='ignore'>}</span><br>
 <br>
+<span class='word1'>High</span> <span class='word1'>level</span> <span class='word1'>feature</span> <span class='word1'>extraction</span> <span class='word1'>of</span> <span class='word1'>volumetric</span> <span class='word1'>shapes</span> <span class='word1'>should</span> <span class='word1'>be</span> <span class='word1'>used</span> <span class='word1'>on</span> <span class='word1'>the</span> <span class='word1'>input</span> <span class='word1'>image</span><span class='ignore'>.</span><br>
+<span class='word1'>These</span> <span class='word1'>high</span> <span class='word1'>intensity</span> <span class='word1'>regions</span> <span class='word1'>may</span> <span class='word1'>be</span> <span class='word1'>organs</span> <span class='word1'>walls</span> <span class='word1'>or</span> <span class='word1'>bones</span> <span class='word1'>but</span> <span class='word1'>should</span> <span class='word1'>also</span> <span class='word1'>include</span> <span class='word1'>potential</span> <span class='word1'>tumors</span><span class='ignore'>.</span><br>
 <br>
-<span class='word1'>TODO</span><span class='ignore'>:</span><br>
+<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Active</span> <span class='word2'>Contours</span><span class='ignore'>}</span><br>
 <br>
+<span class='word1'>Expanding</span> <span class='word1'>upon</span> <span class='word1'>common</span> <span class='word1'>2D</span> <span class='word1'>implementations</span> <span class='word1'>active</span> <span class='word1'>contours</span> <span class='word1'>can</span> <span class='word1'>be</span> <span class='word1'>used</span> <span class='word1'>to</span> <span class='word1'>extract</span> <span class='word1'>shape</span> <span class='word1'>information</span> <span class='word1'>from</span> <span class='word1'>volumetric</span> <span class='word1'>images</span><span class='ignore'>.</span><br>
+<span class='word1'>Equation</span><span class='ignore'>~</span><span class='command'>\eqref</span><span class='ignore'>{</span><span class='ignore'>eqn</span><span class='ignore'>:</span><span class='ignore'>contour</span><span class='ignore'>_</span><span class='ignore'>v</span><span class='ignore'>}</span> <span class='word1'>contains</span> <span class='word1'>the</span> <span class='word1'>standard</span> <span class='word1'>energy</span> <span class='word1'>minimisation</span> <span class='word1'>function</span> <span class='word1'>expanded</span> <span class='word1'>for</span> <span class='word1'>volumetric</span> <span class='word1'>images</span><span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{</span><span class='ignore'>nixon02feature</span><span class='ignore'>,</span><span class='ignore'>skalski13automatic</span><span class='ignore'>}</span><span class='ignore'>.</span> <br>
 <br>
-<span class='grouping'>\begin</span><span class='grouping'>{itemize}</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Review</span> <span class='word1'>different</span> <span class='word1'>methods</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Recommend</span> <span class='word1'>for</span> <span class='word1'>this</span> <span class='word1'>case</span><br>
-<span class='grouping'>\end</span><span class='grouping'>{itemize}</span><br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<span class='command'>\section</span><span class='ignore'>{</span><span class='word2'>Dimensionality</span> <span class='word2'>Reduction</span><span class='ignore'>}</span><br>
-<span class='command'>\label</span><span class='ignore'>{</span><span class='ignore'>sec</span><span class='ignore'>:</span><span class='ignore'>reduce</span><span class='ignore'>}</span><br>
+<span class='grouping'>\begin</span><span class='grouping'>{equation}</span><br>
+	<span class='ignore'>E</span> <span class='ignore'>=</span> <span class='exclcommand'>\int_</span><span class='ignore'>0</span><span class='ignore'>^</span><span class='ignore'>{1}</span> <span class='ignore'>E</span><span class='ignore'>_</span><span class='ignore'>{int}</span><span class='ignore'>(</span><span class='exclcommand'>\mathbf</span><span class='ignore'>{v}</span><span class='ignore'>)</span> <span class='ignore'>+</span> <span class='ignore'>E</span><span class='ignore'>_</span><span class='ignore'>{ext}</span><span class='ignore'>(</span><span class='exclcommand'>\mathbf</span><span class='ignore'>{v}</span><span class='ignore'>)</span> <span class='ignore'>+</span> <span class='ignore'>E</span><span class='ignore'>_</span><span class='ignore'>{con}</span><span class='ignore'>(</span><span class='exclcommand'>\mathbf</span><span class='ignore'>{v}</span><span class='ignore'>)</span><span class='exclcommand'>\:</span><span class='ignore'>ds</span><span class='ignore'>,</span><span class='exclcommand'>\:</span><span class='exclcommand'>\:</span><span class='exclcommand'>\mathbf</span><span class='ignore'>{v}</span><span class='ignore'>(</span><span class='ignore'>s</span><span class='ignore'>)</span> <span class='exclcommand'>\in</span> <span class='exclcommand'>\mathbb</span><span class='ignore'>{R}</span><span class='ignore'>^</span><span class='ignore'>3</span><br>
+	<span class='exclcommand'>\label</span><span class='ignore'>{</span><span class='ignore'>eqn</span><span class='ignore'>:</span><span class='ignore'>contour</span><span class='ignore'>_</span><span class='ignore'>v</span><span class='ignore'>}</span><br>
+<span class='grouping'>\end</span><span class='grouping'>{equation}</span><br>
 <br>
 <br>
 <br>
-<br>
-<br>
-<span class='word1'>TODO</span><span class='ignore'>:</span><br>
-<br>
-<br>
-<span class='grouping'>\begin</span><span class='grouping'>{itemize}</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Is</span> <span class='word1'>this</span> <span class='word1'>needed</span><span class='ignore'>?</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Common</span> <span class='word1'>techniques</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>What</span> <span class='word1'>fits</span> <span class='word1'>with</span> <span class='word1'>expected</span> <span class='word1'>data</span><br>
-<span class='grouping'>\end</span><span class='grouping'>{itemize}</span><br>
+<span class='comment'>%\section{Dimensionality Reduction}</span><br>
+<span class='comment'>%\label{sec:reduce}</span><br>
 <br>
 <br>
 <br>
@@ -390,19 +393,8 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <span class='command'>\section</span><span class='word2'>{Classification}</span><br>
 <span class='command'>\label</span><span class='ignore'>{</span><span class='ignore'>sec</span><span class='ignore'>:</span><span class='ignore'>class</span><span class='ignore'>}</span><br>
 <br>
-<br>
-<br>
-<span class='word1'>TODO</span><span class='ignore'>:</span><br>
-<br>
-<br>
-<span class='grouping'>\begin</span><span class='grouping'>{itemize}</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>How</span> <span class='word1'>the</span> <span class='word1'>data</span> <span class='word1'>will</span> <span class='word1'>look</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Computational</span> <span class='word1'>overheads</span><br>
-&nbsp; <span class='command'>\item</span> <span class='word1'>Confidence</span> <span class='word1'>output</span><br>
-<span class='grouping'>\end</span><span class='grouping'>{itemize}</span><br>
-<br>
-<br>
-<br>
+<span class='word1'>Classification</span> <span class='word1'>must</span> <span class='word1'>differentiate</span> <span class='word1'>between</span> <span class='word1'>extracted</span> <span class='word1'>geometric</span> <span class='word1'>shapes</span> <span class='word1'>that</span> <span class='word1'>are</span> <span class='word1'>normal</span> <span class='word1'>and</span> <span class='word1'>those</span> <span class='word1'>which</span> <span class='word1'>may</span> <span class='word1'>potentially</span> <span class='word1'>be</span> <span class='word1'>tumors</span><span class='ignore'>.</span><br>
+<span class='word1'>Tumors</span> <span class='word1'>will</span> <span class='word1'>also</span> <span class='word1'>be</span> <span class='word1'>attached</span> <span class='word1'>to</span> <span class='word1'>normal</span> <span class='word1'>internal</span> <span class='word1'>body</span> <span class='word1'>parts</span> <span class='word1'>so</span> <span class='word1'>the</span> <span class='word1'>classifier</span> <span class='word1'>must</span> <span class='word1'>be</span> <span class='word1'>able</span> <span class='word1'>to</span> <span class='word1'>handle</span> <span class='word1'>any</span> <span class='word1'>abnormalities</span> <span class='word1'>in</span> <span class='word1'>organs</span><span class='ignore'>.</span><br>
 <br>
 <br>
 <br>
@@ -438,13 +430,13 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <ul class='count'>
 <li class='header'>File: AshleyRobinson.tex</li>
 <li>Encoding: ascii</li>
-<li>Words in text: 1604</li>
+<li>Words in text: 1807</li>
 <li>Words in headers: 26</li>
-<li>Words in float captions: 24</li>
+<li>Words in float captions: 29</li>
 <li>Number of headers: 13</li>
-<li>Number of floats: 4</li>
-<li>Number of math inlines: 3</li>
-<li>Number of math displayed: 4</li>
+<li>Number of floats: 5</li>
+<li>Number of math inlines: 5</li>
+<li>Number of math displayed: 5</li>
 <li>Subcounts:</li>
 <span class='subcount'>
 <li class='fielddesc'>&nbsp; text+headers+captions (#headers/#floats/#inlines/#displayed)</li>
@@ -456,10 +448,10 @@ table.stat .sum {font-weight:bold; font-style:italic;}
   <li>106+2+0 (1/0/0/1) Subsection: Spatial Filtering</li>
   <li>101+2+0 (1/0/1/2) Subsection: Frequency Filtering</li>
   <li>28+2+0 (1/0/0/0) Subsection: Additional Processes</li>
-  <li>126+2+0 (1/0/0/0) Section: Feature Selection</li>
-  <li>8+2+0 (1/0/0/0) Section: Feature Extraction</li>
-  <li>11+2+0 (1/0/0/0) Section: Dimensionality Reduction</li>
-  <li>10+1+0 (1/0/0/0) Section: Classification</li>
+  <li>261+2+5 (1/1/2/0) Section: Feature Selection</li>
+  <li>30+2+0 (1/0/0/0) Section: Feature Extraction</li>
+  <li>28+2+0 (1/0/0/1) Subsection: Active Contours</li>
+  <li>39+1+0 (1/0/0/0) Section: Classification</li>
   <li>83+1+0 (1/0/0/0) Section: Conclusions</li>
 </span>
 </ul>

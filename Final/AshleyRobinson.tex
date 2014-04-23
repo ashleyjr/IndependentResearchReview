@@ -4,7 +4,7 @@
 \usepackage{hyperref}
 \usepackage[pdftex]{graphicx}
 \usepackage{subfigure}
-\usepackage{mathrsfs,amsmath}   %The amsmath package is included for \xrightarrow
+\usepackage{mathrsfs,amsmath,amsfonts}   %The amsmath package is included for \xrightarrow
 
 \hypersetup{
 	colorlinks=false,
@@ -266,7 +266,7 @@ An image of a liver will contain other organs so these must be considered when t
 	\subfigure[Lung~\cite{amutha13lung}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Lungs.pdf}
 	\label{fig:exLung}}
 	\subfigure[Liver~\cite{chen07mr}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Liver.pdf}
-	\label{fig:exLiver}}
+	\label{fig:exLiver}}i
 \caption{Example MRI images containing tumors.}
 \label{fig:ex}
 \end{figure}
@@ -281,12 +281,23 @@ An image of a liver will contain other organs so these must be considered when t
 \section{Feature Extraction}
 \label{sec:extraction}
 
+High level feature extraction of volumetric shapes should be used on the input image.
+These high intensity regions may be organs walls or bones but should also include potential tumors.
+
+\subsection{Active Contours}
+
+Expanding upon common 2D implementations active contours can be used to extract shape information from volumetric images.
+Equation~\eqref{eqn:contour_v} contains the standard energy minimisation function expanded for volumetric images~\cite{nixon02feature,skalski13automatic}. 
+
+\begin{equation}
+	E = \int_0^{1} E_{int}(\mathbf{v}) + E_{ext}(\mathbf{v}) + E_{con}(\mathbf{v})\:ds,\:\:\mathbf{v}(s) \in \mathbb{R}^3
+	\label{eqn:contour_v}
+\end{equation}
 
 
 
-
-\section{Dimensionality Reduction}
-\label{sec:reduce}
+%\section{Dimensionality Reduction}
+%\label{sec:reduce}
 
 
 
@@ -299,6 +310,8 @@ An image of a liver will contain other organs so these must be considered when t
 \section{Classification}
 \label{sec:class}
 
+Classification must differentiate between extracted geometric shapes that are normal and those which may potentially be tumors.
+Tumors will also be attached to normal internal body parts so the classifier must be able to handle any abnormalities in organs.
 
 
 
