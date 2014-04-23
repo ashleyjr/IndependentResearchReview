@@ -254,6 +254,24 @@ Malignant tumours are considered cancers because they invade nearby normal tissu
 \emph{Sarcomas} are solid regions of connective tissue which are rare.
 
 
+Whether the tumor lines the host or grows independently the key to feature extraction is to differentiate normal and abnormal cell density. 
+Figure~\ref{fig:ex} contains examples of identified tumors in different organs.
+The brain (\ref{fig:exBrain}) and lung (\ref{fig:exLiver}) images are far simpler than the liver image (\ref{fig:exLiver}).
+An image of a liver will contain other organs so these must be considered when trying to extract features.
+
+\begin{figure}
+	\centering
+	\subfigure[Brain~\cite{islam12seg}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Brain.pdf}
+	\label{fig:exBrain}}
+	\subfigure[Lung~\cite{amutha13lung}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Lungs.pdf}
+	\label{fig:exLung}}
+	\subfigure[Liver~\cite{chen07mr}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Liver.pdf}
+	\label{fig:exLiver}}
+\caption{Example MRI images containing tumors.}
+\label{fig:ex}
+\end{figure}
+
+
 
 
 
@@ -262,16 +280,6 @@ Malignant tumours are considered cancers because they invade nearby normal tissu
 
 \section{Feature Extraction}
 \label{sec:extraction}
-
-
-TODO:
-
-
-\begin{itemize}
-  \item Review different methods
-  \item Recommend for this case
-\end{itemize}
-
 
 
 
@@ -284,38 +292,12 @@ TODO:
 
 
 
-TODO:
-
-
-\begin{itemize}
-  \item Is this needed?
-  \item Common techniques
-  \item What fits with expected data
-\end{itemize}
-
-
-
-
-
 
 
 
 
 \section{Classification}
 \label{sec:class}
-
-
-
-TODO:
-
-
-\begin{itemize}
-  \item How the data will look
-  \item Computational overheads
-  \item Confidence output
-\end{itemize}
-
-
 
 
 
