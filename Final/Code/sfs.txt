@@ -1,0 +1,8 @@
+1. 	Z = {}, Y = {All}
+2. 	Z = Z + Y(Best)
+3. 	X = Z - Z(Worst)
+4. 	if(f(Z-) > f(Z)) 	
+		Z = X
+		goto 3
+	else				
+		goto 2

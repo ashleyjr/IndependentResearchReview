@@ -5,11 +5,41 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{subfigure}
 \usepackage{mathrsfs,amsmath,amsfonts}   %The amsmath package is included for \xrightarrow
+\usepackage{listings}
 
 \hypersetup{
 	colorlinks=false,
 	pdfborder={0 0 0},
 }
+
+\lstset{ %
+  %backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  %commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  %keywordstyle=\color{black},       % keyword style
+  language=C,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  %numberstyle=\tiny\color{black}, % the style that is used for the line-numbers
+  %rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  %stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  %stringstyle=\color{black},     % string literal style
+  tabsize=4,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
 
 \begin{document}
 \title{Tumour Classification By Volumetric Image Analysis}
@@ -69,7 +99,7 @@ Dosages of radiation, cost and simply the time required are all reasons to reduc
 Making the most of any data gathered is a constructive method of scan frequency reduction.
 The objective is to provide a recommendation for a system to be implemented such that a medical practitioner could use it as a tool for diagnosis.  
 
-The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended; inspired by those discussed in~\cite{ahmed2011efficacy,kumar2011classification,sachdeva2011multiclass,kostis03three}.
+The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended; inspired by those discussed in~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
 A chain of stages leads from raw data gathered from the patient to a diagnosis from a classification algorithm.
 A confidence sub-block enables the domain expert to view the performance of the entire system without knowing the intricacies of operation; this requires processing to be explained with respect to their domain.
 In medicine a threshold has to be selected carefully as false negatives in diagnosis are unjustifiable.
@@ -230,16 +260,31 @@ Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} using th
 \end{equation}
 
 
-\subsection{Additional Processes}
-Anisotropic diffusion is a powerful technique used to enhance images.
-The technique has been expanded from common 1D and 2D applications to 3D medical usage on MRI data~\cite{greig92nonlinear}.
+\subsection{Anisotropic Diffusion}
+Anisotropic diffusion is a powerful technique used to enhance images where it is possible to remove noise yet retain edges.
+The technique has been expanded from common 2D applications to 3D medical usage on MRI data~\cite{nakh11three}.
+The diffusion effect has the same outcome as a low pass filter with reasonably adjusted values for $\Delta t$ and the decay constant.
+The spatial scaler $\mathbf{k}$ is a function of the image and on edge must preserve edge by setting $k(x_{edge},y_{egde},z_{edge},t) = 0$.
+Using Eq.~\eqref{eqn:anisotropic} an iterative approach is provided in Eq.~\eqref{eqn:anisotropic_it} where the original image it the value of $\mathbf{I}$ at time zero.
+Iteration monitoring and reasonable scalar values in the function $\mathbf{k}$ are required to produce a good outcome.
+Edge detection methods to be used for $\mathbf{k}$ are discussed in~\cite{nixon02feature} but for edge critical processing Canny edge detection is suitable~\cite{canny86edge}. 
+
+\begin{equation}
+	\frac{\partial \mathbf{I}}{\partial t} = \mathbf{k(\mathbf{I})} \mathbf{\nabla}^2 \mathbf{I},\:\:\mathbf{k},\mathbf{I} \in \mathbb{R}^4
+	\label{eqn:anisotropic} 
+\end{equation}
+
+\begin{equation}
+	\mathbf{I}_{t + \Delta t} = \mathbf{I}_t + \Delta t\mathbf{k}(\mathbf{I}_t)\mathbf{\nabla}^2\mathbf{I}_t
+	\label{eqn:anisotropic_it} 
+\end{equation}
 
 
 
 
 
-\section{Feature Selection}
-\label{sec:selection}
+\section{Tumor Features}
+\label{sec:tumor}
 Before features can be extracted from a image it must be clear what features will be useful to a classification algorithm.
 Reducing dimensionality through feature reduction can often prove more effective then lower dimensional projection methods; discussed in Section~\ref{sec:reduce}.
 The recommendation of feature selection can come from domain knowledge or convergence on a subset that will provided a sufficiently low training error using an iterative tuning algorithm~\cite{bu07feature,li10tumor}.
@@ -266,10 +311,14 @@ An image of a liver will contain other organs so these must be considered when t
 	\subfigure[Lung~\cite{amutha13lung}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Lungs.pdf}
 	\label{fig:exLung}}
 	\subfigure[Liver~\cite{chen07mr}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Liver.pdf}
-	\label{fig:exLiver}}i
+	\label{fig:exLiver}}
 \caption{Example MRI images containing tumors.}
 \label{fig:ex}
 \end{figure}
+
+
+
+
 
 
 
@@ -287,7 +336,7 @@ These high intensity regions may be organs walls or bones but should also includ
 \subsection{Active Contours}
 
 Expanding upon common 2D implementations active contours can be used to extract shape information from volumetric images.
-Equation~\eqref{eqn:contour_v} contains the standard energy minimisation function expanded for volumetric images~\cite{nixon02feature,skalski13automatic}. 
+Eq.~\eqref{eqn:contour_v} contains the standard energy minimisation function expanded for volumetric images~\cite{nixon02feature,skalski13automatic}. 
 
 \begin{equation}
 	E = \int_0^{1} E_{int}(\mathbf{v}) + E_{ext}(\mathbf{v}) + E_{con}(\mathbf{v})\:ds,\:\:\mathbf{v}(s) \in \mathbb{R}^3
@@ -296,9 +345,41 @@ Equation~\eqref{eqn:contour_v} contains the standard energy minimisation functio
 
 
 
-%\section{Dimensionality Reduction}
-%\label{sec:reduce}
 
+
+
+
+
+
+
+
+
+
+\section{Feature Selection}
+\label{sec:selection}
+
+Commonly large datasets contain some features in the input space will be have no effect upon or even a reduce the performance of a classifier.
+It is naive to use just the raw image data.
+Tumor features for extraction have been considered in section~\ref{sec:tumor} which already makes better use of data. 
+Mapping input data into a lower dimensional space is possible and can improve performance but if ill-applied can remove key features.
+Although a brute-force would approach would find the optimal combination of features the input space is expected to be too large to be completely shattered within reasonable execution time. 
+
+
+\subsection{Sequential Floating Search}
+
+This is heuristic algorithm is applied to tumor classification in~\cite{hau07feat}.
+It is possible to start from either the full or empty set of features then iteratively add and remove features to improve the performance of the classifier. 
+A performance function is required for set comparison. 
+Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of no features and repeated until convergence.
+
+\lstinputlisting[label=lst:sfs,caption=SFS Algorithm]{Code/sfs.txt}
+
+
+\subsection{Genetic Algorithm}
+This a stochastic approach that   
+
+
+\subsection{Principal Component Analysis}
 
 
 

@@ -10,4 +10,5 @@ del *.blg
 del *.log
 del *.synctex.gz
 del *.toc
+del *.out
 
