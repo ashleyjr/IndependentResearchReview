@@ -365,9 +365,9 @@ Mapping input data into a lower dimensional space is possible and can improve pe
 Although a brute-force would approach would find the optimal combination of features the input space is expected to be too large to be completely shattered within reasonable execution time. 
 
 
-\subsection{Sequential Floating Search}
+\subsection{Sequential Floating Search (SFS)}
 
-This is heuristic algorithm is applied to tumor classification in~\cite{hau07feat}.
+This heuristic algorithm is applied to tumor classification in~\cite{hau07feat}.
 It is possible to start from either the full or empty set of features then iteratively add and remove features to improve the performance of the classifier. 
 A performance function is required for set comparison. 
 Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of no features and repeated until convergence.
@@ -375,14 +375,15 @@ Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of 
 \lstinputlisting[label=lst:sfs,caption=SFS Algorithm]{Code/sfs.txt}
 
 
-\subsection{Genetic Algorithm}
-This a stochastic approach that   
-
-
-\subsection{Principal Component Analysis}
+\subsection{Genetic Algorithm (GA)}
+This a stochastic approach that uses a population of potential solutions to converge on a sub-optimal output.
+A GAs have been applied to tumor feature  
 
 
 
+\subsection{Principle Component Analysis (PCA)}
+PCA is a common technique used for dimensionality reduction by identifying dimensions of the least variance. 
+These dimensions can then simply be removed but if the effect of a low variance dimension is important to classification this can reduce performance.
 
 
 
@@ -393,8 +394,23 @@ This a stochastic approach that
 
 Classification must differentiate between extracted geometric shapes that are normal and those which may potentially be tumors.
 Tumors will also be attached to normal internal body parts so the classifier must be able to handle any abnormalities in organs.
+Supervised and unsupervised techniques for classification even thought labelled datasets have not yet been sourced.
 
 
+\subsection{Artificial Neutral Networks (ANNs)}
+ANNs contain summation nodes where data is propagated through weighted connections resulting in a final output. 
+As a supervised technique parametric weights are trained by propagating the error backwards through the network.
+Multilayer nets can provided non-linear separation functions and increase the number of layers only increase the possible function complexity.
+
+
+
+\subsection{Support Vector Machines (SVMs)}
+An SVM classifier builds a separation margin supported by the close data points draw a separation function from the middle of this margin.
+
+
+
+\subsection{Boosting}
+Boosting is the practice of combining different techniques together and drawing an output based on many sub-classifier.
 
 
 

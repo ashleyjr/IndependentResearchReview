@@ -448,9 +448,9 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <span class='word1'>Although</span> <span class='word1'>a</span> <span class='word1'>brute-force</span> <span class='word1'>would</span> <span class='word1'>approach</span> <span class='word1'>would</span> <span class='word1'>find</span> <span class='word1'>the</span> <span class='word1'>optimal</span> <span class='word1'>combination</span> <span class='word1'>of</span> <span class='word1'>features</span> <span class='word1'>the</span> <span class='word1'>input</span> <span class='word1'>space</span> <span class='word1'>is</span> <span class='word1'>expected</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>too</span> <span class='word1'>large</span> <span class='word1'>to</span> <span class='word1'>be</span> <span class='word1'>completely</span> <span class='word1'>shattered</span> <span class='word1'>within</span> <span class='word1'>reasonable</span> <span class='word1'>execution</span> <span class='word1'>time</span><span class='ignore'>.</span> <br>
 <br>
 <br>
-<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Sequential</span> <span class='word2'>Floating</span> <span class='word2'>Search</span><span class='ignore'>}</span><br>
+<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Sequential</span> <span class='word2'>Floating</span> <span class='word2'>Search</span> <span class='ignore'>(</span><span class='word2'>SFS</span><span class='ignore'>)</span><span class='ignore'>}</span><br>
 <br>
-<span class='word1'>This</span> <span class='word1'>is</span> <span class='word1'>heuristic</span> <span class='word1'>algorithm</span> <span class='word1'>is</span> <span class='word1'>applied</span> <span class='word1'>to</span> <span class='word1'>tumor</span> <span class='word1'>classification</span> <span class='word1'>in</span><span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{hau07feat}</span><span class='ignore'>.</span><br>
+<span class='word1'>This</span> <span class='word1'>heuristic</span> <span class='word1'>algorithm</span> <span class='word1'>is</span> <span class='word1'>applied</span> <span class='word1'>to</span> <span class='word1'>tumor</span> <span class='word1'>classification</span> <span class='word1'>in</span><span class='ignore'>~</span><span class='command'>\cite</span><span class='ignore'>{hau07feat}</span><span class='ignore'>.</span><br>
 <span class='word1'>It</span> <span class='word1'>is</span> <span class='word1'>possible</span> <span class='word1'>to</span> <span class='word1'>start</span> <span class='word1'>from</span> <span class='word1'>either</span> <span class='word1'>the</span> <span class='word1'>full</span> <span class='word1'>or</span> <span class='word1'>empty</span> <span class='word1'>set</span> <span class='word1'>of</span> <span class='word1'>features</span> <span class='word1'>then</span> <span class='word1'>iteratively</span> <span class='word1'>add</span> <span class='word1'>and</span> <span class='word1'>remove</span> <span class='word1'>features</span> <span class='word1'>to</span> <span class='word1'>improve</span> <span class='word1'>the</span> <span class='word1'>performance</span> <span class='word1'>of</span> <span class='word1'>the</span> <span class='word1'>classifier</span><span class='ignore'>.</span> <br>
 <span class='word1'>A</span> <span class='word1'>performance</span> <span class='word1'>function</span> <span class='word1'>is</span> <span class='word1'>required</span> <span class='word1'>for</span> <span class='word1'>set</span> <span class='word1'>comparison</span><span class='ignore'>.</span> <br>
 <span class='word1'>Listing</span><span class='ignore'>~</span><span class='command'>\ref</span><span class='ignore'>{</span><span class='ignore'>lst</span><span class='ignore'>:</span><span class='ignore'>sfs</span><span class='ignore'>}</span> <span class='word1'>contains</span> <span class='word1'>the</span> <span class='word1'>algorithm</span> <span class='word1'>starting</span> <span class='word1'>from</span> <span class='word1'>an</span> <span class='word1'>initial</span> <span class='word1'>subset</span> <span class='word1'>of</span> <span class='word1'>no</span> <span class='word1'>features</span> <span class='word1'>and</span> <span class='word1'>repeated</span> <span class='word1'>until</span> <span class='word1'>convergence</span><span class='ignore'>.</span><br>
@@ -458,14 +458,15 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <span class='command'>\lstinputlisting</span><span class='option'>[label=lst:sfs,caption=SFS Algorithm]</span><span class='ignore'>{</span><span class='word1'>Code</span><span class='ignore'>/</span><span class='word1'>sfs.txt</span><span class='ignore'>}</span><br>
 <br>
 <br>
-<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Genetic</span> <span class='word2'>Algorithm</span><span class='ignore'>}</span><br>
-<span class='word1'>This</span> <span class='word1'>a</span> <span class='word1'>stochastic</span> <span class='word1'>approach</span> <span class='word1'>that</span>&nbsp;  <br>
-<br>
-<br>
-<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Principal</span> <span class='word2'>Component</span> <span class='word2'>Analysis</span><span class='ignore'>}</span><br>
+<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Genetic</span> <span class='word2'>Algorithm</span> <span class='ignore'>(</span><span class='word2'>GA</span><span class='ignore'>)</span><span class='ignore'>}</span><br>
+<span class='word1'>This</span> <span class='word1'>a</span> <span class='word1'>stochastic</span> <span class='word1'>approach</span> <span class='word1'>that</span> <span class='word1'>uses</span> <span class='word1'>a</span> <span class='word1'>population</span> <span class='word1'>of</span> <span class='word1'>potential</span> <span class='word1'>solutions</span> <span class='word1'>to</span> <span class='word1'>converge</span> <span class='word1'>on</span> <span class='word1'>a</span> <span class='word1'>sub-optimal</span> <span class='word1'>output</span><span class='ignore'>.</span><br>
+<span class='word1'>A</span> <span class='word1'>GAs</span> <span class='word1'>have</span> <span class='word1'>been</span> <span class='word1'>applied</span> <span class='word1'>to</span> <span class='word1'>tumor</span> <span class='word1'>feature</span>&nbsp; <br>
 <br>
 <br>
 <br>
+<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Principle</span> <span class='word2'>Component</span> <span class='word2'>Analysis</span> <span class='ignore'>(</span><span class='word2'>PCA</span><span class='ignore'>)</span><span class='ignore'>}</span><br>
+<span class='word1'>PCA</span> <span class='word1'>is</span> <span class='word1'>a</span> <span class='word1'>common</span> <span class='word1'>technique</span> <span class='word1'>used</span> <span class='word1'>for</span> <span class='word1'>dimensionality</span> <span class='word1'>reduction</span> <span class='word1'>by</span> <span class='word1'>identifying</span> <span class='word1'>dimensions</span> <span class='word1'>of</span> <span class='word1'>the</span> <span class='word1'>least</span> <span class='word1'>variance</span><span class='ignore'>.</span> <br>
+<span class='word1'>These</span> <span class='word1'>dimensions</span> <span class='word1'>can</span> <span class='word1'>then</span> <span class='word1'>simply</span> <span class='word1'>be</span> <span class='word1'>removed</span> <span class='word1'>but</span> <span class='word1'>if</span> <span class='word1'>the</span> <span class='word1'>effect</span> <span class='word1'>of</span> <span class='word1'>a</span> <span class='word1'>low</span> <span class='word1'>variance</span> <span class='word1'>dimension</span> <span class='word1'>is</span> <span class='word1'>important</span> <span class='word1'>to</span> <span class='word1'>classification</span> <span class='word1'>this</span> <span class='word1'>can</span> <span class='word1'>reduce</span> <span class='word1'>performance</span><span class='ignore'>.</span><br>
 <br>
 <br>
 <br>
@@ -476,8 +477,23 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <br>
 <span class='word1'>Classification</span> <span class='word1'>must</span> <span class='word1'>differentiate</span> <span class='word1'>between</span> <span class='word1'>extracted</span> <span class='word1'>geometric</span> <span class='word1'>shapes</span> <span class='word1'>that</span> <span class='word1'>are</span> <span class='word1'>normal</span> <span class='word1'>and</span> <span class='word1'>those</span> <span class='word1'>which</span> <span class='word1'>may</span> <span class='word1'>potentially</span> <span class='word1'>be</span> <span class='word1'>tumors</span><span class='ignore'>.</span><br>
 <span class='word1'>Tumors</span> <span class='word1'>will</span> <span class='word1'>also</span> <span class='word1'>be</span> <span class='word1'>attached</span> <span class='word1'>to</span> <span class='word1'>normal</span> <span class='word1'>internal</span> <span class='word1'>body</span> <span class='word1'>parts</span> <span class='word1'>so</span> <span class='word1'>the</span> <span class='word1'>classifier</span> <span class='word1'>must</span> <span class='word1'>be</span> <span class='word1'>able</span> <span class='word1'>to</span> <span class='word1'>handle</span> <span class='word1'>any</span> <span class='word1'>abnormalities</span> <span class='word1'>in</span> <span class='word1'>organs</span><span class='ignore'>.</span><br>
+<span class='word1'>Supervised</span> <span class='word1'>and</span> <span class='word1'>unsupervised</span> <span class='word1'>techniques</span> <span class='word1'>for</span> <span class='word1'>classification</span> <span class='word1'>even</span> <span class='word1'>thought</span> <span class='word1'>labelled</span> <span class='word1'>datasets</span> <span class='word1'>have</span> <span class='word1'>not</span> <span class='word1'>yet</span> <span class='word1'>been</span> <span class='word1'>sourced</span><span class='ignore'>.</span><br>
 <br>
 <br>
+<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Artificial</span> <span class='word2'>Neutral</span> <span class='word2'>Networks</span> <span class='ignore'>(</span><span class='word2'>ANNs</span><span class='ignore'>)</span><span class='ignore'>}</span><br>
+<span class='word1'>ANNs</span> <span class='word1'>contain</span> <span class='word1'>summation</span> <span class='word1'>nodes</span> <span class='word1'>where</span> <span class='word1'>data</span> <span class='word1'>is</span> <span class='word1'>propagated</span> <span class='word1'>through</span> <span class='word1'>weighted</span> <span class='word1'>connections</span> <span class='word1'>resulting</span> <span class='word1'>in</span> <span class='word1'>a</span> <span class='word1'>final</span> <span class='word1'>output</span><span class='ignore'>.</span> <br>
+<span class='word1'>As</span> <span class='word1'>a</span> <span class='word1'>supervised</span> <span class='word1'>technique</span> <span class='word1'>parametric</span> <span class='word1'>weights</span> <span class='word1'>are</span> <span class='word1'>trained</span> <span class='word1'>by</span> <span class='word1'>propagating</span> <span class='word1'>the</span> <span class='word1'>error</span> <span class='word1'>backwards</span> <span class='word1'>through</span> <span class='word1'>the</span> <span class='word1'>network</span><span class='ignore'>.</span><br>
+<span class='word1'>Multilayer</span> <span class='word1'>nets</span> <span class='word1'>can</span> <span class='word1'>provided</span> <span class='word1'>non-linear</span> <span class='word1'>separation</span> <span class='word1'>functions</span> <span class='word1'>and</span> <span class='word1'>increase</span> <span class='word1'>the</span> <span class='word1'>number</span> <span class='word1'>of</span> <span class='word1'>layers</span> <span class='word1'>only</span> <span class='word1'>increase</span> <span class='word1'>the</span> <span class='word1'>possible</span> <span class='word1'>function</span> <span class='word1'>complexity</span><span class='ignore'>.</span><br>
+<br>
+<br>
+<br>
+<span class='command'>\subsection</span><span class='ignore'>{</span><span class='word2'>Support</span> <span class='word2'>Vector</span> <span class='word2'>Machines</span> <span class='ignore'>(</span><span class='word2'>SVMs</span><span class='ignore'>)</span><span class='ignore'>}</span><br>
+<span class='word1'>An</span> <span class='word1'>SVM</span> <span class='word1'>classifier</span> <span class='word1'>builds</span> <span class='word1'>a</span> <span class='word1'>separation</span> <span class='word1'>margin</span> <span class='word1'>supported</span> <span class='word1'>by</span> <span class='word1'>the</span> <span class='word1'>close</span> <span class='word1'>data</span> <span class='word1'>points</span> <span class='word1'>draw</span> <span class='word1'>a</span> <span class='word1'>separation</span> <span class='word1'>function</span> <span class='word1'>from</span> <span class='word1'>the</span> <span class='word1'>middle</span> <span class='word1'>of</span> <span class='word1'>this</span> <span class='word1'>margin</span><span class='ignore'>.</span><br>
+<br>
+<br>
+<br>
+<span class='command'>\subsection</span><span class='word2'>{Boosting}</span><br>
+<span class='word1'>Boosting</span> <span class='word1'>is</span> <span class='word1'>the</span> <span class='word1'>practice</span> <span class='word1'>of</span> <span class='word1'>combining</span> <span class='word1'>different</span> <span class='word1'>techniques</span> <span class='word1'>together</span> <span class='word1'>and</span> <span class='word1'>drawing</span> <span class='word1'>an</span> <span class='word1'>output</span> <span class='word1'>based</span> <span class='word1'>on</span> <span class='word1'>many</span> <span class='word1'>sub-classifier</span><span class='ignore'>.</span><br>
 <br>
 <br>
 <br>
@@ -511,10 +527,10 @@ table.stat .sum {font-weight:bold; font-style:italic;}
 <ul class='count'>
 <li class='header'>File: AshleyRobinson.tex</li>
 <li>Encoding: ascii</li>
-<li>Words in text: 2078</li>
-<li>Words in headers: 36</li>
+<li>Words in text: 2243</li>
+<li>Words in headers: 48</li>
 <li>Words in float captions: 29</li>
-<li>Number of headers: 17</li>
+<li>Number of headers: 20</li>
 <li>Number of floats: 5</li>
 <li>Number of math inlines: 11</li>
 <li>Number of math displayed: 7</li>
@@ -533,10 +549,13 @@ table.stat .sum {font-weight:bold; font-style:italic;}
   <li>30+2+0 (1/0/0/0) Section: Feature Extraction</li>
   <li>28+2+0 (1/0/0/1) Subsection: Active Contours</li>
   <li>101+2+0 (1/0/0/0) Section: Feature Selection</li>
-  <li>63+3+0 (1/0/0/0) Subsection: Sequential Floating Search</li>
-  <li>5+2+0 (1/0/0/0) Subsection: Genetic Algorithm</li>
-  <li>0+3+0 (1/0/0/0) Subsection: Principal Component Analysis</li>
-  <li>39+1+0 (1/0/0/0) Section: Classification</li>
+  <li>62+4+0 (1/0/0/0) Subsection: Sequential Floating Search (SFS)</li>
+  <li>25+3+0 (1/0/0/0) Subsection: Genetic Algorithm (GA)</li>
+  <li>40+4+0 (1/0/0/0) Subsection: Principle Component Analysis (PCA)</li>
+  <li>54+1+0 (1/0/0/0) Section: Classification</li>
+  <li>51+4+0 (1/0/0/0) Subsection: Artificial Neutral Networks (ANNs)</li>
+  <li>23+4+0 (1/0/0/0) Subsection: Support Vector Machines (SVMs)</li>
+  <li>17+1+0 (1/0/0/0) Subsection: Boosting</li>
   <li>83+1+0 (1/0/0/0) Section: Conclusions</li>
 </span>
 </ul>
