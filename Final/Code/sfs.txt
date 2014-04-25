@@ -1,8 +1,8 @@
-1. 	Z = {}, Y = {All}
-2. 	Z = Z + Y(Best)
-3. 	X = Z - Z(Worst)
-4. 	if(f(Z-) > f(Z)) 	
-		Z = X
-		goto 3
+1. 	Z = {}, Y = {All}	// Setup
+2. 	Z = Z + Y(Best)		// Add the best feature
+3. 	X = Z - Z(Worst)	// Remove the worst
+4. 	if(f(X) > f(Z)) 	
+		Z = X			
+		goto 3			// Keep removing features
 	else				
-		goto 2
+		goto 2			// Repeat
