@@ -52,7 +52,7 @@
 
 
 % The paper headers
-\markboth{COMP6033: Independent Research Review. }	%	$27$/$03$/$14$.	DRAFT REPORT.}%
+\markboth{COMP6033: Independent Research Review. $08$/$05$/$14$.}%	DRAFT REPORT.}%
 {Robinson: Effective Tumour Classification Exploiting Volumetric Image Analysis}
 
 \maketitle
@@ -373,7 +373,8 @@ Commonly large datasets contain some features in the input space will be have no
 It is naive to use just the raw image data.
 Tumor features for extraction have been considered in section~\ref{sec:tumor} which already makes better use of data. 
 Mapping input data into a lower dimensional space is possible and can improve performance but if ill-applied can remove key features.
-A brute-force would approach would find the optimal combination of features but the input space is expected to be too large to be completely shattered within reasonable execution time. 
+A brute-force would approach would find the optimal combination of features but the input space is expected to be too large, $2^n$, to be completely shattered within reasonable execution time. 
+
 
 
 \subsection{Sequential Floating Search (SFS)}
@@ -386,15 +387,35 @@ Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of 
 \lstinputlisting[label=lst:sfs,caption=SFS Algorithm]{Code/sfs.txt}
 
 
-\subsection{Genetic Algorithm (GA)}
-This a stochastic approach that uses a population of potential solutions to converge on a sub-optimal output.
-A GAs have been applied to tumor feature  
 
+\subsection{Stochastic Approaches}
+A Random Mutation Hill Climber (RMHC) can move in the feature selection space from an initial starting point but will never reduce in performance.  
+This does not handle a landscape with many local maxima well and may not produce a reasonable solution.
+Genetic algorithms are more computationally expensive as they require a population of solutions using crossover and mutation to converge on a suitable solution.   
+Whether it out performs a RMHC depends on the performance landscape but using a population of solutions is certainly more thorough.    
+Simulated annealing can be used to move between solution neighbours subject over a fixed number of iterations.
+A cooling schedule is used to except negative moves in performance with a probability the is a function of the cooling variables. 
 
 
 \subsection{Principle Component Analysis (PCA)}
-PCA is a common technique used for dimensionality reduction by identifying dimensions of the least variance. 
-These dimensions can then simply be removed but if the effect of a low variance dimension is important to classification this can reduce performance.
+PCA is a common technique used for dimensionality reduction by ranking dimensions in order of variance~\cite{pearson01pca}.
+This will rank the features so that only the first $L$ are passed on for further processing. 
+The other dimensions can simply be removed but if the effect of a low variance dimension is important to classification this can reduce performance.
+Eq.~\eqref{eqn:PCA} shows how the original input pattern is mapped to a reduce pattern by subtracting the mean of all patterns and multiplying with the projection matrix.
+The projection matrix is built by finding the covariance matrix of the input patterns then ranking the eigenvectors by the eigenvalues and deleting as required.
+Performance feedback from training can be used to select appropriate $L$ value.
+
+\begin{equation}
+	\boldsymbol{z} = \boldsymbol{P}(\boldsymbol{x} - \boldsymbol{\mu})
+	\label{eqn:PCA}
+\end{equation}
+
+
+
+
+
+
+
 
 
 
@@ -417,6 +438,9 @@ Multilayer nets can provided non-linear separation functions and increase the nu
 
 \subsection{Support Vector Machines (SVMs)}
 An SVM classifier builds a separation margin supported by the close data points draw a separation function from the middle of this margin.
+A linear maximum-margin hyperplane is produce but non-linear data can also be separated by using the kernel trick. 
+This is a mapping of the input space into a higher dimensional space so that becomes linearly separable.
+The hyperplane is then mapped back to the original input space.
 
 
 
