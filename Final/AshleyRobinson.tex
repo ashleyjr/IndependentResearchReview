@@ -436,18 +436,21 @@ Multilayer nets can provided non-linear separation functions and increase the nu
 
 
 
+
 \subsection{Support Vector Machines (SVMs)}
 An SVM classifier builds a separation margin supported by the close data points draw a separation function from the middle of this margin.
-A linear maximum-margin hyperplane is produce but non-linear data can also be separated by using the kernel trick. 
+A linear maximum-margin hyperplane is produce but non-linear data can also be separated by using the kernel trick~\cite{cortes95support}.. 
 This is a mapping of the input space into a higher dimensional space so that becomes linearly separable.
 The hyperplane is then mapped back to the original input space.
-
+SVMs have been successfully applied to breast cancer diagnosis in~\cite{xiufeng13svm}
+The approach uses a weighted combination of polynomial and radial basis functions to improve the generalisation performance.
 
 
 \subsection{Boosting}
 A weak learner for binary classification can be considered any classifier with an error rate less than $0.5$.
 It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of different weak learners. 
-AdaBoost is the most common implementation of a boosting algorithm~\cite{freund99boost}.
+The algorithm can be considered a hybrid of feature selection and classification.
+AdaBoost is the most common implementation of a boosting algorithm~\cite{freund99boost} and has been successfully applied to brain tumor classification in~\cite{islam13multi}.
 
 
 
