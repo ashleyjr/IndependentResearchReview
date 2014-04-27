@@ -263,6 +263,7 @@ Equalisation attempts to flatten the histogram by distributing intensity~\cite{n
 
 
 \subsection{Spatial Filtering}
+\label{sec:spatial}
 Spatial filters use the neighbourhood of voxels to create a new value for each voxel in an image. 
 The original image is mapped to a new image through a filter kernel, as described in Eq.~\eqref{eqn:kernel}.
 The filter kernel is a fixed dimension sub-image with a weighting on each voxel that is applied to every voxel in the original image.
@@ -309,7 +310,7 @@ The diffusion effect has the same outcome as a low pass filter with reasonably a
 The spatial scaler $\mathbf{k}$ is a function of the image and on edge must preserve edge by setting $k(x_{edge},y_{egde},z_{edge},t) = 0$.
 Using Eq.~\eqref{eqn:anisotropic} an iterative approach is provided in Eq.~\eqref{eqn:anisotropic_it} where the original image it the value of $\mathbf{I}$ at time zero.
 Iteration monitoring and reasonable scalar values in the function $\mathbf{k}$ are required to produce a good outcome.
-Edge detection methods to be used for $\mathbf{k}$ are discussed in~\cite{nixon02feature} but for edge critical processing Canny edge detection is suitable~\cite{canny86edge}. 
+Edge detection methods to be used for $\mathbf{k}$ are discussed in section~\ref{sec:edge}.
 
 \begin{equation}
 	\frac{\partial \mathbf{I}}{\partial t} = \mathbf{k(\mathbf{I})} \mathbf{\nabla}^2 \mathbf{I},\:\:\mathbf{k},\mathbf{I} \in \mathbb{R}^4
@@ -342,12 +343,36 @@ High level feature extraction of volumetric shapes should be used on the input i
 These high intensity regions may be organs walls or bones but should also include potential tumors.
 
 
+\subsection{Edge Detection}
+\label{sec:edge}
+Edge detection can be performed using convolution with a kernel template as discussed in section~\ref{sec:spatial}. 
+These templates are designed to create a new image contain voxel differences and can therefore be thought of as taking the derivative of the image.
+2D templates are discussed in~\cite{nixon02feature} and templates are the same for volumetric images.
+As all dimensions must be considered the differencing is just extended to the third dimension as shown in fig~\ref{fig:sobel}.
+Smaller filter masks are also available to reduce computation.
 
+\begin{figure}[!htb]
+   \centering
+   \includegraphics[width = 0.2\textwidth]{Figures/Sobel.pdf}
+   \caption{3D Sobel filter mask~\cite{lohmann1998volumetric}}
+   \label{fig:sobel}
+\end{figure}
+
+In edge critical processing better results can be produced with Canny edge detection~\cite{canny86edge}. 
+A four stage process that uses Gaussian smoothing, the Sobel operator, non-maximal suppression followed by hysteresis thresholding.
+This reduces noise, minimises position difference in the mapping and eliminates multiple responses to an edge.
+
+
+\subsection{Generalised Hough Transform (GHT)}
+
+The GHT has been successfully applied to 3D images but as the shape of tumors are often unknown fitting a shape becomes redundant. 
+Some tumors, fig.~\ref{fig:exBrain}, grow spherically meaning the ease of fitting sphere using GHT may be a useful feature for classification.
 
 \subsection{Active Contours}
 
-Expanding upon common 2D implementations active contours can be used to extract shape information from volumetric images.
-Eq.~\eqref{eqn:contour_v} contains the standard energy minimisation function expanded for volumetric images~\cite{nixon02feature,skalski13automatic}. 
+Active contours are a flexible methods for shape extraction.
+Expanding upon common 2D implementations active contours can be used to extract features from volumetric images.
+Eq.~\eqref{eqn:contour_v} contains the standard energy minimisation function~\cite{nixon02feature,skalski13automatic}. 
 
 \begin{equation}
 	E = \int_0^{1} E_{int}(\mathbf{v}) + E_{ext}(\mathbf{v}) + E_{con}(\mathbf{v})\:ds,\:\:\mathbf{v}(s) \in \mathbb{R}^3
