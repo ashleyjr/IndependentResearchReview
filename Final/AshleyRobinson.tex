@@ -445,9 +445,9 @@ The hyperplane is then mapped back to the original input space.
 
 
 \subsection{Boosting}
-Boosting is the practice of combining different techniques together and drawing an output based on many sub-classifier.
-
-
+A weak learner for binary classification can be considered any classifier with an error rate less than $0.5$.
+It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of different weak learners. 
+AdaBoost is the most common implementation of a boosting algorithm~\cite{freund99boost}.
 
 
 
