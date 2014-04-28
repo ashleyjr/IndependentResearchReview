@@ -52,20 +52,23 @@
 
 
 % The paper headers
-\markboth{COMP6033: Independent Research Review. $08$/$05$/$14$.}%	DRAFT REPORT.}%
-{Robinson: Effective Tumour Classification Exploiting Volumetric Image Analysis}
+\markboth{COMP6033: Independent Research Review. $29$/$04$/$14$.}%	DRAFT REPORT.}%
+{}
 
 \maketitle
 
 
 \begin{abstract}
 
-This research review covers techniques available for the classification of tumours in the human body considering practical implications of individual methods.   
-An architecture is proposed to classify medical images that follows basic image processing conventions with an additional sub-module that provides non-technical confidence informations for a domain expert.  
-All image processing stages are considered only for the case of volumetric images.
-Using a third dimension scales up complexity because of the amount of data available but has the potential to yield better results than a 2D approach.
-A combination of image processing and machine learning techniques are reviewed and a selection is made on how to populate the architecture.
-These include volumetric image extraction, feature selection and classifier. 
+This research review covers techniques available for binary classification of tumours in the human body considering practical implications of individual methods.   
+An architecture is proposed in order to give direction to research and to allow consideration of stage interactions.
+Targeted at medical images the system follows standard image processing conventions and contains a sub-module that provides confidence information to domain expert.  
+Only volumetric images processing is considered.
+Pre-processing and Feature extraction techniques are reviewed. 
+Machine learning techniques for feature selection and classification are also considered. 
+
+The recommendation for population begins with anisotropic diffusion, for edge preservation smoothing, followed by edge detection and shape extraction.
+Sequential floating searching is used for feature selection when using a support vector machine for classification.
 Human supervised deployment is considered whether stand-alone or as an extension to existing medical review software.
 
 \end{abstract}
@@ -91,22 +94,22 @@ Human supervised deployment is considered whether stand-alone or as an extension
 
 
 \section{Introduction}
-\IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately classify tumours. 
-The problem is to be approached by considering only the general case where no specific area of the human body is considered.
+\IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately classify the presence of tumours in the human body. 
+The problem is to be approached by considering the general cases so concentration is not applied to a specific area of the human body.
 Rather than trying to classify lung or brain tumours individually the goal is to consider what tumours have in common and given an entire image of a human body is it possible to classify tumours in any given section?
 The motivation behind this is to make the most of medical scanning.
-Dosages of radiation, cost and simply the time required are all reasons to reduce the number of required scans.
-Making the most of any data gathered is a constructive method of scan frequency reduction.
-The objective is to provide a recommendation for a system to be implemented such that a medical practitioner could use it as a tool for diagnosis.  
+Dosages of radiation, cost and professionals time are all reasons to reduce the number of required patient scans.
+Throughly inspecting any data gathered is a constructive method of scan reduction.
+The objective is to provide a recommendation for a tool to be implemented to assist in medical practitioner diagnosis.  
 
-The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended; inspired by those discussed in~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
+The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended and is inspired by those discussed in~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
 A chain of stages leads from raw data gathered from the patient to a diagnosis from a classification algorithm.
 A confidence sub-block enables the domain expert to view the performance of the entire system without knowing the intricacies of operation; this requires processing to be explained with respect to their domain.
 In machine learning for medical applications a classification threshold has to be selected carefully as false negatives are more serious the false positive.
 
 Raw data is captured from the patient and passed to system for pre-processing then feature extraction.
-Input patterns are produced dependent on a pre-determined list of known useful features. 
-Feature reduction and normalisation is then used to frame the data as such to make the most of the classification algorithm.
+Input patterns are produced dependent on a pre-determined list of known useful tumour features. 
+Dimensionality reduction is then used to frame the data as such to make the most of the classification algorithm.
 
 \begin{figure}[!htb]
    \centering
@@ -128,8 +131,8 @@ Feature reduction and normalisation is then used to frame the data as such to ma
 \section{Image Acquisition}
 \label{sec:image}
 
-A standard X-ray medical scan is tuned to produce and image of human bone.
-The rays are attenuated by different materials in the body, more so by dense regions of bone, and the image is gained from this attenuation effect~\cite{kayvan2006biomedical}..  
+A standard medical X-ray is tuned to produce and image of human bone.
+The rays are attenuated by different materials in the body, more so by dense regions, and the image is gained from this attenuation effect~\cite{kayvan2006biomedical}. 
 This uses a single source and substrate to capture the image.
 Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
 Fig.~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
@@ -144,7 +147,7 @@ A ring allows images to be capture from 360$^{\circ}$ in a single plane then by 
 
 Any method of non-invasive image capturing in 2D can therefore be expanded to work in 3D by using the CT principle.
 Different methods have trade-offs such as radiation dosages and resolution.
-Ultrasound is a method of image acquisition with the advantage of a small processing overhead allowing internal organs to be viewed in real-time which is beneficial because it allows practitioners to view internal physical movement. 
+Ultrasound is a method of image acquisition with the advantage of a small computational processing overhead allowing internal organs to be viewed in real-time which is beneficial because it allows practitioners to view internal physical movement. 
 It can be used for CT but higher resolution methods are usually favoured such as X-ray and Magnetic Resonance Imaging (MRI).
 
 There are also other non-intrusive methods that do not use electromagnetic or ultrasonic waves.
@@ -152,11 +155,12 @@ Hand palpitation is a common technique used by medical practitioners to gain an 
 Electromechanical apparatus employing the same technique can be used transfer the geometry of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
 Only part of the area under inspection is visible so the technique has obvious drawbacks.
 
-Data is typically stored as a series of greyscale 2D images which are slices of the scan.
-The image viewer will build 3D images as and when required using these slices.
-The common medical standard for these images is DICOM which holds the slices, relative position and also patient information~\cite{dicom11nema}.
+Only high resolution grayscale sources will be considered in this review.
+This data is typically stored as a series of 2D images which are slices of a scan.
+An image viewer will build 3D images as and when required using these slices.
+The common medical standard for these images is DICOM which holds the slices, relative position and also the patient's details~\cite{dicom11nema}.
 Viewing the data naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
-Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three slices to gain an impression of the region.
+Software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three planes to gain an impression of the region.
 
 \begin{figure}[!htb]
    \centering
@@ -176,20 +180,21 @@ Viewing software provides interactive images as shown in Fig.~\ref{fig:3d} which
 
 
 
-\section{Tumor Features}
-\label{sec:tumor}
+\section{Tumour Features}
+\label{sec:tumour}
 
 There are hundreds of types of tumours that can occur in the human body but they are all caused by abnormalities in cell growth~\cite{cooper1992cancer}.
-Tumours are dense areas of cells in the human body and can be either benign or malignant.
-Malignant tumours are considered cancers because they invade nearby normal tissue and spread therefore making them an area of concern; these are broken down in to three categories.
-\emph{Carcinomas} where cells line the body and internal organs account for $90$\% of human caners.
-\emph{Leukemias} and \emph{Lymphomas} which occur in the blood and lymph systems account for $8$\%.
+Tumours are dense areas of cells and can be either benign or malignant.
+Malignant tumours are considered cancers because they invade nearby normal tissue and spread therefore making them an area of concern.
+These are broken down in to three categories.
+\emph{Carcinomas}, cells lining the body and internal organs, account for $90$\% of human caners.
+\emph{Leukemias} and \emph{Lymphomas}, occurring in the blood and lymph systems, account for $8$\% in humans.
 \emph{Sarcomas} are solid regions of connective tissue which are rare.
 
 
-Whether the tumor lines the host or grows independently the key to feature extraction is to differentiate normal and abnormal cell density. 
-Figure~\ref{fig:ex} contains examples of identified tumors in different organs.
-The brain (\ref{fig:exBrain}) and lung (\ref{fig:exLiver}) images are far simpler than the liver image (\ref{fig:exLiver}).
+Whether the tumour lines the host or grows independently the key to identification is to differentiate normal and abnormal cell density. 
+Figure~\ref{fig:ex} contains examples of identified tumours in different organs.
+Tumours in brain (\ref{fig:exBrain}) and lung (\ref{fig:exLiver}) images are far simpler to identify than the liver image (\ref{fig:exLiver}).
 An image of a liver will contain other organs so these must be considered when trying to extract features.
 
 \begin{figure}
@@ -200,7 +205,7 @@ An image of a liver will contain other organs so these must be considered when t
 	\label{fig:exLung}}
 	\subfigure[Liver~\cite{chen07mr}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Liver.pdf}
 	\label{fig:exLiver}}
-\caption{Example MRI images containing tumors.}
+\caption{Example MRI images containing tumours.}
 \label{fig:ex}
 \end{figure}
 
@@ -217,10 +222,10 @@ An image of a liver will contain other organs so these must be considered when t
 \section{Pre-processing}
 \label{sec:pre}
 
-The analogue of a pixel (picture element) in 2D images is called a voxel (volumetric element) in a 3D images.
+The analogue of a pixel (picture element) in a 2D image is called a voxel (volumetric element) in a 3D image.
 This is exactly the same idea but with a extra dimension to form a cube~\cite{lohmann1998volumetric}.
 They can be considered cubes but also points which may make visualisation and processing easier to understand.
-Fig.~\ref{fig:neighbourhood} describes how voxels are packed and three different neighbourhoods the can be considered when inspecting one voxel. 
+Fig.~\ref{fig:neighbourhood} describes how voxels are packed and the three different neighbourhoods that can be considered when inspecting a single voxel. 
 Considering voxels to have larger neighbourhoods can increase the time complexity of some algorithms.
 
 
@@ -237,7 +242,7 @@ Considering voxels to have larger neighbourhoods can increase the time complexit
 \end{figure}
 
 
-The provided raw data needs to be converted from the delivery format of the acquisition technology to a raw 3D matrix ready for generic processing.
+The raw data provided needs to be converted from the delivery format of the acquisition technology to a raw 3D matrix ready for generic processing.
 Watermarking, which may have been inserted for human review, should also be removed at this stage. 
 This is trivial in theory but requires a database of artefacts or manual review to accomplish.
 There are also techniques, not considered in this paper, which can be applied just to the slices of a volumetric image which may be used to reduce processing overheads~\cite{harauz86exact}.
@@ -340,7 +345,7 @@ Edge detection methods to be used for $\mathbf{k}$ are discussed in section~\ref
 \label{sec:extraction}
 
 High level feature extraction of volumetric shapes should be used on the input image.
-These high intensity regions may be organs walls or bones but should also include potential tumors.
+These high intensity regions may be organs walls or bones but should also include potential tumours.
 
 
 \subsection{Edge Detection}
@@ -365,8 +370,8 @@ This reduces noise, minimises position difference in the mapping and eliminates 
 
 \subsection{Generalised Hough Transform (GHT)}
 
-The GHT has been successfully applied to 3D images but as the shape of tumors are often unknown fitting a shape becomes redundant. 
-Some tumors, fig.~\ref{fig:exBrain}, grow spherically meaning the ease of fitting sphere using GHT may be a useful feature for classification.
+The GHT has been successfully applied to 3D images but as the shape of tumours are often unknown fitting a shape becomes redundant. 
+Some tumours, fig.~\ref{fig:exBrain}, grow spherically meaning the ease of fitting sphere using GHT may be a useful feature for classification.
 
 \subsection{Active Contours}
 
@@ -396,7 +401,7 @@ Eq.~\eqref{eqn:contour_v} contains the standard energy minimisation function~\ci
 
 Commonly large datasets contain some features in the input space will be have no effect upon or even a reduce the performance of a classifier.
 It is naive to use just the raw image data.
-Tumor features for extraction have been considered in section~\ref{sec:tumor} which already makes better use of data. 
+Tumour features for extraction have been considered in section~\ref{sec:tumour} which already makes better use of data. 
 Mapping input data into a lower dimensional space is possible and can improve performance but if ill-applied can remove key features.
 A brute-force would approach would find the optimal combination of features but the input space is expected to be too large, $2^n$, to be completely shattered within reasonable execution time. 
 
@@ -404,7 +409,7 @@ A brute-force would approach would find the optimal combination of features but 
 
 \subsection{Sequential Floating Search (SFS)}
 
-This heuristic algorithm is applied to tumor classification in~\cite{hau07feat}.
+This heuristic algorithm is applied to tumour classification in~\cite{hau07feat}.
 It is possible to start from either the full or empty set of features then iteratively add and remove features to improve the performance of the classifier. 
 A performance function is required for set comparison. 
 Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of no features and repeated until convergence.
@@ -449,8 +454,8 @@ Performance feedback from training can be used to select appropriate $L$ value.
 \section{Classification}
 \label{sec:class}
 
-Classification must differentiate between extracted geometric shapes that are normal and those which may potentially be tumors.
-Tumors will also be attached to normal internal body parts so the classifier must be able to handle any abnormalities in organs.
+Classification must differentiate between extracted geometric shapes that are normal and those which may potentially be tumours.
+Tumours will also be attached to normal internal body parts so the classifier must be able to handle any abnormalities in organs.
 Supervised and unsupervised techniques for classification even thought labelled datasets have not yet been sourced.
 
 
@@ -475,7 +480,7 @@ The approach uses a weighted combination of polynomial and radial basis function
 A weak learner for binary classification can be considered any classifier with an error rate less than $0.5$.
 It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of different weak learners. 
 The algorithm can be considered a hybrid of feature selection and classification.
-AdaBoost is the most common implementation of a boosting algorithm~\cite{freund99boost} and has been successfully applied to brain tumor classification in~\cite{islam13multi}.
+AdaBoost is the most common implementation of a boosting algorithm~\cite{freund99boost} and has been successfully applied to brain tumour classification in~\cite{islam13multi}.
 
 
 
