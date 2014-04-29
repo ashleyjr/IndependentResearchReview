@@ -371,14 +371,23 @@ A four stage process that uses Gaussian smoothing, the Sobel operator, non-maxim
 This reduces noise, minimises position difference in the mapping and eliminates multiple responses to an edge.
 
 
-\subsection{Generalised Hough Transform (GHT)}
 
-The GHT has been successfully applied to 3D images but as the shape of tumours are often unknown fitting a shape becomes redundant. 
-Some tumours, Fig.~\ref{fig:exBrain}, grow spherically so the ability to fit a sphere using the GHT may be a useful feature for classification.
+
+
+\subsection{Hough Transform (HT)}
+
+The HT uses a dual space as an accumulator for evidence based location of a shape inside an image~\cite{nixon02feature}.
+It has been successfully applied to 3D images to locate spherical shapes~\cite{abuzaina13hough}.
+Some tumours, Fig.~\ref{fig:exBrain}, grow spherically so the ability to fit a sphere is a useful feature for classification.
+The distribution of the accumulator space can be used to indicate how many potential spheres fit the image but this si expected to be noisy as it is unlikely tumours will be exact spheres.
+
+
+
+
 
 \subsection{Active Contours}
 
-The active contour model is a methods for flexible shape extraction.
+The active contour model is a method for flexible shape extraction.
 Expanding upon common 2D implementations active contours can be used to extract features from volumetric images.
 Eq.~\eqref{eqn:contour_v} contains the standard energy minimisation function~\cite{nixon02feature,skalski13automatic}. 
 
@@ -386,6 +395,26 @@ Eq.~\eqref{eqn:contour_v} contains the standard energy minimisation function~\ci
 	E = \int_0^{1} E_{int}(\mathbf{v}) + E_{ext}(\mathbf{v}) + E_{con}(\mathbf{v})\:ds,\:\:\mathbf{v}(s) \in \mathbb{R}^3
 	\label{eqn:contour_v}
 \end{equation}
+
+The internal energy is measured using the first and second order differentials of the contours.
+Eq.~\eqref{eqn:contour_int} contains internal energy with two parametric functions chosen prior to fitting.
+These control elasticity, $\alpha$, and stiffness, $\beta$, of the contour.
+The external energy is effected by three variables.
+Image intensity is controlled by the sign of $w_l$ which attracts the contour to light or dark voxels.
+Edges from $w_e$ and termination energy is a function of curvature.
+Curvature can measured 
+
+\begin{equation}
+	 E_{int}= \alpha(s)\left|\frac{d\mathbf{v}(s)}{ds}\right|^2 + \beta(s)\left|\frac{d^2\mathbf{v}(s)}{ds^2}\right|^2 
+	 \label{eqn:contour_int}
+\end{equation}
+
+\begin{equation}
+	 E_{ext}= w_{l}\mathbf{I} + w_{e}|\nabla \mathbf{I}|^2 + w_{t}E_c(\mathbf{I})
+	 \label{eqn:contour_int}
+\end{equation}
+
+
 
 
 
@@ -459,10 +488,7 @@ Performance feedback from training can be used to select appropriate $L$ value.
 
 Classification must differentiate between extracted geometric shapes that are normal and those which may potentially be tumours.
 Tumours will also be attached to normal internal body parts so the classifier must be able to handle any abnormalities in organs.
-Supervised and unsupervised techniques for classification are considered even though a datasets have not yet been sourced.
-
-
-\subsection{Clustering}
+Supervised techniques for classification are considered even though a datasets have not yet been sourced.
 
 
 
@@ -478,15 +504,29 @@ Multilayer nets can provided non-linear separation functions and increasing the 
 An SVM classifier builds a separation margin supported by the closest data points the drawing a separation plane from the middle of this margin.
 A linear maximum-margin hyperplane is produce but non-linear data can also be separated by using the kernel trick~\cite{cortes95support}. 
 This is a mapping of the input space into a higher dimensional space so that it becomes linearly separable.
-SVMs have been successfully applied to breast cancer diagnosis in~\cite{xiufeng13svm}
+SVMs have been successfully applied to breast cancer diagnosis~\cite{xiufeng13svm}
 The approach uses a weighted combination of polynomial and radial basis functions to improve the generalisation performance.
+
 
 
 \subsection{Boosting}
 A weak learner for binary classification can be considered any classifier with an error rate less than $0.5$.
-It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of different weak learners. 
+It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of different weak hypothesises provided by weak learners. 
 The algorithm can be considered a hybrid of feature selection and classification.
-AdaBoost is the most common implementation of a boosting algorithm~\cite{freund99boost} and has been successfully applied to brain tumour classification in~\cite{islam13multi}.
+
+AdaBoost is the most common implementation of a boosting algorithm and has been successfully applied to brain tumour classification~\cite{freund99boost,islam13multi}.
+The architecture of AdaBoost can be thought of as single layer ANN but trained using the error in each weak hypothesis containing with an input dimensions equivalent to the number of boosting rounds.
+The weight for each hypothesis is calculated using Eq.~\eqref{eqn:adaboost} where $\epsilon_t$ is the error which means anything greater than $0.5$ is negative and as $\epsilon_t \to 0$ then $\alpha_t \to \infty$.
+The distribution of data to train the weak learner for the next hypothesis is also determined using Eq.~\eqref{eqn:adaboost} therefore contributing to feature selection.
+
+
+\begin{equation}
+	\alpha_t = \frac{1}{2}\ln\left(\frac{1 - \epsilon_t}{\epsilon_t}\right)
+	\label{eqn:adaboost}
+\end{equation}
+
+
+
 
 
 
