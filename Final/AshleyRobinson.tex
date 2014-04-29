@@ -62,13 +62,13 @@
 
 This research review covers techniques available for binary classification of tumours in the human body considering practical implications of individual methods.   
 An architecture is proposed in order to give direction to research and to allow consideration of stage interactions.
-Targeted at medical images the system follows standard image processing conventions and contains a sub-module that provides confidence information to domain expert.  
+Targeted at medical images the system follows standard image processing conventions and contains a sub-module that provides confidence information for a domain expert.  
 Only volumetric images processing is considered.
 Pre-processing and Feature extraction techniques are reviewed. 
 Machine learning techniques for feature selection and classification are also considered. 
 
 The recommendation for population begins with anisotropic diffusion, for edge preservation smoothing, followed by edge detection and shape extraction.
-Sequential floating searching is used for feature selection when using a support vector machine for classification.
+Sequential floating search for feature selection then finally a support vector machine for classification.
 Human supervised deployment is considered whether stand-alone or as an extension to existing medical review software.
 
 \end{abstract}
@@ -95,19 +95,20 @@ Human supervised deployment is considered whether stand-alone or as an extension
 
 \section{Introduction}
 \IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately classify the presence of tumours in the human body. 
-The problem is to be approached by considering the general cases so concentration is not applied to a specific area of the human body.
-Rather than trying to classify lung or brain tumours individually the goal is to consider what tumours have in common and given an entire image of a human body is it possible to classify tumours in any given section?
+The problem is to be approached by considering the general cases therefore concentration is not set on a specific area of the human body.
+Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify tumours in any given section?
 The motivation behind this is to make the most of medical scanning.
-Dosages of radiation, cost and professionals time are all reasons to reduce the number of required patient scans.
+Dosages of radiation, cost and capture time are all reasons to reduce the number of required patient scans.
 Throughly inspecting any data gathered is a constructive method of scan reduction.
-The objective is to provide a recommendation for a tool to be implemented to assist in medical practitioner diagnosis.  
+A practical end objective is used to provide direction to research and maximise the resultant impact.
+The is to provide a recommendation for a tool to be implemented to assist in medical practitioner diagnosis.  
 
 The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended and is inspired by those discussed in~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
 A chain of stages leads from raw data gathered from the patient to a diagnosis from a classification algorithm.
-A confidence sub-block enables the domain expert to view the performance of the entire system without knowing the intricacies of operation; this requires processing to be explained with respect to their domain.
+A confidence sub-block enables an expert to view the performance of the entire system without knowing the intricacies of operation which means processing is required for domain translation.
 In machine learning for medical applications a classification threshold has to be selected carefully as false negatives are more serious the false positive.
 
-Raw data is captured from the patient and passed to system for pre-processing then feature extraction.
+Raw data is captured from the patient and passed to the system for pre-processing then feature extraction.
 Input patterns are produced dependent on a pre-determined list of known useful tumour features. 
 Dimensionality reduction is then used to frame the data as such to make the most of the classification algorithm.
 
@@ -131,9 +132,9 @@ Dimensionality reduction is then used to frame the data as such to make the most
 \section{Image Acquisition}
 \label{sec:image}
 
-A standard medical X-ray is tuned to produce and image of human bone.
+A standard medical X-ray is tuned to produce an image of human bone.
 The rays are attenuated by different materials in the body, more so by dense regions, and the image is gained from this attenuation effect~\cite{kayvan2006biomedical}. 
-This uses a single source and substrate to capture the image.
+This uses a single source and substrate pair to capture the image.
 Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
 Fig.~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
 A ring allows images to be capture from 360$^{\circ}$ in a single plane then by moving in the orthogonal plane, in Fig.~\ref{fig:ct} through the paper, a full volumetric image of the patient can be made. 
@@ -147,20 +148,21 @@ A ring allows images to be capture from 360$^{\circ}$ in a single plane then by 
 
 Any method of non-invasive image capturing in 2D can therefore be expanded to work in 3D by using the CT principle.
 Different methods have trade-offs such as radiation dosages and resolution.
-Ultrasound is a method of image acquisition with the advantage of a small computational processing overhead allowing internal organs to be viewed in real-time which is beneficial because it allows practitioners to view internal physical movement. 
+Ultrasound is a method of image acquisition which does not use electromagnetic radiation and requires little computational processing. 
+This means internal organs can be viewed in real-time which is beneficial because it allows practitioners to view internal physical movement. 
 It can be used for CT but higher resolution methods are usually favoured such as X-ray and Magnetic Resonance Imaging (MRI).
 
 There are also other non-intrusive methods that do not use electromagnetic or ultrasonic waves.
 Hand palpitation is a common technique used by medical practitioners to gain an impression of abnormalities near the surface of the human body. 
-Electromechanical apparatus employing the same technique can be used transfer the geometry of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
+Electromechanical apparatus employing the same technique can be used to transfer the geometry of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
 Only part of the area under inspection is visible so the technique has obvious drawbacks.
 
 Only high resolution grayscale sources will be considered in this review.
-This data is typically stored as a series of 2D images which are slices of a scan.
-An image viewer will build 3D images as and when required using these slices.
+This data is typically stored as a series of 2D images which are scan slices.
+An image viewer will build 3D images as and when required.
 The common medical standard for these images is DICOM which holds the slices, relative position and also the patient's details~\cite{dicom11nema}.
-Viewing the data naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
-Software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three planes to gain an impression of the region.
+Viewing an image naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
+Software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three planes to gain an impression of a region.
 
 \begin{figure}[!htb]
    \centering
@@ -193,8 +195,8 @@ These are broken down in to three categories.
 
 
 Whether the tumour lines the host or grows independently the key to identification is to differentiate normal and abnormal cell density. 
-Figure~\ref{fig:ex} contains examples of identified tumours in different organs.
-Tumours in brain (\ref{fig:exBrain}) and lung (\ref{fig:exLiver}) images are far simpler to identify than the liver image (\ref{fig:exLiver}).
+Fig.~\ref{fig:ex} contains examples of identified tumours in different organs.
+Tumours shown in the brain (Fig. \ref{fig:exBrain}) and lung (Fig. \ref{fig:exLiver}) are far simpler to identify than the liver example image (Fig. \ref{fig:exLiver}).
 An image of a liver will contain other organs so these must be considered when trying to extract features.
 
 \begin{figure}
@@ -247,16 +249,16 @@ Watermarking, which may have been inserted for human review, should also be remo
 This is trivial in theory but requires a database of artefacts or manual review to accomplish.
 There are also techniques, not considered in this report, which can be applied only to the slices of volumetric images therefore reducing computation overheads~\cite{harauz86exact}.
 
-Pre-processing methods are used to enhance the image captured end ensure it is correctly formatted for further processing.
-This is considered as a mapping from an original image to a new image, $\textbf{I} \mapsto \textbf{I}'$, using only information from the original image.
+Pre-processing methods are used to enhance the image captured and ensure it is correctly formatted for further processing.
+This is considered as an image mapping, $\textbf{I} \mapsto \textbf{I}'$, using only information from the original image.
 
 \subsection{Histogram Operations}
 
-An image histogram is a mapping from an image to a 2D plot of the frequency of voxel intensity.
-This is possible because voxels only have a discrete value of intensity within a fixed range.
-A histogram contains information on the type of material seen in the image, if it can be determined from intensity, and how much of that material is used to form the entire image.
+In this context a histogram is a mapping from the image to cumulative voxel intensity.
+This is possible because voxels only have discrete values of intensity within a fixed range.
+Some materials can be determined from image intensity therefore a histogram contains information on the quantity of a given material contain in the image.
 Image enhancement can be performed using point operations with information from the histogram.
-This is a very fast method of image enhancement as it is direct voxel-to-voxel mapping, as shown in Eq.~\eqref{eqn:point}. 
+This is a fast enhancement method as it is direct voxel-to-voxel mapping, as shown in Eq.~\eqref{eqn:point}. 
 Normalisation stretches the histogram to cover all available values of intensity therefore improving contrast.
 Equalisation attempts to flatten the histogram by distributing intensity~\cite{nixon02feature}.
 
@@ -291,7 +293,7 @@ A Discrete Fourier Transform (DFT) for an $N^3$ voxel image is held in Eq.~\eqre
 The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
 It may prove more efficient to filter an image in the frequency domain rather than the spatial domain if the required filter kernel is large.
 Band-pass and notch filter operations can also be perform in the frequency domain.
-Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} as describeded using Eq.~\eqref{eqn:dft}.
+Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} where $\mathcal{F}$ is described by Eq.~\eqref{eqn:dft}.
 
 \begin{equation}
 	F_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}I_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
@@ -494,9 +496,15 @@ AdaBoost is the most common implementation of a boosting algorithm~\cite{freund9
 It is clear that this tool can't be used as a hard and fast method of tumour diagnosis but instead as a valuable tool for image reviewers.
 Software packages designed for medical image review, such as~\cite{slicer}, have bidirectional interfaces to custom extensions.
 Implementing this system as an extension would remove many overheads required in data handling but reduce the scope for optimisation.
-The feedback from the entire process would be a checklist which the user must manually review and waive if incorrectly identified. 
+The feedback from the entire process would be a checklist which the user must manually review and waive if incorrectly identified.
 
+Medical images are high resolution but noise can still be issue and a pre-processing stage is reasonable.
+The acquisition method should be verified to contain no image processing as this could produce redundancy.
+Anisotropic diffusion is recommended to reduce noise because edge detection is important in later stages.
+This method can also by easily tuned by limiting iterations of algorithm.
 
+Edge detection is for both pre-processing and feature extraction.
+Canny edge detection produces significantly better results than simple filter kernels but the expense of computation.
 
 
 
