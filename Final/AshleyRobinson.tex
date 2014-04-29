@@ -373,6 +373,20 @@ This reduces noise, minimises position difference in the mapping and eliminates 
 
 
 
+\subsection{Curvature Detection}
+\label{sec:curvature_detection}
+Tumours are expected to differ from expect flat surfaces of organ walls, measuring curvature will be useful for classification.
+Curvature can be expressed as the rate of change in the normal along a line, $g(t)$, which is described by Eq.~\ref{eqn:curv}.
+Surface measurements, required in volumetric detection, there are infinitely many curves at a given point~\cite{lohmann1998volumetric}.
+The principle directions of the most and least curvature are evaluated then by taking the mean and Gaussian values, $H = (k_1 + K_2)/2$ and $K = k_1K_2$, the type of point to be detected.
+On a plane $H = 0,\;K=0$, on a peak $H<0,\;K>0$ and at a saddle point $K<0$.
+An absolute value of curvature can be taken as $E_c=|H|+|K|$.
+
+\begin{equation}
+	k = \frac{g''(t)}{(1 + g'(t)^2)^{\frac{3}{2}}}
+	\label{eqn:curv}
+\end{equation}
+
 
 \subsection{Hough Transform (HT)}
 
@@ -401,8 +415,7 @@ Eq.~\eqref{eqn:contour_int} contains internal energy with two parametric functio
 These control elasticity, $\alpha$, and stiffness, $\beta$, of the contour.
 The external energy is effected by three variables.
 Image intensity is controlled by the sign of $w_l$ which attracts the contour to light or dark voxels.
-Edges from $w_e$ and termination energy is a function of curvature.
-Curvature can measured 
+Edges detection controlled by $w_e$ and curvature used for termination controlled by $w_t$. 
 
 \begin{equation}
 	 E_{int}= \alpha(s)\left|\frac{d\mathbf{v}(s)}{ds}\right|^2 + \beta(s)\left|\frac{d^2\mathbf{v}(s)}{ds^2}\right|^2 
@@ -435,7 +448,7 @@ Commonly large datasets contain some features in the input space will be have no
 It is naive to use just the raw image data.
 Tumour features for extraction have been considered in section~\ref{sec:tumour} which already removes some redundant information. 
 Mapping input data into a lower dimensional space is possible and can improve performance but if ill-applied can remove key features.
-A brute-force appraoch would find the optimal combination of features but the input space is expected to be too large, $2^n$, to be completely shattered within reasonable execution time. 
+A brute-force approach would find the optimal combination of features but the input space is expected to be too large, $2^n$, to be completely shattered within reasonable execution time. 
 
 
 
@@ -543,9 +556,14 @@ The acquisition method should be verified to contain no image processing as this
 Anisotropic diffusion is recommended to reduce noise because edge detection is important in later stages.
 This method can also by easily tuned by limiting iterations of algorithm.
 
-Edge detection is for both pre-processing and feature extraction.
+Edge detection is for required for both pre-processing and feature extraction.
 Canny edge detection produces significantly better results than simple filter kernels but the expense of computation.
+All feature extraction techniques are recommended in an attempt to produce 
 
+The confidence analysis unit will take noise information from the initial image by differencing the input and output of the pre-processing stage.
+In feature extraction can report on the ability to extract the expected shapes from an image. 
+Reduction will operate ind
+The SVM produces
 
 
 
