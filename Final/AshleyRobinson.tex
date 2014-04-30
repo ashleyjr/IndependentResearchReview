@@ -41,6 +41,9 @@
 }
 
 
+
+
+
 \begin{document}
 \title{Tumour Detection By Volumetric Image Analysis}
 \author{
@@ -58,19 +61,21 @@
 \maketitle
 
 
+
+
+
 \begin{abstract}
 
-This research review covers techniques available for detecting tumours in the human body considering practical implications of individual methods.   
-An architecture is proposed in order to give direction to research and to allow consideration of method interactions.
-Targeted at medical images the system follows standard image processing conventions and contains a sub-module that provides confidence information for a domain expert.  
-Only volumetric images processing is considered.
-Pre-processing and Feature extraction techniques are reviewed. 
+This research review covers techniques available for detecting tumours in the human body considering practical implications of concatenated methods.   
+An architecture is proposed in order to give direction to research and to allow consideration of processing interactions.
+Targeted at medical review applications the system follows standard image processing conventions and contains a sub-module that provides confidence information for a domain expert.  
+Volumetric image processing techniques for pre-processing and feature extraction are reviewed. 
 Machine learning techniques for feature selection and classification are also considered. 
 
-The recommendation for population begins with anisotropic diffusion, for edge preservation smoothing, followed by edge detection and shape extraction.
-Principal component analysis for dimensionality reduction then finally a support vector machine for classification.
-The AdaBoost algorithm is considered for improving classifier performance.
-Human supervised deployment is considered whether stand-alone or as an extension to existing medical review software.
+The recommendation for population begins with anisotropic diffusion, for edge preservation smoothing, followed by edge, curvature and shape extraction.
+Leading to principal component analysis for dimensionality reduction then finally a support vector machine for classification.
+The AdaBoost algorithm is considered for improving classifier performance and further pruning the input space.
+Human supervised deployment is considered, after further testing, whether stand-alone or as an extension to existing medical review software.
 
 \end{abstract}
 
@@ -96,16 +101,15 @@ Human supervised deployment is considered whether stand-alone or as an extension
 
 \section{Introduction}
 \IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately detect the presence of tumours in the human body. 
-The problem is to be approached by considering the general cases therefore concentration is not set on a specific area of the human body.
-Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify the presence tumours in any given section?
+The problem is to be approached by considering the general cases therefore concentration is not set on a specific area of the body.
+Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify the presence of a tumour in any given section?
 The motivation behind this is to make the most of medical scanning.
 Dosages of radiation, cost and capture time are all reasons to reduce the number of required patient scans.
 Throughly inspecting any data gathered is a constructive method of scan reduction.
-A practical end objective is used to provide direction to research and maximise the resultant impact.
-The is to provide a recommendation for a tool to be implemented to assist in medical practitioner diagnosis.  
+A practical end objective is used to provide direction to research and maximise the resultant impact which is to provide a recommendation for a tool to be implemented that can assist with medical practitioner diagnosis.  
 
-The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended and is inspired by those discussed in~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
-A chain of stages leads from raw data gathered from the patient to a diagnosis from a classification algorithm.
+The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended and is inspired by similar topologies discussed in the literature~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
+A chain of stages leads from raw data gathered from the patient to a classification algorithm resulting in diagnosis.
 A confidence sub-block enables an expert to view the performance of the entire system without knowing the intricacies of operation which means processing is required for domain translation.
 In machine learning for medical applications a classification threshold has to be selected carefully as false negatives are more serious the false positive.
 
@@ -138,12 +142,12 @@ The rays are attenuated by different materials in the body, more so by dense reg
 This uses a single source and substrate pair to capture the image.
 Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
 Fig.~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
-A ring allows images to be capture from 360$^{\circ}$ in a single plane then by moving in the orthogonal plane, in Fig.~\ref{fig:ct} through the paper, a full volumetric image of the patient can be made. 
+A ring allows images to be capture from 360$^{\circ}$ in a single plane then by moving in the orthogonal plane is is possible to compute a full volumetric image. 
 
 \begin{figure}[!htb]
    \centering
    \includegraphics[width = 0.3\textwidth]{Figures/CT.pdf}
-   \caption{Acquiring data from Computed Tomography. Adapted from~\cite{kayvan2006biomedical}.}
+   \caption{Acquiring data from Computed Tomography~\cite{kayvan2006biomedical}.}
    \label{fig:ct}
 \end{figure}
 
@@ -163,12 +167,12 @@ This data is typically stored as a series of 2D images which are scan slices.
 An image viewer will build 3D images as and when required.
 The common medical standard for these images is DICOM which holds the slices, relative position and also the patient's details~\cite{dicom11nema}.
 Viewing an image naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
-Software provides interactive images as shown in Fig.~\ref{fig:3d} which allows the user to move three planes to gain an impression of a region.
+Software provides interactive rendering as shown in Fig.~\ref{fig:3d} which allows the user to move three planes to gain an impression of a region.
 
 \begin{figure}[!htb]
    \centering
    \includegraphics[width = 0.3\textwidth]{Figures/3Dview.png}
-   \caption{An MRI scan of a healthy brain taken from~\cite{cia} and rendered by~\cite{slicer}.}
+   \caption{An MRI scan of a healthy brain taken from and rendered by image review software~\cite{cia,slicer}.}
    \label{fig:3d}
 \end{figure}
 
@@ -194,13 +198,34 @@ These are broken down in to three categories.
 \emph{Leukemias} and \emph{Lymphomas}, occurring in the blood and lymph systems, account for $8$\% in humans.
 \emph{Sarcomas} are solid regions of connective tissue which are rare.
 
+All types of tumours are areas for concern.
+Fig.~\ref{fig:growing} shows an initial accelerated growth rate producing a benign tumour which eventually becomes malignant as it spreads to nearby tissue.
+Malignant tumours and carcinomas in situ can be easily removed by surgery.
+Once a tumour begins to metastasize surgery becomes ineffective. 
+Detection should be tuned towards the dense regions, Fig.~\ref{fig:grow2}, before spreading and when spread locally so surgery remains a viable solution.    
+
+\begin{figure}[!htb]
+	\centering
+	\subfigure[Hyperproliferation cell population.]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Stage1.pdf}
+	\label{fig:grow1}}
+	\subfigure[Small adenoma (benign).]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Stage2.pdf}
+	\label{fig:grow2}}
+	\subfigure[Large adenoma plus carcinoma (malignant).]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Stage3.pdf}
+	\label{fig:grow3}}
+\caption{Development of colon/rectum carcinomas~\cite{cooper1992cancer}.}
+\label{fig:growing}
+\end{figure}
+
+
+
+
 
 Whether the tumour lines the host or grows independently the key to identification is to differentiate normal and abnormal cell density. 
 Fig.~\ref{fig:ex} contains examples of identified tumours in different organs.
-Tumours shown in the brain (Fig. \ref{fig:exBrain}) and lung (Fig. \ref{fig:exLiver}) are far simpler to identify than the liver example image (Fig. \ref{fig:exLiver}).
+Tumours shown in the brain and lungs, Fig. \ref{fig:exBrain} and \ref{fig:exLiver}, are far simpler to identify than the liver example image in Fig. \ref{fig:exLiver}.
 An image of a liver will contain other organs so these must be considered when trying to extract features.
 
-\begin{figure}
+\begin{figure}[!htb]
 	\centering
 	\subfigure[Brain~\cite{islam12seg}]{\includegraphics[width=0.12\textwidth,height=0.12\textwidth]{Figures/Brain.pdf}
 	\label{fig:exBrain}}
@@ -232,7 +257,7 @@ Fig.~\ref{fig:neighbourhood} describes how voxels are packed and the three diffe
 Considering voxels to have larger neighbourhoods can increase the time complexity of some algorithms.
 
 
-\begin{figure}
+\begin{figure}[!htb]
 	\centering
 	\subfigure[6]{\includegraphics[width = 0.12\textwidth]{Figures/6N.pdf}
 	\label{fig:neighbourhood6}}
@@ -257,9 +282,9 @@ This is considered as an image mapping, $\textbf{I} \mapsto \textbf{I}'$, using 
 
 In this context a histogram is a mapping from the image to cumulative voxel intensity.
 This is possible because voxels only have discrete values of intensity within a fixed range.
-Some materials can be determined from image intensity therefore a histogram contains information on the quantity of a given material contain in the image.
+Some materials can be determined from image intensity therefore a histogram contains information on the quantity of a given material contained in the image.
 Image enhancement can be performed using point operations with information from the histogram.
-This is a fast enhancement method as it is direct voxel-to-voxel mapping, as shown in Eq.~\eqref{eqn:point}. 
+This is a fast enhancement method as it is direct voxel-to-voxel mapping as shown in Eq.~\eqref{eqn:point}. 
 Normalisation stretches the histogram to cover all available values of intensity therefore improving contrast.
 Equalisation attempts to flatten the histogram by distributing intensity~\cite{nixon02feature}.
 
@@ -293,7 +318,7 @@ The Fourier transform, as used spatially on 2D images, can be extended to 3D ima
 A Discrete Fourier Transform (DFT) for an $N^3$ voxel image is held in Eq.~\eqref{eqn:dft}.
 The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
 It may prove more efficient to filter an image in the frequency domain rather than the spatial domain if the required filter kernel is large.
-Band-pass and notch filter operations can also be perform in the frequency domain.
+Band-pass and notch filter operations can also be performed in the frequency domain.
 Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} where $\mathcal{F}$ is described by Eq.~\eqref{eqn:dft}.
 
 \begin{equation}
@@ -349,21 +374,21 @@ Edge detection methods to be used for $\mathbf{k}$ are discussed in section~\ref
 \label{sec:extraction}
 
 High level feature extraction of volumetric shapes should be used on the input image.
-These high intensity regions may be organ walls or bones but should also include potential tumours.
+Extracted regions may include organ walls or bones but should also include potential tumours.
 
 
 \subsection{Edge Detection}
 \label{sec:edge}
 Edge detection can be performed using convolution with a kernel template as discussed in section~\ref{sec:spatial}. 
-These templates are designed to create a new image contain voxel differences and can therefore be thought of as taking the derivative of the image.
-2D templates are discussed in~\cite{nixon02feature} and templates are the same for volumetric images.
+These templates are designed to create a new image containing voxel differences and can therefore be thought of as taking the derivative of the image.
+2D templates are common and can be expanded for volumetric images~\cite{nixon02feature}.
 As all dimensions must be considered during differencing the 3D application is extended in the third dimension as shown in Fig~\ref{fig:sobel}.
 Smaller filter masks are also available to reduce computation but with dimimnished results.
 
 \begin{figure}[!htb]
    \centering
    \includegraphics[width = 0.2\textwidth]{Figures/Sobel.pdf}
-   \caption{3D Sobel filter mask~\cite{lohmann1998volumetric}}
+   \caption{3D Sobel filter mask~\cite{lohmann1998volumetric}.}
    \label{fig:sobel}
 \end{figure}
 
@@ -377,10 +402,10 @@ This reduces noise, minimises position difference in the mapping and eliminates 
 \subsection{Curvature Detection}
 \label{sec:curvature_detection}
 The output of an edge detection method can be measured with respect to curvature.
-Tumours are expected to differ from expect flat surfaces of organ walls, measuring curvature will be useful for classification.
+Tumours are expected to differ from the expected flat surfaces of organ walls, measuring curvature will be useful for classification.
 Curvature can be expressed as the rate of change in the normal along a line, $g(t)$, which is described by Eq.~\ref{eqn:curv}.
-Surface measurements, required in volumetric detection, there are infinitely many curves at a given point~\cite{lohmann1998volumetric}.
-The principle directions of the most and least curvature are evaluated then by taking the mean and Gaussian values, $H = (k_1 + K_2)/2$ and $K = k_1K_2$, the type of point to be detected.
+Surface measurements, required in volumetric detection, contain infinitely many curves at a given point~\cite{lohmann1998volumetric}.
+The principle directions, those of most and least curvature, are evaluated then by taking the mean and Gaussian values, $H = (k_1 + K_2)/2$ and $K = k_1K_2$, so that the category of curvature at a point can be detected.
 On a plane $H = 0,\;K=0$, on a peak $H<0,\;K>0$ and at a saddle point $K<0$.
 An absolute value of curvature can be taken as $E_c=|H|+|K|$.
 
@@ -395,7 +420,7 @@ An absolute value of curvature can be taken as $E_c=|H|+|K|$.
 The HT uses a dual space as an accumulator for evidence based location of a shape inside an image~\cite{nixon02feature}.
 It has been successfully applied to 3D images to locate spherical shapes~\cite{abuzaina13hough}.
 Some tumours, Fig.~\ref{fig:exBrain}, grow spherically so the ability to fit a sphere is a useful feature for classification.
-The distribution of the accumulator space can be used to indicate how many potential spheres fit the image but this si expected to be noisy as it is unlikely tumours will be exact spheres.
+The distribution of the accumulator space can be used to indicate how many potential spheres fit the image but this is expected to be noisy as it is unlikely tumours will be exact spheres.
 
 
 
@@ -417,7 +442,7 @@ Eq.~\eqref{eqn:contour_int} contains internal energy with two parametric functio
 These control elasticity, $\alpha$, and stiffness, $\beta$, of the contour.
 The external energy is effected by three variables.
 Image intensity is controlled by the sign of $w_l$ which attracts the contour to light or dark voxels.
-Edges detection controlled by $w_e$ and curvature used for termination controlled by $w_t$. 
+Edge detection controlled by $w_e$ and curvature used for termination controlled by $w_t$. 
 
 \begin{equation}
 	 E_{int}= \alpha(s)\left|\frac{d\mathbf{v}(s)}{ds}\right|^2 + \beta(s)\left|\frac{d^2\mathbf{v}(s)}{ds^2}\right|^2 
@@ -458,7 +483,7 @@ A brute-force approach would find the optimal combination of features but the in
 
 This heuristic algorithm is applied to tumour classification in~\cite{hau07feat}.
 It is possible to start from either the full or empty set of features then iteratively add and remove features to improve the performance of the classifier. 
-A performance function is required for set comparison. 
+A performance function is required for feature set comparison. 
 Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of no features and repeated until convergence.
 
 \lstinputlisting[label=lst:sfs,caption=SFS Algorithm]{Code/sfs.txt}
@@ -466,12 +491,12 @@ Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of 
 
 
 \subsection{Stochastic Approaches}
-A Random Mutation Hill Climber (RMHC) can move in the feature selection space from an initial starting point but will never reduce in performance.  
+A Random Mutation Hill Climber (RMHC) can move between in the combinatorial feature selection space from an initial starting point but will never reduce in performance.  
 This does not handle a landscape with many local maxima well and may not produce a reasonable solution.
 Genetic algorithms are more computationally expensive as they require a population of solutions using crossover and mutation to converge on a suitable solution.   
-Whether it out performs a RMHC depends on the performance landscape but using a population of solutions is certainly more thorough.    
+Whether it out performs a RMHC depends on the landscape but using a population of solutions is certainly more thorough.    
 Simulated annealing can be used to move between solution neighbours subject over a fixed number of iterations.
-A cooling schedule is used to except negative moves in performance with a probability the is a function of the cooling variable. 
+A cooling schedule is used to except negative moves in performance with a probability that is a function of the cooling variable. 
 
 
 \subsection{Principle Component Analysis (PCA)}
@@ -503,7 +528,7 @@ Performance feedback from training can be used to select appropriate $L$ value.
 
 Classification must differentiate between extracted geometric shapes that are normal and those which may potentially be tumours.
 Tumours will also be attached to normal internal body parts so the classifier must be able to handle any abnormalities in organs.
-Supervised techniques for classification are considered even though a datasets have not yet been sourced.
+Supervised techniques for classification are considered even though datasets have not yet been sourced.
 
 
 
@@ -514,7 +539,7 @@ Multilayer nets can provided non-linear separation functions and increasing the 
 Neural networks have been applied successfully to classification of brain tumours~\cite{amin12brain}.
 
 Eq.~\eqref{eqn:mlp} is an example of a two layer network with an $n$ dimensional input space and $m$ hidden nodes.
-A $tanh$ activation function is used in the on the output of the hidden nodes but only the sign is used for the binary classification task.
+A $tanh$ activation function is used on the output of the hidden nodes but only the sign is used for the binary classification task.
 There is also a scalar offset, $b$, on the output and an offset vector, $\mathbf{c}$, on the hidden layer. 
 
 \begin{equation}
@@ -525,10 +550,10 @@ There is also a scalar offset, $b$, on the output and an offset vector, $\mathbf
 
 
 \subsection{Support Vector Machines (SVMs)}
-An SVM classifier builds a separation margin supported by the closest data points the drawing a separation plane from the middle of this margin.
+An SVM classifier builds a separation margin supported by the closest data points then draws a separation plane from the middle of this margin.
 A linear maximum-margin hyperplane is produce but non-linear data can also be separated by using the kernel trick~\cite{cortes95support}. 
 This is a mapping of the input space into a higher dimensional space so that it becomes linearly separable.
-SVMs have been successfully applied to breast cancer diagnosis~\cite{xiufeng13svm}
+SVMs have been successfully applied to breast cancer diagnosis~\cite{xiufeng13svm}.
 The approach uses a weighted combination of polynomial and radial basis functions to improve the generalisation performance.
 
 
@@ -539,8 +564,8 @@ It is possible to create a strong learner, having a much smaller error rate, by 
 The algorithm can be considered a hybrid of feature selection and classification.
 
 AdaBoost is the most common implementation of a boosting algorithm and has been successfully applied to brain tumour classification~\cite{freund99boost,islam13multi}.
-The architecture of AdaBoost can be thought of as single layer ANN but trained using the error in each weak hypothesis containing with an input dimensions equivalent to the number of boosting rounds.
-The weight for each hypothesis is calculated using Eq.~\eqref{eqn:adaboost} where $\epsilon_t$ is the error which means anything greater than $0.5$ is negative and as $\epsilon_t \to 0$ then $\alpha_t \to \infty$.
+The architecture of AdaBoost can be thought of as single layer ANN but trained using the error in each weak hypothesis with an input dimensions equivalent to the number of boosting rounds.
+The weights for each hypothesis is calculated using Eq.~\eqref{eqn:adaboost} where $\epsilon_t$ is the error which means anything greater than $0.5$ is negative and as $\epsilon_t \to 0$ then $\alpha_t \to \infty$.
 The distribution of data to train the weak learner for the next hypothesis is also determined using Eq.~\eqref{eqn:adaboost} therefore contributing to feature selection.
 
 
@@ -558,25 +583,28 @@ The distribution of data to train the weak learner for the next hypothesis is al
 \label{sec:conclusions}
 
 It is clear that this tool can't be used as a hard and fast method of tumour diagnosis but instead as a valuable tool for image reviewers.
-Software packages designed for medical image review, such as~\cite{slicer}, have bidirectional interfaces to custom extensions.
-Implementing this system as an extension would remove many overheads required in data handling but reduce the scope for optimisation.
+Software packages designed for medical image review have bidirectional interfaces to custom extensions~\cite{slicer}.
+Implementing this system as an extension would remove some overheads required for data handling but reduce the scope for optimisation.
 The feedback from the entire process would be a checklist which the user must manually review and waive if incorrectly identified.
 
 Medical images are high resolution but noise can still be issue and a pre-processing stage is reasonable.
 The acquisition method should be verified to contain no image processing as this could produce redundancy.
 Anisotropic diffusion is recommended to reduce noise because edge detection is important in later stages.
-This method can also by easily tuned by limiting iterations of algorithm.
+This method can also by easily tuned by limiting iterations of the algorithm.
 
 Edge detection is for required for both pre-processing and feature extraction.
-Canny edge detection produces significantly better results than simple filter kernels but the expense of computation.
-All feature extraction techniques reviewed are recommended for implementation.
-To deal with amount of features PCA can be used to remove redudant components but also AdaBoost in conjunctions with the classifier algorithm.
-SVMs are roboust machine learning architectures and should definatly provide at least weak hypothesises capable which should prove useful in the boosting algorithm. 
+Canny edge detection produces significantly better results than simple filter kernels but at the expense of computation.
+Edge, curvature and active contour feature extraction techniques are recommended for implementation.
+A HT would provided much noisy data which would detrimental to later stages.
+To deal with amount of features PCA can be used to remove redundant components but also AdaBoost in conjunctions with the classifier algorithm.
+SVMs are robust machine learning architectures and should defiantly provide at least weak hypothesises capable which should prove useful in the boosting algorithm. 
 
 
 The confidence analysis unit will take noise information from the initial image by differencing the input and output of the pre-processing stage.
-In feature extraction can report on the ability to extract the expected shapes from an image. 
-
+In feature extraction it can report on the quantity of extraction from an image. 
+Dimensionality reduction will have no output as the reduction value is tuned prior to deployment.
+The binary classifier also a non-discreet output which can used be used as a measure of confidence.
+This can also be used to adaptively control the number of boosting rounds.
 
 
 
