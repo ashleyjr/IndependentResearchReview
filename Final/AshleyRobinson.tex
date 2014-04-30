@@ -42,7 +42,7 @@
 
 
 \begin{document}
-\title{Tumour Classification By Volumetric Image Analysis}
+\title{Tumour Detection By Volumetric Image Analysis}
 \author{
 	\IEEEauthorblockN{Ashley J. Robinson\\}
 	\IEEEauthorblockA{	University of Southampton\\
@@ -52,7 +52,7 @@
 
 
 % The paper headers
-\markboth{COMP6033: Independent Research Review. $29$/$04$/$14$.}%	DRAFT REPORT.}%
+\markboth{COMP6033: Independent Research Review. $30$/$04$/$14$.}%	DRAFT REPORT.}%
 {}
 
 \maketitle
@@ -60,15 +60,16 @@
 
 \begin{abstract}
 
-This research review covers techniques available for binary classification of tumours in the human body considering practical implications of individual methods.   
-An architecture is proposed in order to give direction to research and to allow consideration of stage interactions.
+This research review covers techniques available for detecting tumours in the human body considering practical implications of individual methods.   
+An architecture is proposed in order to give direction to research and to allow consideration of method interactions.
 Targeted at medical images the system follows standard image processing conventions and contains a sub-module that provides confidence information for a domain expert.  
 Only volumetric images processing is considered.
 Pre-processing and Feature extraction techniques are reviewed. 
 Machine learning techniques for feature selection and classification are also considered. 
 
 The recommendation for population begins with anisotropic diffusion, for edge preservation smoothing, followed by edge detection and shape extraction.
-Sequential floating search for feature selection then finally a support vector machine for classification.
+Principal component analysis for dimensionality reduction then finally a support vector machine for classification.
+The AdaBoost algorithm is considered for improving classifier performance.
 Human supervised deployment is considered whether stand-alone or as an extension to existing medical review software.
 
 \end{abstract}
@@ -94,9 +95,9 @@ Human supervised deployment is considered whether stand-alone or as an extension
 
 
 \section{Introduction}
-\IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately classify the presence of tumours in the human body. 
+\IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately detect the presence of tumours in the human body. 
 The problem is to be approached by considering the general cases therefore concentration is not set on a specific area of the human body.
-Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify tumours in any given section?
+Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify the presence tumours in any given section?
 The motivation behind this is to make the most of medical scanning.
 Dosages of radiation, cost and capture time are all reasons to reduce the number of required patient scans.
 Throughly inspecting any data gathered is a constructive method of scan reduction.
@@ -375,6 +376,7 @@ This reduces noise, minimises position difference in the mapping and eliminates 
 
 \subsection{Curvature Detection}
 \label{sec:curvature_detection}
+The output of an edge detection method can be measured with respect to curvature.
 Tumours are expected to differ from expect flat surfaces of organ walls, measuring curvature will be useful for classification.
 Curvature can be expressed as the rate of change in the normal along a line, $g(t)$, which is described by Eq.~\ref{eqn:curv}.
 Surface measurements, required in volumetric detection, there are infinitely many curves at a given point~\cite{lohmann1998volumetric}.
@@ -509,7 +511,16 @@ Supervised techniques for classification are considered even though a datasets h
 ANNs contain summation nodes where data is propagated through weighted connections resulting in a final output. 
 As a supervised technique weights are trained by propagating the error backwards through the network.
 Multilayer nets can provided non-linear separation functions and increasing the number of layers only increases possible function complexity.
+Neural networks have been applied successfully to classification of brain tumours~\cite{amin12brain}.
 
+Eq.~\eqref{eqn:mlp} is an example of a two layer network with an $n$ dimensional input space and $m$ hidden nodes.
+A $tanh$ activation function is used in the on the output of the hidden nodes but only the sign is used for the binary classification task.
+There is also a scalar offset, $b$, on the output and an offset vector, $\mathbf{c}$, on the hidden layer. 
+
+\begin{equation}
+	y = sign \left(b + \sum_{i=1}^{m} u_i \tanh \left(c_i + \sum_{j=1}^{n} x_j w_{j,i}\right)  \right) 
+	\label{eqn:mlp}
+\end{equation}
 
 
 
@@ -558,12 +569,14 @@ This method can also by easily tuned by limiting iterations of algorithm.
 
 Edge detection is for required for both pre-processing and feature extraction.
 Canny edge detection produces significantly better results than simple filter kernels but the expense of computation.
-All feature extraction techniques are recommended in an attempt to produce 
+All feature extraction techniques reviewed are recommended for implementation.
+To deal with amount of features PCA can be used to remove redudant components but also AdaBoost in conjunctions with the classifier algorithm.
+SVMs are roboust machine learning architectures and should definatly provide at least weak hypothesises capable which should prove useful in the boosting algorithm. 
+
 
 The confidence analysis unit will take noise information from the initial image by differencing the input and output of the pre-processing stage.
 In feature extraction can report on the ability to extract the expected shapes from an image. 
-Reduction will operate ind
-The SVM produces
+
 
 
 
