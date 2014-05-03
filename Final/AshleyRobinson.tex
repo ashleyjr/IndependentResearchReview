@@ -66,15 +66,15 @@
 
 \begin{abstract}
 
-This research review covers techniques available for detecting tumours in the human body considering practical implications of concatenated methods.   
-An architecture is proposed in order to give direction to research and to allow consideration of processing interactions.
-Targeted at medical review applications the system follows standard image processing conventions and contains a sub-module that provides confidence information for a domain expert.  
-Volumetric image processing techniques for pre-processing and feature extraction are reviewed. 
-Machine learning techniques for feature selection and classification are also considered. 
+This research review covers techniques available for detecting tumours in the human body considering practical implications of image processing and machine learning techniques.   
+An architecture is proposed in order to give direction to research and to allow consideration of stage interaction.
+Standard image processing conventions are followed but as it is targeted at medical review a sub-module is included that provides confidence information for a domain expert.  
+Volumetric image processing techniques for pre-processing and feature extraction are reviewed followed by methods for feature selection and classification. 
+ 
 
-The recommendation for population begins with anisotropic diffusion, for edge preservation smoothing, followed by edge, curvature and shape extraction.
+Concluding the review recommends methods for each processing stage starting with anisotropic diffusion, for edge preservation smoothing, followed by edge, curvature and shape extraction.
 Leading to principal component analysis for dimensionality reduction then finally a support vector machine for classification.
-The AdaBoost algorithm is considered for improving classifier performance and further pruning the input space.
+AdaBoost is considered for improving classifier performance and further pruning the input space.
 Human supervised deployment is considered, after further testing, whether stand-alone or as an extension to existing medical review software.
 
 \end{abstract}
@@ -138,11 +138,11 @@ Dimensionality reduction is then used to frame the data as such to make the most
 \label{sec:image}
 
 A standard medical X-ray is tuned to produce an image of human bone.
-The rays are attenuated by different materials in the body, more so by dense regions, and the image is gained from this attenuation effect~\cite{kayvan2006biomedical}. 
+The rays are attenuated by different materials in the body, more so by dense regions, and the image is delivered from this attenuation effect~\cite{kayvan2006biomedical}. 
 This uses a single source and substrate pair to capture the image.
 Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
 Fig.~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
-A ring allows images to be capture from 360$^{\circ}$ in a single plane then by moving in the orthogonal plane is is possible to compute a full volumetric image. 
+A ring allows images to be captured across a single plane then by moving in the orthogonal plane is is possible to compute a full volumetric image. 
 
 \begin{figure}[!htb]
    \centering
@@ -151,13 +151,13 @@ A ring allows images to be capture from 360$^{\circ}$ in a single plane then by 
    \label{fig:ct}
 \end{figure}
 
-Any method of non-invasive image capturing in 2D can therefore be expanded to work in 3D by using the CT principle.
+CT can build a 3D image from any method of non-invasive 2D image capture.
 Different methods have trade-offs such as radiation dosages and resolution.
 Ultrasound is a method of image acquisition which does not use electromagnetic radiation and requires little computational processing. 
 This means internal organs can be viewed in real-time which is beneficial because it allows practitioners to view internal physical movement. 
 It can be used for CT but higher resolution methods are usually favoured such as X-ray and Magnetic Resonance Imaging (MRI).
 
-There are also other non-intrusive methods that do not use electromagnetic or ultrasonic waves.
+There are other non-intrusive methods that do not use electromagnetic or ultrasonic waves.
 Hand palpitation is a common technique used by medical practitioners to gain an impression of abnormalities near the surface of the human body. 
 Electromechanical apparatus employing the same technique can be used to transfer the geometry of a growth to a volumetric image~\cite{liu09haptic,wellman1997modeling}.  
 Only part of the area under inspection is visible so the technique has obvious drawbacks.
@@ -190,7 +190,7 @@ Software provides interactive rendering as shown in Fig.~\ref{fig:3d} which allo
 \section{Tumour Features}
 \label{sec:tumour}
 
-There are hundreds of types of tumours that can occur in the human body but they are all caused by abnormalities in cell growth~\cite{cooper1992cancer}.
+All tumours that can occur in the human body are caused by abnormalities in cell growth~\cite{cooper1992cancer}.
 Tumours are dense areas of cells and can be either benign or malignant.
 Malignant tumours are considered cancers because they invade nearby normal tissue and spread therefore making them an area of concern.
 These are broken down in to three categories.
@@ -250,8 +250,7 @@ An image of a liver will contain other organs so these must be considered when t
 \section{Pre-processing}
 \label{sec:pre}
 
-The analogue of a pixel (picture element) in a 2D image is called a voxel (volumetric element) in a 3D image.
-This is exactly the same idea but with a extra dimension to form a cube~\cite{lohmann1998volumetric}.
+The analogue of a pixel (picture element) in a 2D image is called a voxel (volumetric element) in a 3D image which an extra dimension to form a cube~\cite{lohmann1998volumetric}.
 They can be considered cubes but also points which may make visualisation and processing easier to understand.
 Fig.~\ref{fig:neighbourhood} describes how voxels are packed and the three different neighbourhoods that can be considered when inspecting a single voxel. 
 Considering voxels to have larger neighbourhoods can increase the time complexity of some algorithms.
@@ -302,7 +301,7 @@ Spatial filters use the neighbourhood of voxels to create a new value for each v
 The original image is mapped through a filter kernel as described in Eq.~\eqref{eqn:kernel}.
 The filter kernel is a fixed dimension sub-image with a weighting on each voxel that is applied to every voxel in the original image.
 This is spatial convolution.
-If the filter kernel contains all ones it is known as a \emph{box filter} and performs smoothing on the image to remove noise.
+When all elements of the filter kernel are unity it is known as a \emph{box filter} and performs smoothing on the image to remove noise.
 A Gaussian filter performs better by placing a higher weighting on the central voxel and less weighting on the edge voxels inside the kernel~\cite{lohmann1998volumetric}.
 The edge voxels of an image do not have a complete set of neighbours therefore performing spatial filtering will reduce the total size of the image in further processing.
 
@@ -332,7 +331,7 @@ Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} where $\
 %\end{equation}
 
 \begin{equation}
-	\textbf{I}' = \mathcal{F}^{-1}(\mathcal{F}(\textbf{I})*\mathcal{F}(\textbf{H})) = \mathcal{F}^{-1}(\textbf{I}**\textbf{H})		% Arrow doesn't work, implied matrices?
+	\textbf{I}' = \mathcal{F}^{-1}(\mathcal{F}(\textbf{I})\times\mathcal{F}(\textbf{H})) = \mathcal{F}^{-1}(\textbf{I}*\textbf{H})		% Arrow doesn't work, implied matrices?
 	\label{eqn:same} 
 \end{equation}
 
@@ -383,7 +382,7 @@ Edge detection can be performed using convolution with a kernel template as disc
 These templates are designed to create a new image containing voxel differences and can therefore be thought of as taking the derivative of the image.
 2D templates are common and can be expanded for volumetric images~\cite{nixon02feature}.
 As all dimensions must be considered during differencing the 3D application is extended in the third dimension as shown in Fig~\ref{fig:sobel}.
-Smaller filter masks are also available to reduce computation but with dimimnished results.
+Smaller filter masks are also available to reduce computation but with diminished results.
 
 \begin{figure}[!htb]
    \centering
@@ -495,7 +494,7 @@ A Random Mutation Hill Climber (RMHC) can move between in the combinatorial feat
 This does not handle a landscape with many local maxima well and may not produce a reasonable solution.
 Genetic algorithms are more computationally expensive as they require a population of solutions using crossover and mutation to converge on a suitable solution.   
 Whether it out performs a RMHC depends on the landscape but using a population of solutions is certainly more thorough.    
-Simulated annealing can be used to move between solution neighbours subject over a fixed number of iterations.
+Simulated annealing uses mutation to move between neighbouring solutions over a fixed number of iterations.
 A cooling schedule is used to except negative moves in performance with a probability that is a function of the cooling variable. 
 
 
@@ -505,7 +504,7 @@ This will rank the features so that only the first $L$ are passed on for further
 The other dimensions can simply be removed but if the effect of a low variance dimension is important to classification this can reduce performance.
 Eq.~\eqref{eqn:PCA} shows how the original input pattern is mapped to a reduce pattern by subtracting the mean of all patterns and multiplying with the projection matrix.
 The projection matrix is built by finding the covariance matrix of the input patterns then ranking the eigenvectors by the eigenvalues and deleting as required.
-Performance feedback from training can be used to select appropriate $L$ value.
+Performance feedback from training can be used to select appropriate value for $L$.
 
 \begin{equation}
 	\boldsymbol{z} = \boldsymbol{P}(\boldsymbol{x} - \boldsymbol{\mu})
@@ -582,7 +581,7 @@ The distribution of data to train the weak learner for the next hypothesis is al
 \section{Conclusions}
 \label{sec:conclusions}
 
-It is clear that this tool can't be used as a hard and fast method of tumour diagnosis but instead as a valuable tool for image reviewers.
+It is clear that this tool cannot be used as a hard and fast method of tumour diagnosis but instead as a valuable tool for image reviewers.
 Software packages designed for medical image review have bidirectional interfaces to custom extensions~\cite{slicer}.
 Implementing this system as an extension would remove some overheads required for data handling but reduce the scope for optimisation.
 The feedback from the entire process would be a checklist which the user must manually review and waive if incorrectly identified.
