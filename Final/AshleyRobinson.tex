@@ -55,7 +55,7 @@
 
 
 % The paper headers
-\markboth{COMP6033: Independent Research Review. $30$/$04$/$14$.}%	DRAFT REPORT.}%
+\markboth{COMP6033: Independent Research Review. $8$/$05$/$14$.}%	DRAFT REPORT.}%
 {}
 
 \maketitle
@@ -72,10 +72,10 @@ Standard image processing conventions are followed but as it is targeted at medi
 Volumetric image processing techniques for pre-processing and feature extraction are reviewed followed by methods for feature selection and classification. 
  
 
-Concluding the review recommends methods for each processing stage starting with anisotropic diffusion, for edge preservation smoothing, followed by edge, curvature and shape extraction.
+In conclusion this review recommends methods for each processing stage starting with anisotropic diffusion, for edge preservation smoothing, followed by edge, curvature and shape extraction.
 Leading to principal component analysis for dimensionality reduction then finally a support vector machine for classification.
 AdaBoost is considered for improving classifier performance and further pruning the input space.
-Human supervised deployment is considered, after further testing, whether stand-alone or as an extension to existing medical review software.
+Human supervised deployment is considered, after further testing, whether stand-alone or as an extension to an existing medical review software package.
 
 \end{abstract}
 
@@ -102,24 +102,25 @@ Human supervised deployment is considered, after further testing, whether stand-
 \section{Introduction}
 \IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately detect the presence of tumours in the human body. 
 The problem is to be approached by considering the general cases therefore concentration is not set on a specific area of the body.
-Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify the presence of a tumour in any given section?
+Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify the presence of a tumour in any given section whilst using the same approach?
 The motivation behind this is to make the most of medical scanning.
 Dosages of radiation, cost and capture time are all reasons to reduce the number of required patient scans.
 Throughly inspecting any data gathered is a constructive method of scan reduction.
 A practical end objective is used to provide direction to research and maximise the resultant impact which is to provide a recommendation for a tool to be implemented that can assist with medical practitioner diagnosis.  
+Available literature often considers 3D techniques as a simple extensions of 2D implementations but in practice this is not the case and for this reason an emphasis is placed on locating research in practical volumetric analysis with good results.   
+
 
 The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended and is inspired by similar topologies discussed in the literature~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
 A chain of stages leads from raw data gathered from the patient to a classification algorithm resulting in diagnosis.
 A confidence sub-block enables an expert to view the performance of the entire system without knowing the intricacies of operation which means processing is required for domain translation.
-In machine learning for medical applications a classification threshold has to be selected carefully as false negatives are more serious the false positive.
+In machine learning for medical applications a classification threshold has to be selected carefully as false negatives are more serious than false positives.
 
 Raw data is captured from the patient and passed to the system for pre-processing then feature extraction.
 Input patterns are produced dependent on a pre-determined list of known useful tumour features. 
 Dimensionality reduction is then used to frame the data as such to make the most of the classification algorithm.
 Binary classification, after hard thresholding, indicts the presence or absence of a tumour in the provided image.
 Detection will not be triggered multiple times for images containing more than a single tumour. 
-Confidence information at the very least will be a percentage on the strength of the detection so really multiple tumours will produce a stronger response. 
-
+Confidence information at the very least will be a percentage on the strength of the detection therefore multiple tumours will produce a stronger response. 
 
 \begin{figure}[!htb]
    \centering
@@ -171,12 +172,12 @@ This data is typically stored as a series of 2D images which are scan slices.
 An image viewer will build 3D images as and when required.
 The common medical standard for these images is DICOM which holds the slices, relative position and also the patient's details~\cite{dicom11nema}.
 Viewing an image naturally proves problematic because it is 3D data shown in an isometric fashion on a 2D screen.
-Software provides interactive rendering as shown in Fig.~\ref{fig:3d} which allows the user to move three planes to gain an impression of a region.
+Software provides interactive rendering, as shown in Fig.~\ref{fig:3d}, which allows the user to move three planes to gain an impression of a region.
 
 \begin{figure}[!htb]
    \centering
    \includegraphics[width = 0.3\textwidth]{Figures/3Dview.png}
-   \caption{An MRI scan of a healthy brain taken from and rendered by image review software~\cite{cia,slicer}.}
+   \caption{An MRI scan of a healthy brain taken rendered by image review software~\cite{cia,slicer}.}
    \label{fig:3d}
 \end{figure}
 
@@ -384,7 +385,7 @@ Extracted regions may include organ walls or bones but should also include poten
 \label{sec:edge}
 Edge detection can be performed using convolution with a kernel template as discussed in section~\ref{sec:spatial}. 
 These templates are designed to create a new image containing voxel differences and can therefore be thought of as taking the derivative of the image.
-2D templates are common and can be expanded for volumetric images~\cite{nixon02feature}.
+2D templates are common and well tested~\cite{nixon02feature}.
 As all dimensions must be considered during differencing the 3D application is extended in the third dimension as shown in Fig~\ref{fig:sobel}.
 Smaller filter masks are also available to reduce computation but with diminished results.
 
@@ -429,32 +430,38 @@ The distribution of the accumulator space can be used to indicate how many poten
 
 
 
-\subsection{Active Contours}
+\subsection{Active Surface Contours}
 
-The active contour model is a method for flexible shape extraction.
-Expanding upon common 2D implementations active contours can be used to extract features from volumetric images.
-Eq.~\eqref{eqn:contour_v} contains the standard energy minimisation function~\cite{nixon02feature,skalski13automatic}. 
+The active contour model is a method for flexible shape extraction and has been throughly trialled in 2D~\cite{nixon02feature}.
+Volumetric implementations are state of the art and have been successfully applied to prostate, nerve fibre and artery segmentation~\cite{skalski13automatic,muralidhar12active,xiao12carotid}.
+These are not pure active contours and emulate behave by segmenting 2D dimensional regions then using volumetric growth algorithms to actively converge upon shapes for extraction.
+This works for certain parts of human anatomy but typically known geometry is required to influence the growing algorithm. 
+
+Pure active contours could improve performance and current research is considered to expand dimensionality.
+The surface is defined as $\mathbf{v}(r,s) = [x(r,s),y(r,s),z(r,s)]$ where $r,s \in [0,1]$.
+Surface energy is defined as Eq.~\eqref{eqn:contour_v} where the objective is minimisation of internal, external and constraint functions with respect to the entire surface~\cite{nixon02feature,skalski13automatic}. 
+The internal energy is measured using the first and second order differentials of the surface contour.
+Eq.~\eqref{eqn:contour_int} describes internal energy with two parametric functions chosen prior to fitting.
+These control elasticity, $\alpha$, and stiffness, $\beta$, of the contour.
+The external energy, Eq.~\ref{eqn:contour_ext}, is effected by three variables.
+Image intensity is controlled by the sign of $w_l$ which attracts the contour to light or dark voxels.
+Edge detection controlled by $w_e$ and curvature used for termination controlled by $w_t$.
+Constraint energy is imposed by high level design, for example this could be tuned to favour a certain size of contour.
+
 
 \begin{equation}
-	E = \int_0^{1} E_{int}(\mathbf{v}) + E_{ext}(\mathbf{v}) + E_{con}(\mathbf{v})\:ds,\:\:\mathbf{v}(s) \in \mathbb{R}^3
+	E = \int_0^{1}\int_0^{1} E_{int}(\mathbf{v}) + E_{ext}(\mathbf{v}) + E_{con}(\mathbf{v})\:dr\;ds
 	\label{eqn:contour_v}
 \end{equation}
 
-The internal energy is measured using the first and second order differentials of the contours.
-Eq.~\eqref{eqn:contour_int} contains internal energy with two parametric functions chosen prior to fitting.
-These control elasticity, $\alpha$, and stiffness, $\beta$, of the contour.
-The external energy is effected by three variables.
-Image intensity is controlled by the sign of $w_l$ which attracts the contour to light or dark voxels.
-Edge detection controlled by $w_e$ and curvature used for termination controlled by $w_t$. 
-
 \begin{equation}
-	 E_{int}= \alpha(s)\left|\frac{d\mathbf{v}(s)}{ds}\right|^2 + \beta(s)\left|\frac{d^2\mathbf{v}(s)}{ds^2}\right|^2 
+	 E_{int}= \alpha(r,s)\left|\nabla \mathbf{v}\right|^2 + \beta(r,s)\left|\nabla^2 \mathbf{v}\right|^2 
 	 \label{eqn:contour_int}
 \end{equation}
 
 \begin{equation}
 	 E_{ext}= w_{l}\mathbf{I} + w_{e}|\nabla \mathbf{I}|^2 + w_{t}E_c(\mathbf{I})
-	 \label{eqn:contour_int}
+	 \label{eqn:contour_ext}
 \end{equation}
 
 
@@ -484,7 +491,7 @@ A brute-force approach would find the optimal combination of features but the in
 
 \subsection{Sequential Floating Search (SFS)}
 
-This heuristic algorithm is applied to tumour classification in~\cite{hau07feat}.
+This heuristic algorithm uses feature subsets and has been applied to tumour classification~\cite{hau07feat}.
 It is possible to start from either the full or empty set of features then iteratively add and remove features to improve the performance of the classifier. 
 A performance function is required for feature set comparison. 
 Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of no features and repeated until convergence.
@@ -492,23 +499,24 @@ Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of 
 \lstinputlisting[label=lst:sfs,caption=SFS Algorithm]{Code/sfs.txt}
 
 
-
 \subsection{Stochastic Approaches}
 A Random Mutation Hill Climber (RMHC) can move between in the combinatorial feature selection space from an initial starting point but will never reduce in performance.  
 This does not handle a landscape with many local maxima well and may not produce a reasonable solution.
-Genetic algorithms are more computationally expensive as they require a population of solutions using crossover and mutation to converge on a suitable solution.   
-Whether it out performs a RMHC depends on the landscape but using a population of solutions is certainly more thorough.    
+Genetic Algorithms (GAs) are more computationally expensive as they require a population of solutions using crossover and mutation to converge on a suitable solution.   
+Whether it out performs a RMHC depends on the landscape but using a population of solutions is certainly more thorough.   
+Applied to MR images of the brain a GA yielded better results than feature subset algorithms~\cite{sasikala05ga}.
 Simulated annealing uses mutation to move between neighbouring solutions over a fixed number of iterations.
 A cooling schedule is used to except negative moves in performance with a probability that is a function of the cooling variable. 
 
 
 \subsection{Principle Component Analysis (PCA)}
-PCA is a common technique used for dimensionality reduction by ranking dimensions in order of variance~\cite{pearson01pca}.
+PCA is a common technique used for dimensionality reduction by ranking dimensions in order of variance~\cite{barberBRML2012}.
 This will rank the features so that only the first $L$ are passed on for further processing. 
 The other dimensions can simply be removed but if the effect of a low variance dimension is important to classification this can reduce performance.
 Eq.~\eqref{eqn:PCA} shows how the original input pattern is mapped to a reduce pattern by subtracting the mean of all patterns and multiplying with the projection matrix.
 The projection matrix is built by finding the covariance matrix of the input patterns then ranking the eigenvectors by the eigenvalues and deleting as required.
 Performance feedback from training can be used to select appropriate value for $L$.
+PCA has been successfully coupled with tumour detection~\cite{ahmed2011efficacy}.
 
 \begin{equation}
 	\boldsymbol{z} = \boldsymbol{P}(\boldsymbol{x} - \boldsymbol{\mu})
@@ -610,9 +618,9 @@ The binary classifier also a non-discreet output which can used be used as a mea
 This can also be used to adaptively control the number of boosting rounds.
 
 
-
-
-
+This research review has provided a recommendation for population of a convectional image processing architecture ending with standard machine learning approach.
+Volumetric techniques for pre-processing and feature extraction have been reviewed extensively. 
+Cutting edge implementations have been considered for anisotropic diffusion along with active surface contours which have also been expanded.
 
 
 \bibliographystyle{ieeetran}
