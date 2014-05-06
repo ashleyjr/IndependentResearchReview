@@ -116,10 +116,14 @@ In machine learning for medical applications a classification threshold has to b
 Raw data is captured from the patient and passed to the system for pre-processing then feature extraction.
 Input patterns are produced dependent on a pre-determined list of known useful tumour features. 
 Dimensionality reduction is then used to frame the data as such to make the most of the classification algorithm.
+Binary classification, after hard thresholding, indicts the presence or absence of a tumour in the provided image.
+Detection will not be triggered multiple times for images containing more than a single tumour. 
+Confidence information at the very least will be a percentage on the strength of the detection so really multiple tumours will produce a stronger response. 
+
 
 \begin{figure}[!htb]
    \centering
-   \includegraphics[width = 0.4\textwidth]{Figures/Proposed.pdf}
+   \includegraphics[width = 0.45\textwidth]{Figures/Proposed.pdf}
    \caption{Proposed system architecture.}
    \label{fig:Proposed}
 \end{figure}
@@ -339,8 +343,8 @@ Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} where $\
 \subsection{Anisotropic Diffusion}
 Anisotropic diffusion is a powerful technique used to enhance images where it is possible to remove noise yet retain edges.
 The technique has been expanded from common 2D applications to 3D medical usage on MRI data~\cite{nakh11three}.
-The diffusion effect has the same outcome as a low pass filter with reasonably adjusted values for $\Delta t$ and the decay constant.
-The spatial scaler $\mathbf{k}$ is a function of the image and must preserve edges by setting $k(u_{edge},v_{egde},w_{edge},t) = 0$.
+The diffusion effect has the same outcome as a low pass filter with reasonably adjusted values for resolution, $\Delta t$, and the decay constant, $\mathbf{k}$.
+The spatial scaler decay constant is a function of the image and must preserve edges by setting $k(u_{edge},v_{egde},w_{edge},t) = 0$.
 Using Eq.~\eqref{eqn:anisotropic} an iterative approach is provided in Eq.~\eqref{eqn:anisotropic_it} where the original image is the value of $\mathbf{I}$ at time zero.
 Iteration monitoring and reasonable scalar values in the function $\mathbf{k}$ are required to produce a good outcome.
 Edge detection methods to be used for $\mathbf{k}$ are discussed in section~\ref{sec:edge}.
