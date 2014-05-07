@@ -66,16 +66,16 @@
 
 \begin{abstract}
 
-This research review covers techniques available for detecting tumours in the human body considering practical implications of image processing and machine learning techniques.   
+This research review covers techniques available for detecting tumours in the human body with respect to practical implications in image processing and machine learning.   
 An architecture is proposed in order to give direction to research and to allow consideration of stage interaction.
-Standard image processing conventions are followed but as it is targeted at medical review a sub-module is included that provides confidence information for a domain expert.  
-Volumetric image processing techniques for pre-processing and feature extraction are reviewed followed by methods for feature selection and classification. 
+Normal conventions are followed but as targeted towards medical review a sub-module is included that provides confidence information for a domain expert.  
+Volumetric image analysis techniques for pre-processing and feature extraction are reviewed followed by methods for feature selection and classification. 
  
 
 In conclusion this review recommends methods for each processing stage starting with anisotropic diffusion, for edge preservation smoothing, followed by edge, curvature and shape extraction.
-Leading to principal component analysis for dimensionality reduction then finally a support vector machine for classification.
+This leads principal component analysis for dimensionality reduction then finally a support vector machine for classification.
 AdaBoost is considered for improving classifier performance and further pruning the input space.
-Human supervised deployment is considered, after further testing, whether stand-alone or as an extension to an existing medical review software package.
+Human supervised deployment is considered, after extensive testing, whether stand-alone or as an addition to existing medical review software.
 
 \end{abstract}
 
@@ -102,25 +102,27 @@ Human supervised deployment is considered, after further testing, whether stand-
 \section{Introduction}
 \IEEEPARstart{T}{his} research review covers the use of volumetric image analysis in medicine to accurately detect the presence of tumours in the human body. 
 The problem is to be approached by considering the general cases therefore concentration is not set on a specific area of the body.
-Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common and given an entire image of a human body is it possible to classify the presence of a tumour in any given section whilst using the same approach?
+Rather than trying to classify lung or brain tumours individually the goal is to consider what features tumours have in common.
+Given an entire image of a human body is it possible to classify the presence of a tumour in any given section whilst using the same approach?
 The motivation behind this is to make the most of medical scanning.
 Dosages of radiation, cost and capture time are all reasons to reduce the number of required patient scans.
-Throughly inspecting any data gathered is a constructive method of scan reduction.
-A practical end objective is used to provide direction to research and maximise the resultant impact which is to provide a recommendation for a tool to be implemented that can assist with medical practitioner diagnosis.  
-Available literature often considers 3D techniques as a simple extensions of 2D implementations but in practice this is not the case and for this reason an emphasis is placed on locating research in practical volumetric analysis with good results.   
+Thoroughly inspecting any data gathered is a constructive method of scan reduction.
+A practical end objective is used to provide direction to research and maximise the resultant impact.
+This is to provide an implementation recommendation for a tool to be that can assist with medical practitioner diagnosis.  
+Available literature often considers 3D techniques as a simple extension of 2D implementations but in practice this is not the case and for this reason an emphasis is placed on locating research in practical volumetric analysis with good results.   
 
 
-The architecture in Fig.~\ref{fig:Proposed} is the framework of the system to be recommended and is inspired by similar topologies discussed in the literature~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
+The architecture in Fig.~\ref{fig:Proposed} is the end recommendation framework and is inspired by similar topologies discussed in the literature~\cite{ahmed2011efficacy,kumar2011classification,hau07feat,sachdeva2011multiclass,kostis03three}.
 A chain of stages leads from raw data gathered from the patient to a classification algorithm resulting in diagnosis.
 A confidence sub-block enables an expert to view the performance of the entire system without knowing the intricacies of operation which means processing is required for domain translation.
 In machine learning for medical applications a classification threshold has to be selected carefully as false negatives are more serious than false positives.
 
-Raw data is captured from the patient and passed to the system for pre-processing then feature extraction.
+Raw data is captured from the patient and passed onwards for pre-processing then feature extraction.
 Input patterns are produced dependent on a pre-determined list of known useful tumour features. 
 Dimensionality reduction is then used to frame the data as such to make the most of the classification algorithm.
 Binary classification, after hard thresholding, indicts the presence or absence of a tumour in the provided image.
 Detection will not be triggered multiple times for images containing more than a single tumour. 
-Confidence information at the very least will be a percentage on the strength of the detection therefore multiple tumours will produce a stronger response. 
+Confidence information at the very least will be a percentage proportional to the strength of detection therefore multiple tumours will produce a stronger response. 
 
 \begin{figure}[!htb]
    \centering
@@ -147,7 +149,7 @@ The rays are attenuated by different materials in the body, more so by dense reg
 This uses a single source and substrate pair to capture the image.
 Taking multiple images from many different angles gathers more information and a 3D image can be made by stitching these together.
 Fig.~\ref{fig:ct} describes the physical process of gathering data to be used in Computed Tomography (CT).
-A ring allows images to be captured across a single plane then by moving in the orthogonal plane is is possible to compute a full volumetric image. 
+A ring allows images to be captured across a single plane then by moving in the orthogonal plane it is possible to compute a full volumetric image. 
 
 \begin{figure}[!htb]
    \centering
@@ -199,15 +201,15 @@ All tumours that can occur in the human body are caused by abnormalities in cell
 Tumours are dense areas of cells and can be either benign or malignant.
 Malignant tumours are considered cancers because they invade nearby normal tissue and spread therefore making them an area of concern.
 These are broken down in to three categories.
-\emph{Carcinomas}, cells lining the body and internal organs, account for $90$\% of human caners.
-\emph{Leukemias} and \emph{Lymphomas}, occurring in the blood and lymph systems, account for $8$\% in humans.
+\emph{Carcinomas}, cells lining the body and internal organs, account for $90$\% of human cancers.
+\emph{Leukemia} and \emph{Lymphomas}, occurring in the blood and lymph systems, account for $8$\% in humans.
 \emph{Sarcomas} are solid regions of connective tissue which are rare.
 
 All types of tumours are areas for concern.
 Fig.~\ref{fig:growing} shows an initial accelerated growth rate producing a benign tumour which eventually becomes malignant as it spreads to nearby tissue.
-Malignant tumours and carcinomas in situ can be easily removed by surgery.
+Benign tumours and carcinomas in situ can be easily removed by surgery.
 Once a tumour begins to metastasize surgery becomes ineffective. 
-Detection should be tuned towards the dense regions, Fig.~\ref{fig:grow2}, before spreading and when spread locally so surgery remains a viable solution.    
+Detection should be tuned towards the dense regions of cells as shown in Fig.~\ref{fig:grow2} to allow detection before spreading and when spread locally so surgery remains a viable solution.    
 
 \begin{figure}[!htb]
 	\centering
@@ -227,7 +229,7 @@ Detection should be tuned towards the dense regions, Fig.~\ref{fig:grow2}, befor
 
 Whether the tumour lines the host or grows independently the key to identification is to differentiate normal and abnormal cell density. 
 Fig.~\ref{fig:ex} contains examples of identified tumours in different organs.
-Tumours shown in the brain and lungs, Fig. \ref{fig:exBrain} and \ref{fig:exLiver}, are far simpler to identify than the liver example image in Fig. \ref{fig:exLiver}.
+Tumours shown in the brain and lungs, Fig.~\ref{fig:exBrain} and Fig.~\ref{fig:exLung} respectively, are far simpler to identify than the liver example image in Fig.~\ref{fig:exLiver}.
 An image of a liver will contain other organs so these must be considered when trying to extract features.
 
 \begin{figure}[!htb]
@@ -255,7 +257,7 @@ An image of a liver will contain other organs so these must be considered when t
 \section{Pre-processing}
 \label{sec:pre}
 
-The analogue of a pixel (picture element) in a 2D image is called a voxel (volumetric element) in a 3D image which an extra dimension to form a cube~\cite{lohmann1998volumetric}.
+The analogue of a pixel (picture element) in a 2D image is called a voxel (volumetric element) in a 3D image which uses an extra dimension to form a cube~\cite{lohmann1998volumetric}.
 They can be considered cubes but also points which may make visualisation and processing easier to understand.
 Fig.~\ref{fig:neighbourhood} describes how voxels are packed and the three different neighbourhoods that can be considered when inspecting a single voxel. 
 Considering voxels to have larger neighbourhoods can increase the time complexity of some algorithms.
@@ -276,7 +278,7 @@ Considering voxels to have larger neighbourhoods can increase the time complexit
 
 The raw data provided needs to be converted from the delivery format of the acquisition technology to a raw 3D matrix ready for generic processing.
 Watermarking, which may have been inserted for human review, should also be removed at this stage. 
-This is trivial in theory but requires a database of artefacts or manual review to accomplish.
+This is trivial in theory but in practice requires a database of artefacts or manual review to accomplish.
 There are also techniques, not considered in this report, which can be applied only to the slices of volumetric images therefore reducing computation overheads~\cite{harauz86exact}.
 
 Pre-processing methods are used to enhance the image captured and ensure it is correctly formatted for further processing.
@@ -288,7 +290,7 @@ In this context a histogram is a mapping from the image to cumulative voxel inte
 This is possible because voxels only have discrete values of intensity within a fixed range.
 Some materials can be determined from image intensity therefore a histogram contains information on the quantity of a given material contained in the image.
 Image enhancement can be performed using point operations with information from the histogram.
-This is a fast enhancement method as it is direct voxel-to-voxel mapping as shown in Eq.~\eqref{eqn:point}. 
+This is a fast method of enhancement as it is a direct voxel-to-voxel mapping as shown in Eq.~\eqref{eqn:point}. 
 Normalisation stretches the histogram to cover all available values of intensity therefore improving contrast.
 Equalisation attempts to flatten the histogram by distributing intensity~\cite{nixon02feature}.
 
@@ -323,7 +325,7 @@ A Discrete Fourier Transform (DFT) for an $N^3$ voxel image is held in Eq.~\eqre
 The spatial filtering process performs convolution so once an image is in the frequency domain the same effects can be achieved using multiplication.
 It may prove more efficient to filter an image in the frequency domain rather than the spatial domain if the required filter kernel is large.
 Band-pass and notch filter operations can also be performed in the frequency domain.
-Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} where $\mathcal{F}$ is described by Eq.~\eqref{eqn:dft}.
+Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} where $\mathcal{F}$ is the transform described by Eq.~\eqref{eqn:dft}.
 
 \begin{equation}
 	F_{u,v,w} = \frac{1}{N^{\frac{3}{2}}} \sum\limits_{x=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{y=-\frac{N}{2}}^{\frac{N}{2}-1}\sum\limits_{z=-\frac{N}{2}}^{\frac{N}{2}-1}I_{x,y,z}e^{-j\frac{2\pi}{N}(ux + vy + wz)}
@@ -336,16 +338,16 @@ Eq.~\eqref{eqn:same} provides the same result as Eq.~\eqref{eqn:kernel} where $\
 %\end{equation}
 
 \begin{equation}
-	\textbf{I}' = \mathcal{F}^{-1}(\mathcal{F}(\textbf{I})\times\mathcal{F}(\textbf{H})) = \mathcal{F}^{-1}(\textbf{I}*\textbf{H})		% Arrow doesn't work, implied matrices?
+	\textbf{I}' = \mathcal{F}^{-1}(\mathcal{F}(\textbf{I})\times\mathcal{F}(\textbf{H})))		% Arrow doesn't work, implied matrices?
 	\label{eqn:same} 
 \end{equation}
 
 
 \subsection{Anisotropic Diffusion}
-Anisotropic diffusion is a powerful technique used to enhance images where it is possible to remove noise yet retain edges.
+Anisotropic diffusion is a powerful technique used to enhance images where it is possible to remove noise yet retain clear edges.
 The technique has been expanded from common 2D applications to 3D medical usage on MRI data~\cite{nakh11three}.
 The diffusion effect has the same outcome as a low pass filter with reasonably adjusted values for resolution, $\Delta t$, and the decay constant, $\mathbf{k}$.
-The spatial scaler decay constant is a function of the image and must preserve edges by setting $k(u_{edge},v_{egde},w_{edge},t) = 0$.
+The spatial scalar decay constant is a function of the image and time which must preserve edges by setting $k(u_{edge},v_{egde},w_{edge},t) = 0$.
 Using Eq.~\eqref{eqn:anisotropic} an iterative approach is provided in Eq.~\eqref{eqn:anisotropic_it} where the original image is the value of $\mathbf{I}$ at time zero.
 Iteration monitoring and reasonable scalar values in the function $\mathbf{k}$ are required to produce a good outcome.
 Edge detection methods to be used for $\mathbf{k}$ are discussed in section~\ref{sec:edge}.
@@ -386,7 +388,7 @@ Extracted regions may include organ walls or bones but should also include poten
 Edge detection can be performed using convolution with a kernel template as discussed in section~\ref{sec:spatial}. 
 These templates are designed to create a new image containing voxel differences and can therefore be thought of as taking the derivative of the image.
 2D templates are common and well tested~\cite{nixon02feature}.
-As all dimensions must be considered during differencing the 3D application is extended in the third dimension as shown in Fig~\ref{fig:sobel}.
+As all dimensions must be considered during differencing the 3D application is extended in the third dimension as shown in Fig.~\ref{fig:sobel}.
 Smaller filter masks are also available to reduce computation but with diminished results.
 
 \begin{figure}[!htb]
@@ -397,8 +399,8 @@ Smaller filter masks are also available to reduce computation but with diminishe
 \end{figure}
 
 In edge critical processing better results can be produced with Canny edge detection~\cite{canny86edge}. 
-A four stage process that uses Gaussian smoothing, the Sobel operator, non-maximal suppression followed by hysteresis thresholding.
-This reduces noise, minimises position difference in the mapping and eliminates multiple responses to an edge.
+This is four stage process that uses Gaussian smoothing, the Sobel operator, non-maximal suppression followed by hysteresis thresholding.
+Advantages include reduced noise, minimised position difference in the mapping and elimination of multiple responses to an edge.
 
 
 
@@ -406,10 +408,10 @@ This reduces noise, minimises position difference in the mapping and eliminates 
 \subsection{Curvature Detection}
 \label{sec:curvature_detection}
 The output of an edge detection method can be measured with respect to curvature.
-Tumours are expected to differ from the expected flat surfaces of organ walls, measuring curvature will be useful for classification.
+Tumours extruded from flat surfaces of organ walls therefore measuring curvature will be useful for classification.
 Curvature can be expressed as the rate of change in the normal along a line, $g(t)$, which is described by Eq.~\ref{eqn:curv}.
 Surface measurements, required in volumetric detection, contain infinitely many curves at a given point~\cite{lohmann1998volumetric}.
-The principle directions, those of most and least curvature, are evaluated then by taking the mean and Gaussian values, $H = (k_1 + K_2)/2$ and $K = k_1K_2$, so that the category of curvature at a point can be detected.
+The principle directions, those of most and least curvature, are evaluated then by taking the mean and Gaussian values, $H = (k_{max} + k_{min})/2$ and $K = k_{max}k_{min}$, so that the category of curvature at a point can be detected.
 On a plane $H = 0,\;K=0$, on a peak $H<0,\;K>0$ and at a saddle point $K<0$.
 An absolute value of curvature can be taken as $E_c=|H|+|K|$.
 
@@ -423,7 +425,7 @@ An absolute value of curvature can be taken as $E_c=|H|+|K|$.
 
 The HT uses a dual space as an accumulator for evidence based location of a shape inside an image~\cite{nixon02feature}.
 It has been successfully applied to 3D images to locate spherical shapes~\cite{abuzaina13hough}.
-Some tumours, Fig.~\ref{fig:exBrain}, grow spherically so the ability to fit a sphere is a useful feature for classification.
+Some tumours grow spherically, brain tumours for example in Fig.~\ref{fig:exBrain}, and the ability to fit a sphere is a useful feature for classification.
 The distribution of the accumulator space can be used to indicate how many potential spheres fit the image but this is expected to be noisy as it is unlikely tumours will be exact spheres.
 
 
@@ -432,12 +434,12 @@ The distribution of the accumulator space can be used to indicate how many poten
 
 \subsection{Active Surface Contours}
 
-The active contour model is a method for flexible shape extraction and has been throughly trialled in 2D~\cite{nixon02feature}.
+The active contour model is a method for flexible shape extraction and has been thoroughly trialled in 2D~\cite{nixon02feature}.
 Volumetric implementations are state of the art and have been successfully applied to prostate, nerve fibre and artery segmentation~\cite{skalski13automatic,muralidhar12active,xiao12carotid}.
-These are not pure active contours and emulate behave by segmenting 2D dimensional regions then using volumetric growth algorithms to actively converge upon shapes for extraction.
+These are not pure active contours and emulate behave by segmenting 2D regions then using volumetric growth algorithms to actively converge upon a 3D shape.
 This works for certain parts of human anatomy but typically known geometry is required to influence the growing algorithm. 
 
-Pure active contours could improve performance and current research is considered to expand dimensionality.
+Pure active contours could improve performance and using current research it is possible to expand dimensionality.
 The surface is defined as $\mathbf{v}(r,s) = [x(r,s),y(r,s),z(r,s)]$ where $r,s \in [0,1]$.
 Surface energy is defined as Eq.~\eqref{eqn:contour_v} where the objective is minimisation of internal, external and constraint functions with respect to the entire surface~\cite{nixon02feature,skalski13automatic}. 
 The internal energy is measured using the first and second order differentials of the surface contour.
@@ -485,7 +487,7 @@ Commonly large datasets contain some features in the input space will be have no
 It is naive to use just the raw image data.
 Tumour features for extraction have been considered in section~\ref{sec:tumour} which already removes some redundant information. 
 Mapping input data into a lower dimensional space is possible and can improve performance but if ill-applied can remove key features.
-A brute-force approach would find the optimal combination of features but the input space is expected to be too large, $2^n$, to be completely shattered within reasonable execution time. 
+A brute-force approach would find the optimal combination of features but the input space is expected to be too large, $2^n$ is a challenge even moderate value of $n$, to be completely shattered within reasonable execution time. 
 
 
 
@@ -537,16 +539,16 @@ PCA has been successfully coupled with tumour detection~\cite{ahmed2011efficacy}
 \section{Classification}
 \label{sec:class}
 
-Classification must differentiate between extracted geometric shapes that are normal and those which may potentially be tumours.
+Classification must differentiate between extracted geometric shapes that are expected and those which may potentially be tumours.
 Tumours will also be attached to normal internal body parts so the classifier must be able to handle any abnormalities in organs.
 Supervised techniques for classification are considered even though datasets have not yet been sourced.
 
 
 
 \subsection{Artificial Neutral Networks (ANNs)}
-ANNs contain summation nodes where data is propagated through weighted connections resulting in a final output. 
+ANNs contain summation nodes where data is propagated through weighted connections towards an output. 
 As a supervised technique weights are trained by propagating the error backwards through the network.
-Multilayer nets can provided non-linear separation functions and increasing the number of layers only increases possible function complexity.
+Multilayer nets can provide non-linear separation functions and increasing the number of layers only increases possible function complexity.
 Neural networks have been applied successfully to classification of brain tumours~\cite{amin12brain}.
 
 Eq.~\eqref{eqn:mlp} is an example of a two layer network with an $n$ dimensional input space and $m$ hidden nodes.
@@ -562,21 +564,21 @@ There is also a scalar offset, $b$, on the output and an offset vector, $\mathbf
 
 \subsection{Support Vector Machines (SVMs)}
 An SVM classifier builds a separation margin supported by the closest data points then draws a separation plane from the middle of this margin.
-A linear maximum-margin hyperplane is produce but non-linear data can also be separated by using the kernel trick~\cite{cortes95support}. 
+A linear maximum-margin hyperplane is produced but non-linear data can also be separated by using the kernel trick~\cite{cortes95support}. 
 This is a mapping of the input space into a higher dimensional space so that it becomes linearly separable.
 SVMs have been successfully applied to breast cancer diagnosis~\cite{xiufeng13svm}.
-The approach uses a weighted combination of polynomial and radial basis functions to improve the generalisation performance.
+The approach reviewed uses a weighted combination of polynomial and radial basis functions to improve the generalisation performance.
 
 
 
 \subsection{Boosting}
-A weak learner for binary classification can be considered any classifier with an error rate less than $0.5$.
-It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of different weak hypothesises provided by weak learners. 
+A weak learner for binary classification can be considered any classifier with an error rate less than $50$\%.
+It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of hypothesises weak hypothesises provided by weak learners. 
 The algorithm can be considered a hybrid of feature selection and classification.
 
 AdaBoost is the most common implementation of a boosting algorithm and has been successfully applied to brain tumour classification~\cite{freund99boost,islam13multi}.
-The architecture of AdaBoost can be thought of as single layer ANN but trained using the error in each weak hypothesis with an input dimensions equivalent to the number of boosting rounds.
-The weights for each hypothesis is calculated using Eq.~\eqref{eqn:adaboost} where $\epsilon_t$ is the error which means anything greater than $0.5$ is negative and as $\epsilon_t \to 0$ then $\alpha_t \to \infty$.
+The architecture of AdaBoost can be thought of as single layer ANN but trained using the error in each weak hypothesis with an input vector length equivalent to the number of boosting rounds.
+The weights for each hypothesis is calculated using Eq.~\eqref{eqn:adaboost} where $\epsilon_t$ is the error which means anything greater than $0.5$ is negative and as $\epsilon_t \to 0$ then $\alpha_t \to \infty$ meaning a perfect classifier would dominate.
 The distribution of data to train the weak learner for the next hypothesis is also determined using Eq.~\eqref{eqn:adaboost} therefore contributing to feature selection.
 
 
@@ -598,29 +600,29 @@ Software packages designed for medical image review have bidirectional interface
 Implementing this system as an extension would remove some overheads required for data handling but reduce the scope for optimisation.
 The feedback from the entire process would be a checklist which the user must manually review and waive if incorrectly identified.
 
-Medical images are high resolution but noise can still be issue and a pre-processing stage is reasonable.
+Medical images are high resolution but noise can still be an issue and a pre-processing stage is reasonable.
 The acquisition method should be verified to contain no image processing as this could produce redundancy.
 Anisotropic diffusion is recommended to reduce noise because edge detection is important in later stages.
-This method can also by easily tuned by limiting iterations of the algorithm.
+This method can also by easily tuned by limiting iterations of the algorithm to match the image source.
 
 Edge detection is for required for both pre-processing and feature extraction.
 Canny edge detection produces significantly better results than simple filter kernels but at the expense of computation.
 Edge, curvature and active contour feature extraction techniques are recommended for implementation.
-A HT would provided much noisy data which would detrimental to later stages.
+A HT would provide a large amount of noisy data which would detrimental to later stages.
 To deal with amount of features PCA can be used to remove redundant components but also AdaBoost in conjunctions with the classifier algorithm.
 SVMs are robust machine learning architectures and should defiantly provide at least weak hypothesises capable which should prove useful in the boosting algorithm. 
 
 
 The confidence analysis unit will take noise information from the initial image by differencing the input and output of the pre-processing stage.
-In feature extraction it can report on the quantity of extraction from an image. 
+In feature extraction it can report on the quantity of shape extraction from an image. 
 Dimensionality reduction will have no output as the reduction value is tuned prior to deployment.
-The binary classifier also a non-discreet output which can used be used as a measure of confidence.
+The binary classifier also has a non-discrete output before hard thresholding which can be used as a measure of confidence.
 This can also be used to adaptively control the number of boosting rounds.
 
 
-This research review has provided a recommendation for population of a convectional image processing architecture ending with standard machine learning approach.
+This research review has provided a recommendation for population of a convectional image processing architecture ending with standard a machine learning approach.
 Volumetric techniques for pre-processing and feature extraction have been reviewed extensively. 
-Cutting edge implementations have been considered for anisotropic diffusion along with active surface contours which have also been expanded.
+Cutting edge implementations have been considered for anisotropic diffusion along with active surface contours which have also been expanded to the edge of current research.
 
 
 \bibliographystyle{ieeetran}
