@@ -73,7 +73,7 @@ Volumetric image analysis techniques for pre-processing and feature extraction a
  
 
 In conclusion this review recommends methods for each processing stage starting with anisotropic diffusion, for edge preservation smoothing, followed by edge, curvature and shape extraction.
-This leads principal component analysis for dimensionality reduction then finally a support vector machine for classification.
+This leads to principal component analysis for dimensionality reduction then finally a support vector machine for classification.
 AdaBoost is considered for improving classifier performance and further pruning the input space.
 Human supervised deployment is considered, after extensive testing, whether stand-alone or as an addition to existing medical review software.
 
@@ -108,7 +108,7 @@ The motivation behind this is to make the most of medical scanning.
 Dosages of radiation, cost and capture time are all reasons to reduce the number of required patient scans.
 Thoroughly inspecting any data gathered is a constructive method of scan reduction.
 A practical end objective is used to provide direction to research and maximise the resultant impact.
-This is to provide an implementation recommendation for a tool to be that can assist with medical practitioner diagnosis.  
+This is to provide an implementation recommendation for a tool that can assist with medical practitioner diagnosis.  
 Available literature often considers 3D techniques as a simple extension of 2D implementations but in practice this is not the case and for this reason an emphasis is placed on locating research in practical volumetric analysis with good results.   
 
 
@@ -399,7 +399,7 @@ Smaller filter masks are also available to reduce computation but with diminishe
 \end{figure}
 
 In edge critical processing better results can be produced with Canny edge detection~\cite{canny86edge}. 
-This is four stage process that uses Gaussian smoothing, the Sobel operator, non-maximal suppression followed by hysteresis thresholding.
+This is a four stage process that uses Gaussian smoothing, the Sobel operator, non-maximal suppression followed by hysteresis thresholding.
 Advantages include reduced noise, minimised position difference in the mapping and elimination of multiple responses to an edge.
 
 
@@ -408,7 +408,7 @@ Advantages include reduced noise, minimised position difference in the mapping a
 \subsection{Curvature Detection}
 \label{sec:curvature_detection}
 The output of an edge detection method can be measured with respect to curvature.
-Tumours extruded from flat surfaces of organ walls therefore measuring curvature will be useful for classification.
+Tumours can extrude from flat surfaces of organ walls therefore measuring curvature will be useful for classification.
 Curvature can be expressed as the rate of change in the normal along a line, $g(t)$, which is described by Eq.~\ref{eqn:curv}.
 Surface measurements, required in volumetric detection, contain infinitely many curves at a given point~\cite{lohmann1998volumetric}.
 The principle directions, those of most and least curvature, are evaluated then by taking the mean and Gaussian values, $H = (k_{max} + k_{min})/2$ and $K = k_{max}k_{min}$, so that the category of curvature at a point can be detected.
@@ -483,11 +483,11 @@ Constraint energy is imposed by high level design, for example this could be tun
 \section{Feature Selection}
 \label{sec:selection}
 
-Commonly large datasets contain some features in the input space will be have no effect upon or even reduce the performance of a classifier.
+Commonly large datasets contain some features in the input space which will have no effect upon or even reduce the performance of a classifier.
 It is naive to use just the raw image data.
 Tumour features for extraction have been considered in section~\ref{sec:tumour} which already removes some redundant information. 
 Mapping input data into a lower dimensional space is possible and can improve performance but if ill-applied can remove key features.
-A brute-force approach would find the optimal combination of features but the input space is expected to be too large, $2^n$ is a challenge even moderate value of $n$, to be completely shattered within reasonable execution time. 
+A brute-force approach would find the optimal combination of features but the input space is expected to be too large, $2^n$ is a challenge even moderate values of $n$, to be completely shattered within reasonable execution time. 
 
 
 
@@ -498,7 +498,7 @@ It is possible to start from either the full or empty set of features then itera
 A performance function is required for feature set comparison. 
 Listing~\ref{lst:sfs} contains the algorithm starting from an initial subset of no features and repeated until convergence.
 
-\lstinputlisting[label=lst:sfs,caption=SFS Algorithm]{Code/sfs.txt}
+\lstinputlisting[label=lst:sfs,caption=SFS Algorithm.]{Code/sfs.txt}
 
 
 \subsection{Stochastic Approaches}
@@ -573,7 +573,7 @@ The approach reviewed uses a weighted combination of polynomial and radial basis
 
 \subsection{Boosting}
 A weak learner for binary classification can be considered any classifier with an error rate less than $50$\%.
-It is possible to create a strong learner, having a much smaller error rate, by combing the weighted sum of hypothesises weak hypothesises provided by weak learners. 
+It is possible to create a strong hypothesis, having a much smaller error rate, by combing the weighted sum of different weak hypothesises provided by a weak learner. 
 The algorithm can be considered a hybrid of feature selection and classification.
 
 AdaBoost is the most common implementation of a boosting algorithm and has been successfully applied to brain tumour classification~\cite{freund99boost,islam13multi}.
@@ -608,9 +608,9 @@ This method can also by easily tuned by limiting iterations of the algorithm to 
 Edge detection is for required for both pre-processing and feature extraction.
 Canny edge detection produces significantly better results than simple filter kernels but at the expense of computation.
 Edge, curvature and active contour feature extraction techniques are recommended for implementation.
-A HT would provide a large amount of noisy data which would detrimental to later stages.
-To deal with amount of features PCA can be used to remove redundant components but also AdaBoost in conjunctions with the classifier algorithm.
-SVMs are robust machine learning architectures and should defiantly provide at least weak hypothesises capable which should prove useful in the boosting algorithm. 
+A HT would provide a large amount of noisy data which would be detrimental to later stages.
+To deal with amount of features PCA can be used to remove redundant components but also AdaBoost in conjunction with the classifier algorithm.
+SVMs are robust machine learning architectures and should defiantly provide at least weak hypothesises which should prove useful in the boosting algorithm. 
 
 
 The confidence analysis unit will take noise information from the initial image by differencing the input and output of the pre-processing stage.
@@ -620,7 +620,7 @@ The binary classifier also has a non-discrete output before hard thresholding wh
 This can also be used to adaptively control the number of boosting rounds.
 
 
-This research review has provided a recommendation for population of a convectional image processing architecture ending with standard a machine learning approach.
+This research review has provided a recommendation for population of a conventional image processing architecture ending with standard a machine learning approach.
 Volumetric techniques for pre-processing and feature extraction have been reviewed extensively. 
 Cutting edge implementations have been considered for anisotropic diffusion along with active surface contours which have also been expanded to the edge of current research.
 
